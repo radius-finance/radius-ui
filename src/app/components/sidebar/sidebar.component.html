@@ -1,0 +1,99 @@
+<div class="sidebar-wrapper">
+  <div class="logo">
+    <a
+      href="#"
+      class="simple-text logo-mini"
+    >
+      <div class="logo-img">
+        <img src="assets/img/angular2-logo-white.png" />
+      </div>
+    </a>
+    <a
+      href="#"
+      class="simple-text logo-normal"
+    >
+      Today's Menu
+    </a>
+  </div>
+  <ul class="nav">
+    <li *ngFor="let menuitem of menuItems" routerLinkActive="active">
+      <!--If is a single link-->
+      <a [routerLink]="[menuitem.path]" *ngIf="menuitem.type === 'link'">
+        <i class="{{ menuitem.icontype }}"></i>
+        <p>{{ menuitem.title }}</p>
+      </a>
+      <!--If it have a submenu-->
+      <a
+        data-toggle="collapse"
+        routerLinkActive="active"
+        *ngIf="menuitem.type === 'sub'"
+        (click)="menuitem.isCollapsed = !menuitem.isCollapsed"
+        [attr.aria-expanded]="!menuitem.isCollapsed"
+        [attr.aria-controls]="menuitem.collapse"
+      >
+        <i class="{{ menuitem.icontype }}"></i>
+        <p>{{ menuitem.title }}<b class="caret"></b></p>
+      </a>
+
+      <!--Display the submenu items-->
+      <div
+        id="{{ menuitem.collapse }}"
+        class="collapse"
+        *ngIf="menuitem.type === 'sub'"
+        [collapse]="menuitem.isCollapsed"
+        [isAnimated]="true"
+      >
+        <ul class="nav">
+          <li
+            *ngFor="let childitems of menuitem.children"
+            routerLinkActive="active"
+          >
+            <!--If is a single link-->
+            <a
+              [routerLink]="[menuitem.path, childitems.path]"
+              *ngIf="childitems.type === 'link'"
+            >
+              <span class="sidebar-mini-icon">{{ childitems.smallTitle }}</span>
+              <span class="sidebar-normal">{{ childitems.title }}</span>
+            </a>
+            <!--If it have a submenu-->
+            <a
+              data-toggle="collapse"
+              (click)="childitems.isCollapsed = !childitems.isCollapsed"
+              [attr.aria-expanded]="!childitems.isCollapsed"
+              [attr.aria-controls]="childitems.collapse"
+              *ngIf="childitems.type === 'sub'"
+            >
+              <span class="sidebar-mini-icon">{{ childitems.smallTitle }}</span>
+              <span class="sidebar-normal"
+                >{{ childitems.title }}<b class="caret"></b
+              ></span>
+            </a>
+            <!--Display the submenu items-->
+            <div
+              id="{{ childitems.collapse }}"
+              class="collapse"
+              *ngIf="childitems.type === 'sub'"
+              [collapse]="childitems.isCollapsed"
+              [isAnimated]="true"
+            >
+              <ul class="nav">
+                <li
+                  *ngFor="let childitem of childitems.children"
+                  routerLinkActive="active"
+                >
+                  <a [routerLink]="[menuitem.path, childitem.path]">
+                    <span class="sidebar-mini-icon">{{
+                      childitem.smallTitle
+                    }}</span>
+                    <span class="sidebar-normal">{{ childitem.title }}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>

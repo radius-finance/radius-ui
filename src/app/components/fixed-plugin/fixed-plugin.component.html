@@ -1,0 +1,96 @@
+<div class=" fixed-plugin">
+  <div class="show-dropdown dropdown" dropdown [insideClick]="true">
+    <a
+      id="button-basic"
+      data-toggle="dropdown"
+      dropdownToggle
+      class="dropdown-toggle"
+      aria-controls="dropdown-basic"
+    >
+      <i class=" fa fa-cog fa-2x"> </i>
+    </a>
+
+    <ul
+      id="dropdown-basic"
+      *dropdownMenu
+      class="dropdown-menu"
+      role="menu"
+      aria-labelledby="button-basic"
+    >
+      <li class=" header-title">Sidebar Background</li>
+      <li class=" adjustments-line">
+        <a class=" switch-trigger background-color" href="javascript:void(0)">
+          <div class=" badge-colors text-center">
+            <span
+              class=" badge filter badge-primary"
+              [ngClass]="{ active: sidebarColor === 'primary' }"
+              (click)="changeSidebarColor('primary')"
+            >
+            </span>
+            <span
+              class=" badge filter badge-info"
+              [ngClass]="{ active: sidebarColor === 'blue' }"
+              (click)="changeSidebarColor('blue')"
+            >
+            </span>
+            <span
+              class=" badge filter badge-success"
+              [ngClass]="{ active: sidebarColor === 'green' }"
+              (click)="changeSidebarColor('green')"
+            >
+            </span>
+            <span
+              class="badge filter badge-warning"
+              [ngClass]="{ active: sidebarColor === 'orange' }"
+              (click)="changeSidebarColor('orange')"
+            ></span>
+            <span
+              class=" badge filter badge-danger"
+              [ngClass]="{ active: sidebarColor === 'red' }"
+              (click)="changeSidebarColor('red')"
+            >
+            </span>
+          </div>
+          <div class=" clearfix"></div>
+        </a>
+      </li>
+      <li class="header-title">Sidebar Mini</li>
+      <li class="adjustments-line">
+        <div class="togglebutton switch-sidebar-mini">
+          <span class="label-switch">OFF</span>
+          <bSwitch
+            [switch-on-color]="'primary'"
+            [switch-off-text]="' '"
+            [switch-on-text]="' '"
+            [(ngModel)]="state"
+            (onChangeState)="onChange($event)"
+            (click)="onChange($event)"
+          ></bSwitch>
+          <span class="label-switch label-right">ON</span>
+        </div>
+      </li>
+      <li class=" adjustments-line text-center color-change">
+        <div class="togglebutton switch-sidebar-mini">
+          <span class="label-switch"> LIGHT MODE </span>
+          <bSwitch
+            [switch-on-color]="'primary'"
+            [switch-off-text]="' '"
+            [switch-on-text]="' '"
+            [(ngModel)]="dashboardColor"
+            (onChangeState)="onChangeDashboardColor($event)"
+            (click)="onChangeDashboardColor($event)"
+          ></bSwitch>
+          <span class="label-switch label-right"> DARK MODE </span>
+        </div>
+      </li>
+      <li class="button-container mt-4">
+        <a
+          href="http://demos.creative-tim.com/black-dashboard-pro-angular/#/documentation/overview"
+          class="btn btn-default btn-block btn-round"
+        >
+          Documentation
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
