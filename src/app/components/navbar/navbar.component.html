@@ -44,6 +44,15 @@
         <li class=" search-bar input-group">
           <button
             class=" btn btn-link"
+            (click)="connectWallet()"
+            style="color:#FFF"
+          >
+            Connect Wallet
+          </button>
+        </li>
+        <li class=" search-bar input-group">
+          <button
+            class=" btn btn-link"
             data-target="#searchModal"
             (click)="searchModal.show()"
             id="search-button"

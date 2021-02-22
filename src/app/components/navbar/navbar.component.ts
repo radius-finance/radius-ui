@@ -3,6 +3,7 @@ import { ROUTES } from "../sidebar/sidebar.component";
 import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
+import {BlockchainService} from '../../services/blockchain.service';
 
 var misc: any = {
   sidebar_mini_active: true
@@ -23,7 +24,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     location: Location,
     private element: ElementRef,
     private router: Router,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private blockchainService: BlockchainService
   ) {
     this.location = location;
   }
@@ -38,6 +40,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
       navbar.classList.add("navbar-transparent");
     }
   };
+
+  connectWallet() {
+    this.blockchainService.connectAccount();
+  }
 
   minimizeSidebar() {
     const body = document.getElementsByTagName("body")[0];
