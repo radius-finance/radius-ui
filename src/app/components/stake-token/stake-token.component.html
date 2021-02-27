@@ -1,0 +1,65 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">{{ title }}</h4>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="stakeForm" class="form-horizontal">
+      <div class="row">
+        <div class="col-md-6">
+          <label class="col-form-label">
+            Total Deposits:
+            {{ totalStakedBalance | number: '1.18' }} {{ stakedSymbol }}
+          </label>
+        </div>
+        <div class="col-md-6">
+          <label class="col-form-label">
+            Pool Rate: {{ hourlyEarnRate }} {{ earnedSymbol }} / hour
+          </label>
+        </div>
+      </div>
+      <div class="mt-3 row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <input class="form-control" formControlName="amount" type="text" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="col-form-label">
+            Staked {{ stakedSymbol }}: {{ stakedBalance | number: '1.18' }}
+            {{ stakedSymbol }}
+          </label>
+        </div>
+        <div class="col-md-6">
+          <label class="col-form-label">
+            Earned {{ earnedSymbol }}: {{ earnedBalance | number: '1.18' }}
+            {{ earnedSymbol }}
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer">
+    <form class="form-horizontal">
+      <div class="row">
+        <div class="col-md-12">
+          <button
+            class="btn btn-fill btn-primary"
+            (click)="handleStakeClick()"
+            type="button"
+          >
+            Stake
+          </button>
+          <button
+            class="btn btn-fill btn-primary"
+            (click)="handleWithdrawClick()"
+            type="button"
+          >
+            Withdraw
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
