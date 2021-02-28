@@ -22,15 +22,40 @@ export class StakeTokenComponent implements OnInit {
     this.stakeForm = this.formBuilder.group({
       amount: [0, Validators.required],
     });
+    this.handleStakeClick = this.handleStakeClick.bind(this);
+    this.handleWithdrawClick = this.handleWithdrawClick.bind(this);
+    this.handleHarvestClick = this.handleHarvestClick.bind(this);
+  }
+
+  get inputAmount() {
+    const stakeAmount = this.stakeForm.controls.amount.value;
+    this.stakeForm.patchValue({amount: 0});
+    return stakeAmount;
   }
 
   handleStakeClick() {
-    const stakeAmount = this.stakeForm.controls.amount.value;
-    this.stakeForm.patchValue({amount: 0});
-    console.log(stakeAmount);
+    const stakeFunc =
+      this.type == 'RAD'
+        ? this.blockchainService.stakeRadius
+        : this.blockchainService.stakeRadiusLP;
+    stakeFunc(this.inputAmount).then(() => console.log('staked'));
   }
 
-  handleWithdrawClick() {}
+  handleWithdrawClick() {
+    const withdrawFunc =
+      this.type == 'RAD'
+        ? this.blockchainService.withdrawRadius
+        : this.blockchainService.withdrawRadiusLP;
+    withdrawFunc(this.inputAmount).then(() => console.log('staked'));
+  }
+
+  handleHarvestClick() {
+    const harvestFunc =
+      this.type == 'RAD'
+        ? this.blockchainService.harvestRadiusGas
+        : this.blockchainService.harvestRadiusCatalyst;
+    harvestFunc().then(() => console.log('staked'));
+  }
 
   get hourlyEarnRate() {
     return 0;
@@ -43,9 +68,11 @@ export class StakeTokenComponent implements OnInit {
   }
 
   get totalStakedBalance() {
-    return this.type == 'RAD'
-      ? this.blockchainService.totalStakedRadiusBalance
-      : this.blockchainService.totalStakedRadiusLPBalance;
+    return this.blockchainService.formatEther(
+      this.type == 'RAD'
+        ? this.blockchainService.totalStakedRadiusBalance
+        : this.blockchainService.totalStakedRadiusLPBalance
+    );
   }
 
   get stakedSymbol() {
@@ -57,14 +84,18 @@ export class StakeTokenComponent implements OnInit {
   }
 
   get stakedBalance() {
-    return this.type == 'RAD'
-      ? this.blockchainService.stakedRadiusBalance
-      : this.blockchainService.stakedRadiusLPBalance;
+    return this.blockchainService.formatEther(
+      this.type == 'RAD'
+        ? this.blockchainService.stakedRadiusBalance
+        : this.blockchainService.stakedRadiusLPBalance
+    );
   }
 
   get earnedBalance() {
-    return this.type == 'RAD'
-      ? this.blockchainService.earnedRadiusGasBalance
-      : this.blockchainService.earnedRadiusCatalystBalance;
+    return this.blockchainService.formatEther(
+      this.type == 'RAD'
+        ? this.blockchainService.earnedRadiusGasBalance
+        : this.blockchainService.earnedRadiusCatalystBalance
+    );
   }
 }

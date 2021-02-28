@@ -32,14 +32,15 @@ export class BlockchainService {
   balances: any;
   RAD: any;
   radiusLP: any;
+  radiusLPRef: any;
 
-  radiusToken: RadiusToken;
-  radiusERC20: RadiusERC20;
-  radiusGasERC20: RadiusGasERC20;
-  radiusCatalystERC20: RadiusCatalystERC20;
+  public radiusToken: RadiusToken;
+  public radiusERC20: RadiusERC20;
+  public radiusGasERC20: RadiusGasERC20;
+  public radiusCatalystERC20: RadiusCatalystERC20;
 
-  radiusGasMine: RadiusGasMine;
-  radiusCatalystMine: RadiusCatalystMine;
+  public radiusGasMine: RadiusGasMine;
+  public radiusCatalystMine: RadiusCatalystMine;
 
   allAddressesFilter;
 
@@ -68,6 +69,13 @@ export class BlockchainService {
         hover: 'rgb(16, 26, 32)',
       },
     });
+
+    this.stakeRadius = this.stakeRadius.bind(this);
+    this.stakeRadiusLP = this.stakeRadiusLP.bind(this);
+    this.withdrawRadius = this.withdrawRadius.bind(this);
+    this.withdrawRadiusLP = this.withdrawRadiusLP.bind(this);
+    this.harvestRadiusGas = this.harvestRadiusGas.bind(this);
+    this.harvestRadiusCatalyst = this.harvestRadiusCatalyst.bind(this);
   }
 
   parseEther(n: any) {
@@ -109,6 +117,7 @@ export class BlockchainService {
     this.networkId = this.network.chainId;
     this.balances = {
       radius: 0,
+      lp: 0,
       gas: 0,
       catalyst: 0,
       gasMine: {
@@ -167,8 +176,69 @@ export class BlockchainService {
     );
     console.log('Create2 address of LP: ' + this.radiusLP);
 
+    this.radiusLPRef = await this.getTinyERCRef(this.radiusLP);
+
     await this.setupEvents();
     await this.updateBalances();
+  }
+
+  async getTinyERCRef(address) {
+    return new ethers.Contract(
+      address,
+      [
+        {
+          inputs: [
+            {
+              name: 'spender',
+              type: 'address',
+            },
+            {
+              name: 'addedValue',
+              type: 'uint256',
+            },
+          ],
+          name: 'increaseAllowance',
+          outputs: [
+            {
+              name: '',
+              type: 'bool',
+            },
+          ],
+          stateMutability: 'nonpayable',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              name: 'account',
+              type: 'address',
+            },
+          ],
+          name: 'balanceOf',
+          outputs: [
+            {
+              name: '',
+              type: 'uint256',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [],
+          name: 'decimals',
+          outputs: [
+            {
+              name: '',
+              type: 'uint8',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+      ],
+      this.signer
+    );
   }
 
   async getContractRef(contract) {
@@ -184,6 +254,8 @@ export class BlockchainService {
     // this is the users total usd token balance
     this.balances.radius = await this.radiusERC20.balanceOf(this.account);
     this.balances.gas = await this.radiusGasERC20.balanceOf(this.account);
+    this.balances.lp = await this.radiusLPRef.balanceOf(this.account);
+
     this.balances.catalyst = await this.radiusCatalystERC20.balanceOf(
       this.account
     );
@@ -331,8 +403,98 @@ export class BlockchainService {
     });
   }
 
+  async stakeRadius(amount: any) {
+    const allowance = await this.radiusERC20.allowance(
+      this.account,
+      this.radiusGasMine.address
+    );
+    if (allowance.lt(this.parseEther(amount))) {
+      await this.radiusERC20.approve(
+        this.radiusGasMine.address,
+        this.parseEther(amount)
+      );
+    } else {
+      return await this.radiusGasMine.depositFrom(
+        this.radiusERC20.address,
+        this.account,
+        this.parseEther(amount)
+      );
+    }
+  }
+
+  async withdrawRadius(amount: any) {
+    const tokenBalance = await this.radiusGasMine.balanceOf(
+      this.radiusERC20.address,
+      this.account
+    );
+    if (tokenBalance.gte(amount)) {
+      await this.harvestRadiusGas();
+      await this.radiusGasMine.withdrawTo(
+        this.radiusERC20.address,
+        this.account,
+        tokenBalance
+      );
+    }
+  }
+
+  async harvestRadiusGas() {
+    let gasBalance = await this.radiusGasMine.minedBalanceOf(this.account);
+    await this.radiusGasMine.withdrawMinedTo(this.account, gasBalance);
+    gasBalance = await this.radiusToken.balanceOf(this.account, 1);
+    await this.radiusToken.convert(this.account, 1, gasBalance);
+  }
+
+  async stakeRadiusLP(amount: any) {
+    const allowance = await this.radiusLPRef.allowance(
+      this.account,
+      this.radiusCatalystMine.address
+    );
+    if (allowance.lt(this.parseEther(amount))) {
+      await this.radiusLPRef.approve(
+        this.radiusCatalystMine.address,
+        this.parseEther(amount)
+      );
+    } else {
+      return await this.radiusCatalystMine.depositFrom(
+        this.radiusLPRef.address,
+        this.account,
+        this.parseEther(amount)
+      );
+    }
+  }
+  async withdrawRadiusLP(amount: any) {
+    const tokenBalance = await this.radiusCatalystMine.balanceOf(
+      this.radiusLP,
+      this.account
+    );
+    if (tokenBalance.gte(amount)) {
+      await this.harvestRadiusCatalyst();
+      await this.radiusCatalystMine.withdrawTo(
+        this.radiusLP,
+        this.account,
+        tokenBalance
+      );
+    }
+  }
+
+  async harvestRadiusCatalyst() {
+    let catalystBalance = await this.radiusCatalystMine.minedBalanceOf(
+      this.account
+    );
+    await this.radiusCatalystMine.withdrawMinedTo(
+      this.account,
+      catalystBalance
+    );
+    catalystBalance = await this.radiusToken.balanceOf(this.account, 2);
+    await this.radiusToken.convert(this.account, 2, catalystBalance);
+  }
+
   get radiusBalance() {
     return this.balances ? this.balances.radius : 0;
+  }
+
+  get radiusLPBalance() {
+    return this.balances ? this.balances.lp : 0;
   }
 
   get radiusGasBalance() {
