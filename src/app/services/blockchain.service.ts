@@ -30,6 +30,7 @@ export class BlockchainService {
   network: any;
   networkId: any;
   balances: any;
+  nftItems: any;
   RAD: any;
   radiusLP: any;
   radiusLPRef: any;
@@ -115,6 +116,7 @@ export class BlockchainService {
     this.account = await this.signer.getAddress();
     this.network = await this.provider.getNetwork();
     this.networkId = this.network.chainId;
+    this.nftItems = [];
     this.balances = {
       radius: 0,
       lp: 0,
@@ -180,6 +182,7 @@ export class BlockchainService {
 
     await this.setupEvents();
     await this.updateBalances();
+    await this.updateNFTList();
   }
 
   async getTinyERCRef(address) {
@@ -193,11 +196,11 @@ export class BlockchainService {
               type: 'address',
             },
             {
-              name: 'addedValue',
+              name: 'amount',
               type: 'uint256',
             },
           ],
-          name: 'increaseAllowance',
+          name: 'approve',
           outputs: [
             {
               name: '',
@@ -231,6 +234,27 @@ export class BlockchainService {
             {
               name: '',
               type: 'uint8',
+            },
+          ],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        {
+          inputs: [
+            {
+              name: 'owner',
+              type: 'address',
+            },
+            {
+              name: 'spender',
+              type: 'address',
+            },
+          ],
+          name: 'allowance',
+          outputs: [
+            {
+              name: '',
+              type: 'uint256',
             },
           ],
           stateMutability: 'view',
@@ -279,6 +303,22 @@ export class BlockchainService {
     this.balances.catalystMine.earned = await this.radiusCatalystMine.minedBalanceOf(
       this.account
     );
+  }
+
+  async updateNFTList() {
+    const tokensHeldCount = await this.radiusToken.getTokenHeldCount(
+      this.account
+    );
+    for (let ndx = 0; ndx < tokensHeldCount.toNumber(); ndx++) {
+      const tokenIndex = await this.radiusToken.getTokenHeldByAt(
+        this.account,
+        ndx
+      );
+      // only record indexes greater than 3 as indexes to NFT tokens
+      if (tokenIndex.gt(3)) {
+        this.nftItems.push(tokenIndex);
+      }
+    }
   }
 
   async showToast(title, body) {
