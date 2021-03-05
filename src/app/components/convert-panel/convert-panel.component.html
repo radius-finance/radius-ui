@@ -2,8 +2,8 @@
   <div class="card-header">
     <h4 class="card-title">Radius to erc20 and back</h4>
   </div>
-  <div class="card-body">
-    <form [formGroup]="convertForm" class="form-horizontal">
+  <form [formGroup]="convertForm" class="form-horizontal">
+    <div class="card-body">
       <div class="mt-3 row">
         <div class="col-md-12">
           <div class="form-group">
@@ -34,21 +34,20 @@
           </label>
         </div>
       </div>
-    </form>
-  </div>
-  <div class="card-footer">
-    <form class="form-horizontal">
+    </div>
+    <div class="card-footer">
       <div class="row">
         <div class="col-md-12">
           <button
             class="btn btn-fill btn-primary"
             (click)="handleConvertClick()"
+            [disabled]="!convertForm.valid"
             type="button"
           >
             Convert
           </button>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>
