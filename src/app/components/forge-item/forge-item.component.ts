@@ -35,7 +35,7 @@ export class ForgeItemComponent implements OnInit {
   }
 
   get catalystMagnificationRatio() {
-    if (!isNaN(this.forgeForm.controls.amount.value)) {
+    if (this.forgeForm.controls.amount.value && !isNaN(this.forgeForm.controls.amount.value)) {
       const floatValue = parseFloat(this.forgeForm.controls.amount.value);
       return Math.round(floatValue * 128);
     } else return 0;
