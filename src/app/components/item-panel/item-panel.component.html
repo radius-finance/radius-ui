@@ -1,0 +1,15 @@
+<div class="card card-itempanel">
+  <div class="card-header">
+    <h5 class="card-category">{{ itemTypeTitle }}</h5>
+    <h4 class="card-title">
+      <i class="tim-icons icon-bell-55 text-primary"> </i>
+      {{ itemTitle }}
+    </h4>
+  </div>
+  <div class="card-body">
+    <app-item-visualizer
+      itemId="{{ this.itemId }}"
+      class="card-visualizer"
+    ></app-item-visualizer>
+  </div>
+</div>
