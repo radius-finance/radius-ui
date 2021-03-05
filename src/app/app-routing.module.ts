@@ -1,66 +1,70 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { BrowserModule } from "@angular/platform-browser";
-import { Routes, RouterModule } from "@angular/router";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {BrowserModule} from '@angular/platform-browser';
+import {Routes, RouterModule} from '@angular/router';
 
-import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
-import { AuthLayoutComponent } from "./layouts/auth-layout/auth-layout.component";
-
+import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
+import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
 
 const routes: Routes = [
   {
-    path: "",
-    redirectTo: "dashboard",
-    pathMatch: "full"
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
   },
   {
-    path: "",
+    path: '',
     component: AdminLayoutComponent,
     children: [
       {
-        path: "",
-        loadChildren: "./pages/examples/dashboard/dashboard.module#DashboardModule"
+        path: '',
+        loadChildren:
+          './pages/examples/dashboard/dashboard.module#DashboardModule',
       },
       {
-        path: "stake",
-        loadChildren: "./pages/examples/stake/stake.module#StakeModule"
+        path: 'stake',
+        loadChildren: './pages/examples/stake/stake.module#StakeModule',
       },
       {
-        path: "forge",
-        loadChildren: "./pages/examples/forge/forge.module#ForgeModule"
+        path: 'convert',
+        loadChildren: './pages/examples/convert/convert.module#ConvertModule',
       },
       {
-        path: "win",
-        loadChildren: "./pages/examples/win/win.module#WinModule"
+        path: 'forge',
+        loadChildren: './pages/examples/forge/forge.module#ForgeModule',
       },
       {
-        path: "wallet",
-        loadChildren: "./pages/examples/wallet/wallet.module#WalletModule"
+        path: 'win',
+        loadChildren: './pages/examples/win/win.module#WinModule',
       },
       {
-        path: "explore",
-        loadChildren: "./pages/examples/explore/explore.module#ExploreModule"
+        path: 'wallet',
+        loadChildren: './pages/examples/wallet/wallet.module#WalletModule',
       },
       {
-        path: "stats",
-        loadChildren: "./pages/examples/stats/stats.module#StatsModule"
-      }
-    ]
+        path: 'explore',
+        loadChildren: './pages/examples/explore/explore.module#ExploreModule',
+      },
+      {
+        path: 'stats',
+        loadChildren: './pages/examples/stats/stats.module#StatsModule',
+      },
+    ],
   },
   {
-    path: "",
+    path: '',
     component: AuthLayoutComponent,
     children: [
       {
-        path: "pages",
-        loadChildren: "./pages/examples/pages/pages.module#PagesModule"
-      }
-    ]
+        path: 'pages',
+        loadChildren: './pages/examples/pages/pages.module#PagesModule',
+      },
+    ],
   },
   {
-    path: "**",
-    redirectTo: "dashboard"
-  }
+    path: '**',
+    redirectTo: 'dashboard',
+  },
 ];
 
 @NgModule({
@@ -69,11 +73,11 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes, {
       useHash: true,
-      scrollPositionRestoration: "enabled",
-      anchorScrolling: "enabled",
-      scrollOffset: [0, 64]
-    })
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled',
+      scrollOffset: [0, 64],
+    }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

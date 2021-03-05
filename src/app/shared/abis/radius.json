@@ -3,11 +3,11 @@
   "chainId": "42",
   "contracts": {
     "AddressSet": {
-      "address": "0x0B4FE3F00837DFE169f9A2FcB5D9Af436510C36d",
+      "address": "0xF1690b8ef79AFa20312004eaECb680A54DA237Ea",
       "abi": []
     },
     "GemTokenForge": {
-      "address": "0x455EcEc5d81B0427094021Cbd0d54dBBE5CDc254",
+      "address": "0xf911D1b15ff0945c4fE60eeaD4B371aEd51bf98f",
       "abi": [
         {
           "anonymous": false,
@@ -565,7 +565,7 @@
       ]
     },
     "GemTokenForge_Implementation": {
-      "address": "0x046814BB08c01E6fe627Eb35B5709300e116BA31",
+      "address": "0x9c59f4c6A72db4c3F1D556E62AEE8575e0d20Fc6",
       "abi": [
         {
           "anonymous": false,
@@ -997,7 +997,7 @@
       ]
     },
     "GemTokenForge_Proxy": {
-      "address": "0x455EcEc5d81B0427094021Cbd0d54dBBE5CDc254",
+      "address": "0xf911D1b15ff0945c4fE60eeaD4B371aEd51bf98f",
       "abi": [
         {
           "inputs": [
@@ -1128,7 +1128,7 @@
       ]
     },
     "PowerupTokenForge": {
-      "address": "0xa2781B6F5486ac42DAd6fd96F2c8d7eBca34830C",
+      "address": "0xe9Fac672d622F8E956950d28b6ae3796F731e337",
       "abi": [
         {
           "anonymous": false,
@@ -1420,7 +1420,7 @@
             },
             {
               "internalType": "uint8",
-              "name": "adj",
+              "name": "",
               "type": "uint8"
             }
           ],
@@ -1724,7 +1724,7 @@
       ]
     },
     "PowerupTokenForge_Implementation": {
-      "address": "0xa6914827DAd2E05383a4Edacaf39Ca08B75BF7D0",
+      "address": "0x7eE003fB50b98DabEd0F502E3723bCa114b3eF84",
       "abi": [
         {
           "anonymous": false,
@@ -1911,7 +1911,7 @@
             },
             {
               "internalType": "uint8",
-              "name": "adj",
+              "name": "",
               "type": "uint8"
             }
           ],
@@ -2194,7 +2194,7 @@
       ]
     },
     "PowerupTokenForge_Proxy": {
-      "address": "0xa2781B6F5486ac42DAd6fd96F2c8d7eBca34830C",
+      "address": "0xe9Fac672d622F8E956950d28b6ae3796F731e337",
       "abi": [
         {
           "inputs": [
@@ -2325,7 +2325,7 @@
       ]
     },
     "RadiusCatalystERC20": {
-      "address": "0x492169e7591F273ee5240aDb3aeBbBc5746d4ade",
+      "address": "0xc1D2C1B8f20ea7699e12F006807e16d5fAE3343a",
       "abi": [
         {
           "anonymous": false,
@@ -3231,7 +3231,7 @@
       ]
     },
     "RadiusCatalystERC20_Implementation": {
-      "address": "0x68BEFB00118d305D37F9722c4EBBAce3D3353158",
+      "address": "0x92a02F883276033E3073709B7AAbB8eeA29c5cd0",
       "abi": [
         {
           "anonymous": false,
@@ -4011,7 +4011,7 @@
       ]
     },
     "RadiusCatalystERC20_Proxy": {
-      "address": "0x492169e7591F273ee5240aDb3aeBbBc5746d4ade",
+      "address": "0xc1D2C1B8f20ea7699e12F006807e16d5fAE3343a",
       "abi": [
         {
           "inputs": [
@@ -4142,7 +4142,7 @@
       ]
     },
     "RadiusCatalystMine": {
-      "address": "0x75bdc9B84FAAa55B31Db141CB293bC53AbB302b3",
+      "address": "0x9844911f4ECE50A4a7a3d92dd8F480768a047437",
       "abi": [
         {
           "anonymous": false,
@@ -4939,7 +4939,7 @@
       ]
     },
     "RadiusCatalystMine_Implementation": {
-      "address": "0x2d5528F1F1cb69efE935893Cb662e2cc936a1031",
+      "address": "0xfF705334c76Ad2BA4c5eB5eAc04f77Ca4395e5a8",
       "abi": [
         {
           "anonymous": false,
@@ -5610,7 +5610,7 @@
       ]
     },
     "RadiusCatalystMine_Proxy": {
-      "address": "0x75bdc9B84FAAa55B31Db141CB293bC53AbB302b3",
+      "address": "0x9844911f4ECE50A4a7a3d92dd8F480768a047437",
       "abi": [
         {
           "inputs": [
@@ -5741,7 +5741,7 @@
       ]
     },
     "RadiusERC20": {
-      "address": "0x6624fe482C0471e4BBb6C5a83947c6fDA6d7C805",
+      "address": "0x2430DC297CeDa7269D5684E77D51Dea615BA2AFe",
       "abi": [
         {
           "anonymous": false,
@@ -6652,7 +6652,7 @@
       ]
     },
     "RadiusERC20_Implementation": {
-      "address": "0x0Cfce5dC977C6b3C79900D381E595e0b248Cc21c",
+      "address": "0x059b86a1901D54f3A1080aa5F113AaDDE3bE84b7",
       "abi": [
         {
           "anonymous": false,
@@ -7437,7 +7437,7 @@
       ]
     },
     "RadiusERC20_Proxy": {
-      "address": "0x6624fe482C0471e4BBb6C5a83947c6fDA6d7C805",
+      "address": "0x2430DC297CeDa7269D5684E77D51Dea615BA2AFe",
       "abi": [
         {
           "inputs": [
@@ -7568,7 +7568,7 @@
       ]
     },
     "RadiusGasERC20": {
-      "address": "0xceB23c99C165895d6694121de381A4685B41FE93",
+      "address": "0x74799CEB587B13c0AF730286F09513BB3657A8cf",
       "abi": [
         {
           "anonymous": false,
@@ -8474,7 +8474,7 @@
       ]
     },
     "RadiusGasERC20_Implementation": {
-      "address": "0x0cA1A3D74806eA04Ae412aCF27525217486C0Eb3",
+      "address": "0xFB69Dff3a59b0976d2c6903915CCC70cA11ff3c5",
       "abi": [
         {
           "anonymous": false,
@@ -9254,7 +9254,7 @@
       ]
     },
     "RadiusGasERC20_Proxy": {
-      "address": "0xceB23c99C165895d6694121de381A4685B41FE93",
+      "address": "0x74799CEB587B13c0AF730286F09513BB3657A8cf",
       "abi": [
         {
           "inputs": [
@@ -9385,7 +9385,7 @@
       ]
     },
     "RadiusGasMine": {
-      "address": "0x492a0C61518AED06760622B6CAE79077eb2A4949",
+      "address": "0x6305BCb38096071066b9393e458e4CF94CD5AA2D",
       "abi": [
         {
           "anonymous": false,
@@ -10182,7 +10182,7 @@
       ]
     },
     "RadiusGasMine_Implementation": {
-      "address": "0x13C85A1d80AA2AE98c7cfC29B0957f5b863b65F6",
+      "address": "0x28abC21234eFeeF5B90fb77e08D35A477683415F",
       "abi": [
         {
           "anonymous": false,
@@ -10853,7 +10853,7 @@
       ]
     },
     "RadiusGasMine_Proxy": {
-      "address": "0x492a0C61518AED06760622B6CAE79077eb2A4949",
+      "address": "0x6305BCb38096071066b9393e458e4CF94CD5AA2D",
       "abi": [
         {
           "inputs": [
@@ -10984,7 +10984,7 @@
       ]
     },
     "RadiusMineLib": {
-      "address": "0x1e746960af5A63E9596111fAA302ee6F2439dAd9",
+      "address": "0x0FAa0720FE16E5bcd1C50d544343306bbdCCa9FA",
       "abi": [
         {
           "anonymous": false,
@@ -11168,7 +11168,7 @@
       ]
     },
     "RadiusToken": {
-      "address": "0x44d32b47c4cBa630aB4799B921e67B045779aC1f",
+      "address": "0xBc5656317b59F573Cdb0556c34F95F5770b073a0",
       "abi": [
         {
           "anonymous": false,
@@ -12604,7 +12604,7 @@
       ]
     },
     "RadiusTokenLib": {
-      "address": "0xDbB3670b2D88B9C615Af097B7b97F77A538BEBC5",
+      "address": "0xc4b43fac835ddb7137d22E91aCC4Fb9cBa7a0504",
       "abi": [
         {
           "anonymous": false,
@@ -12798,7 +12798,7 @@
       ]
     },
     "RadiusToken_Implementation": {
-      "address": "0x104b4b44F33953a4822185DED6AAeA4C971fe460",
+      "address": "0x85a7FdeED7b6f272bB166dA4daE3C9f0490AC33B",
       "abi": [
         {
           "anonymous": false,
@@ -14127,7 +14127,7 @@
       ]
     },
     "RadiusToken_Proxy": {
-      "address": "0x44d32b47c4cBa630aB4799B921e67B045779aC1f",
+      "address": "0xBc5656317b59F573Cdb0556c34F95F5770b073a0",
       "abi": [
         {
           "inputs": [
@@ -14258,7 +14258,7 @@
       ]
     },
     "RelicTokenForge": {
-      "address": "0x701342667581e8ac6B0AA0393a5a023B0257b9eA",
+      "address": "0x1980E0be3487f050fCbF54602433647F70144aA6",
       "abi": [
         {
           "anonymous": false,
@@ -14550,7 +14550,7 @@
             },
             {
               "internalType": "uint8",
-              "name": "adj",
+              "name": "",
               "type": "uint8"
             }
           ],
@@ -14854,7 +14854,7 @@
       ]
     },
     "RelicTokenForge_Implementation": {
-      "address": "0x6850ba644A95738E54BC90195A29cd524Dac10d2",
+      "address": "0xF2a0730984C212577d172F7F1158c8a87AB45B79",
       "abi": [
         {
           "anonymous": false,
@@ -15041,7 +15041,7 @@
             },
             {
               "internalType": "uint8",
-              "name": "adj",
+              "name": "",
               "type": "uint8"
             }
           ],
@@ -15324,7 +15324,7 @@
       ]
     },
     "RelicTokenForge_Proxy": {
-      "address": "0x701342667581e8ac6B0AA0393a5a023B0257b9eA",
+      "address": "0x1980E0be3487f050fCbF54602433647F70144aA6",
       "abi": [
         {
           "inputs": [
@@ -15455,7 +15455,7 @@
       ]
     },
     "TestTokenForge": {
-      "address": "0x8d50fcCcF4C676797d0CD05FaCcFA8804c75789b",
+      "address": "0xfd08d44875a7fb4F02d469aBd690F38a9Da3fC68",
       "abi": [
         {
           "anonymous": false,
@@ -16014,7 +16014,7 @@
       ]
     },
     "TestTokenForge_Implementation": {
-      "address": "0x3705c878f938db75665f122364EBB87E13d1B50a",
+      "address": "0xffD399295F1737fb205eFb8b68e0453E7384eAA0",
       "abi": [
         {
           "anonymous": false,
@@ -16447,7 +16447,7 @@
       ]
     },
     "TestTokenForge_Proxy": {
-      "address": "0x8d50fcCcF4C676797d0CD05FaCcFA8804c75789b",
+      "address": "0xfd08d44875a7fb4F02d469aBd690F38a9Da3fC68",
       "abi": [
         {
           "inputs": [

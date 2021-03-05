@@ -17,6 +17,10 @@ import {AuthNavbarComponent} from './auth-navbar/auth-navbar.component';
 import {FixedPluginComponent} from './fixed-plugin/fixed-plugin.component';
 import {ItemVisualizerComponent} from './item-visualizer/item-visualizer.component';
 import {StakeTokenComponent} from './stake-token/stake-token.component';
+import {ItemPanelComponent} from './item-panel/item-panel.component';
+import {ForgeItemComponent} from './forge-item/forge-item.component';
+import {ConvertPanelComponent} from './convert-panel/convert-panel.component';
+import {BalancePanelComponent} from './balance-panel/balance-panel.component';
 
 @NgModule({
   imports: [
@@ -39,6 +43,10 @@ import {StakeTokenComponent} from './stake-token/stake-token.component';
     FixedPluginComponent,
     ItemVisualizerComponent,
     StakeTokenComponent,
+    ItemPanelComponent,
+    ForgeItemComponent,
+    ConvertPanelComponent,
+    BalancePanelComponent,
   ],
   exports: [
     FooterComponent,
@@ -48,6 +56,10 @@ import {StakeTokenComponent} from './stake-token/stake-token.component';
     FixedPluginComponent,
     ItemVisualizerComponent,
     StakeTokenComponent,
+    ItemPanelComponent,
+    ForgeItemComponent,
+    ConvertPanelComponent,
+    BalancePanelComponent,
   ],
 })
 export class ComponentsModule {}

@@ -12,68 +12,20 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-4 col-md-4">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-primary">
-                <i class="tim-icons icon-shape-star"> </i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">Radius Balance</p>
-                <h3 class="card-title">{{ radiusBalance | number: '1.18' }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="col-lg-3 col-md-6">
+      <app-balance-panel type="0"></app-balance-panel>
     </div>
 
-    <div class="col-lg-4 col-md-4">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-success">
-                <i class="tim-icons icon-shape-star"> </i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">Radius Gas Balance</p>
-                <h3 class="card-title">
-                  {{ radiusGasBalance | number: '1.18' }}
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="col-lg-3 col-md-6">
+      <app-balance-panel type="1"></app-balance-panel>
     </div>
 
-    <div class="col-lg-4 col-md-4">
-      <div class="card card-stats">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-5">
-              <div class="info-icon text-center icon-danger">
-                <i class="tim-icons icon-molecule-40"> </i>
-              </div>
-            </div>
-            <div class="col-7">
-              <div class="numbers">
-                <p class="card-category">Radius Catalyst Balance</p>
-                <h3 class="card-title">
-                  {{ radiusCatalystBalance | number: '1.18' }}
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="col-lg-3 col-md-6">
+      <app-balance-panel type="2"></app-balance-panel>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+      <app-balance-panel type="3"></app-balance-panel>
     </div>
 
     <div class="col-md-12 mt-0 mb-3">
@@ -91,53 +43,23 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-lg-4">
-      <div class="card card-chart">
-        <div class="card-header">
-          <h5 class="card-category">Gem</h5>
-          <h4 class="card-title">
-            <i class="tim-icons icon-bell-55 text-primary"> </i>
-            0xe882cc22...543aa8c9924a
-          </h4>
-        </div>
-        <div class="card-body">
-          <app-item-visualizer class="card-visualizer"></app-item-visualizer>
-        </div>
-      </div>
+  <div *ngIf="hasNFTItems" class="row">
+    <div *ngFor="let nftItem of nftItems" class="col-lg-4">
+      <app-item-panel itemId="{{ nftItem.toHexString() }}"></app-item-panel>
     </div>
+  </div>
 
-    <div class="col-lg-4">
-      <div class="card card-chart">
+  <div *ngIf="!hasNFTItems" class="row">
+    <div class="col-md-12">
+      <div class="card">
         <div class="card-header">
-          <h5 class="card-category">Matched Gem</h5>
-          <h4 class="card-title">
-            <i class="tim-icons icon-bell-55 text-primary"> </i>
-            0xb705268...3aff5cbdcfae
-          </h4>
+          <h4 class="card-title">No NFT Items</h4>
         </div>
         <div class="card-body">
-          <app-item-visualizer class="card-visualizer"></app-item-visualizer>
+          You haven't forged any NFT items yet and have none in your inventory.
+          Go to the <a href="#">forging tab</a> to forge some.
         </div>
       </div>
-    </div>
-
-    <div class="col-lg-4">
-      <div class="card card-chart">
-        <div class="card-header">
-          <h5 class="card-category">Powerup</h5>
-          <h4 class="card-title">
-            <i class="tim-icons icon-bell-55 text-primary"> </i>
-            0x82462156e...71aaa351d4
-          </h4>
-        </div>
-        <div class="card-body">
-          <app-item-visualizer class="card-visualizer"></app-item-visualizer>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-12 mt-0 mb-3">
-      <a href="#">See all my items</a>
     </div>
   </div>
 
@@ -164,7 +86,7 @@
         </div>
         <div class="card-body">
           You haven't staked any tokens yet. To stake your Radius or Radius LP,
-          go to the <a href="#">staking tab</a>
+          go to the <a href="#">staking tab</a> to stake some.
         </div>
       </div>
     </div>

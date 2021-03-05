@@ -17,16 +17,6 @@ export class DashboardComponent implements OnInit {
 
   public updateOptions() {}
 
-  get radiusBalance() {
-    return this.fromWei(this.blockchainService.radiusBalance);
-  }
-  get radiusGasBalance() {
-    return this.fromWei(this.blockchainService.radiusGasBalance);
-  }
-  get radiusCatalystBalance() {
-    return this.fromWei(this.blockchainService.radiusCatalystBalance);
-  }
-
   get stakedRadiusBalance() {
     return this.fromWei(this.blockchainService.stakedRadiusBalance);
   }
@@ -49,5 +39,15 @@ export class DashboardComponent implements OnInit {
 
   get earnedRadiusCatalystBalance() {
     return this.fromWei(this.blockchainService.earnedRadiusCatalystBalance);
+  }
+
+  get hasNFTItems() {
+    return this.blockchainService.nftItems
+      ? this.blockchainService.nftItems.length > 0
+      : false;
+  }
+
+  get nftItems() {
+    return this.blockchainService.nftItems;
   }
 }

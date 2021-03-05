@@ -1,97 +1,49 @@
-<div class=" content">
-
-  <div class=" row">
-    <div class=" col-md-12">
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
       <h2>Forge New Items</h2>
     </div>
   </div>
-    <div class=" row">
-      <div class=" col-md-12">
-        <div class=" card">
-          <div class=" card-header">
-            <h4 class=" card-title">Forge Items using DSRT and LQR</h4>
-          </div>
-          <div class=" card-body">
-            <form class=" form-horizontal">
-              <div class=" row">
-                <div class=" col-md-6"><label class=" col-form-label"> Total Deposits: 1234 DINR </label></div>
-                <div class=" col-md-6"><label class=" col-form-label"> Pool Rate: 215 DSRT / hour </label></div>
-              </div>
-              <div class=" mt-3 row">
-                <div class=" col-md-12">
-                  <div class=" form-group">
-                    <input class=" form-control" type="text" />
-                  </div>
-                </div>
-              </div>
-              <div class=" mt-3 row">
-                <div class=" col-md-12">
-                  <div class=" form-group">
-                    <input class=" form-control" type="text" />
-                  </div>
-                </div>
-              </div>
-              <div class=" row">
-                <div class=" col-md-6"><label class=" col-form-label"> Staked DINR: 3.2 DINR </label></div>
-                <div class=" col-md-6"><label class=" col-form-label"> Earned DSRT: 3.2 DSRT </label></div>
-              </div>
-            </form>
-          </div>
-          <div class=" card-footer">
-            <form class=" form-horizontal">
-              <div class=" row">
-                <div class=" col-md-12">
-                  <button class=" btn btn-fill btn-primary" type="button">
-                    Forge
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4">
+      <app-balance-panel type="1"></app-balance-panel>
     </div>
-    <div class=" row">
-      <div class=" col-md-12">
-        <h2>Recently forged items</h2>
-      </div>
+
+    <div class="col-lg-4 col-md-4">
+      <app-balance-panel type="2"></app-balance-panel>
     </div>
-    <div class=" row">
-      <div class=" col-md-12">
 
-        <!-- display an NFT - Gem, unique gem, -->  
-        <div class=" card">
-          <div class=" card-header">
-            <h4 class=" card-title"><b>Unique Gem:</b> 0xaec2e87e0a235266d9c5adc9deb4b2e29b54d009</h4>
-          </div>
-          <div class=" card-body">
-            <div class=" row">
-              <div class=" col-md-4">
-                <app-item-visualizer class="card-visualizer"></app-item-visualizer>
-              </div>
-              <div class=" col-md-8">
-                <div class=" row">
-                  <div class=" col-md-4">Item ID</div>
-                  <div class=" col-md-8">0xaec2e87e0a235266d9c5adc9deb4b2e29b54d009</div>
-                </div>
-                <div class=" row">
-                  <div class=" col-md-4">Item Type</div>
-                  <div class=" col-md-8">Unique Gem</div>
-                </div>
-                <div class=" row">
-                  <div class=" col-md-4">Forge Timestamp</div>
-                  <div class=" col-md-8">12345678</div>
-                </div>
-                <div class=" row">
-                  <div class=" col-md-4">Forger</div>
-                  <div class=" col-md-8">0xaec2e87e0a235266d9c5adc9deb4b2e29b54d009</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class=" card-footer"></div>
-        </div>
-
-      </div>
+    <div class="col-lg-4 col-md-4">
+      <app-balance-panel type="3"></app-balance-panel>
+    </div>
   </div>
-  
+  <div class="row">
+    <div class="col-md-12">
+      <app-forge-item></app-forge-item>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Recently forged items</h2>
+    </div>
+  </div>
+
+  <div *ngIf="hasNFTItems" class="row">
+    <div *ngFor="let nftItem of nftItems" class="col-lg-4">
+      <app-item-panel itemId="{{ nftItem.toHexString() }}"></app-item-panel>
+    </div>
+  </div>
+
+  <div *ngIf="!hasNFTItems" class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">No NFT Items</h4>
+        </div>
+        <div class="card-body">
+          You haven't forged any NFT items yet and have none in your inventory.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -29,8 +29,8 @@ export class BlockchainService {
   signer: any;
   network: any;
   networkId: any;
-  balances: any;
-  nftItems: any;
+  public balances: any;
+  public nftItems: any;
   RAD: any;
   radiusLP: any;
   radiusLPRef: any;
@@ -77,10 +77,11 @@ export class BlockchainService {
     this.withdrawRadiusLP = this.withdrawRadiusLP.bind(this);
     this.harvestRadiusGas = this.harvestRadiusGas.bind(this);
     this.harvestRadiusCatalyst = this.harvestRadiusCatalyst.bind(this);
+    this.forgeRadiusItem = this.forgeRadiusItem.bind(this);
   }
 
   parseEther(n: any) {
-    const pe = utils.parseEther(n);
+    const pe = utils.parseEther(n ? n.toString() : '0');
     return pe ? pe.toString() : '0';
   }
 
@@ -272,17 +273,29 @@ export class BlockchainService {
     }
   }
 
+  async getDualBalances(radiusIndex, erc20Object) {
+    const balances = {
+      native: await this.radiusToken.balanceOf(this.account, radiusIndex),
+      erc20: await erc20Object.balanceOf(this.account),
+      total: undefined,
+    };
+    balances.total = balances.native.add(balances.erc20);
+    return balances;
+  }
+
   async updateBalances() {
     if (!this.balances) return;
 
     // this is the users total usd token balance
-    this.balances.radius = await this.radiusERC20.balanceOf(this.account);
-    this.balances.gas = await this.radiusGasERC20.balanceOf(this.account);
-    this.balances.lp = await this.radiusLPRef.balanceOf(this.account);
-
-    this.balances.catalyst = await this.radiusCatalystERC20.balanceOf(
-      this.account
+    this.balances.radius = await this.getDualBalances(0, this.radiusERC20);
+    this.balances.gas = await this.getDualBalances(1, this.radiusGasERC20);
+    this.balances.catalyst = await this.getDualBalances(
+      2,
+      this.radiusCatalystERC20
     );
+    this.balances.lp = await this.radiusLPRef.balanceOf(this.account);
+    this.balances.lottery = await this.radiusToken.balanceOf(this.account, 3);
+
     this.balances.gasMine.staked = await this.radiusGasMine.balanceOf(
       this.radiusERC20.address,
       this.account
@@ -309,6 +322,7 @@ export class BlockchainService {
     const tokensHeldCount = await this.radiusToken.getTokenHeldCount(
       this.account
     );
+    this.nftItems = [];
     for (let ndx = 0; ndx < tokensHeldCount.toNumber(); ndx++) {
       const tokenIndex = await this.radiusToken.getTokenHeldByAt(
         this.account,
@@ -441,6 +455,57 @@ export class BlockchainService {
         );
       }
     });
+    // Gas token is mined
+    this.radiusToken.on(
+      'Forged',
+      async (recipient, forgedIndex, salt, consumed, amount) => {
+        await this.updateBalances();
+        if (recipient == this.account) {
+          this.showToast('Items Forged', `forged ${forgedIndex}`);
+          if (forgedIndex.toString() !== '3') await this.updateNFTList();
+        }
+      }
+    );
+    // Gas token is mined
+    this.radiusToken.on('ConvertedToERC20', async (id, account, amount) => {
+      await this.updateBalances();
+      if (account == this.account) {
+        this.showToast('Tokens Converted', `Converted to native tokens`);
+      }
+    });
+    // Gas token is mined
+    this.radiusERC20.on('ConvertedToERC1155', async (id, account, amount) => {
+      await this.updateBalances();
+      if (account == this.account) {
+        this.showToast('Tokens Converted', `Converted to Radius native tokens`);
+      }
+    });
+    // Gas token is mined
+    this.radiusGasERC20.on(
+      'ConvertedToERC1155',
+      async (id, account, amount) => {
+        await this.updateBalances();
+        if (account == this.account) {
+          this.showToast(
+            'Tokens Converted',
+            `Converted to Radius native gas tokens`
+          );
+        }
+      }
+    );
+    // Gas token is mined
+    this.radiusCatalystERC20.on(
+      'ConvertedToERC1155',
+      async (id, account, amount) => {
+        await this.updateBalances();
+        if (account == this.account) {
+          this.showToast(
+            'Tokens Converted',
+            `Converted to Radius native catalyst tokens`
+          );
+        }
+      }
+    );
   }
 
   async stakeRadius(amount: any) {
@@ -478,10 +543,8 @@ export class BlockchainService {
   }
 
   async harvestRadiusGas() {
-    let gasBalance = await this.radiusGasMine.minedBalanceOf(this.account);
+    const gasBalance = await this.radiusGasMine.minedBalanceOf(this.account);
     await this.radiusGasMine.withdrawMinedTo(this.account, gasBalance);
-    gasBalance = await this.radiusToken.balanceOf(this.account, 1);
-    await this.radiusToken.convert(this.account, 1, gasBalance);
   }
 
   async stakeRadiusLP(amount: any) {
@@ -518,31 +581,85 @@ export class BlockchainService {
   }
 
   async harvestRadiusCatalyst() {
-    let catalystBalance = await this.radiusCatalystMine.minedBalanceOf(
+    const catalystBalance = await this.radiusCatalystMine.minedBalanceOf(
       this.account
     );
     await this.radiusCatalystMine.withdrawMinedTo(
       this.account,
       catalystBalance
     );
-    catalystBalance = await this.radiusToken.balanceOf(this.account, 2);
-    await this.radiusToken.convert(this.account, 2, catalystBalance);
   }
 
-  get radiusBalance() {
-    return this.balances ? this.balances.radius : 0;
+  async forgeRadiusItem(catalystAmount) {
+    const gasBalance = await this.radiusToken.balanceOf(this.account, 1);
+    const gaserc20Balance = await this.radiusGasERC20.balanceOf(this.account);
+    const catBalance = await this.radiusToken.balanceOf(this.account, 2);
+    const caterc20Balance = await this.radiusCatalystERC20.balanceOf(
+      this.account
+    );
+
+    // exit if there's not enough gas to forge something
+    if (gasBalance.add(gaserc20Balance).lt(this.parseEther('1'))) {
+      return;
+    }
+
+    // we wanna use catalyst so check that we have enough catalyst balance to forge with
+    if (parseFloat(catalystAmount) > 0) {
+      if (catBalance.add(caterc20Balance).lt(this.parseEther(catalystAmount))) {
+        return;
+      }
+    }
+
+    // forging uses native tokens, not erc20, so we need to convert erc20
+    // back to native tokens if the user doesn't have a native balance
+    if (gasBalance.lt(this.parseEther('1'))) {
+      return await this.radiusGasERC20.convert(
+        this.account,
+        this.parseEther('1')
+      );
+    }
+    // forging uses native tokens, not erc20, so we need to convert erc20
+    // back to native tokens if the user doesn't have a native balance
+    if (catBalance.lt(this.parseEther(catalystAmount))) {
+      return await this.radiusCatalystERC20.convert(
+        this.account,
+        this.parseEther(catalystAmount)
+      );
+    }
+
+    return await this.radiusToken.forge(
+      this.account,
+      this.parseEther(catalystAmount)
+    );
   }
 
-  get radiusLPBalance() {
-    return this.balances ? this.balances.lp : 0;
-  }
-
-  get radiusGasBalance() {
-    return this.balances ? this.balances.gas : 0;
-  }
-
-  get radiusCatalystBalance() {
-    return this.balances ? this.balances.catalyst : 0;
+  // valid to: values:
+  // 0 - radius native
+  // 1 - radius gas native
+  // 2 - radius catalyst native
+  // 3 - radius erc20
+  // 4 - radius gas erc20
+  // 5 - radius catalyst erc20
+  async convertRadiusToken(amount, to) {
+    amount = this.parseEther(amount);
+    if (to === 0) {
+      await this.radiusERC20.convert(this.account, amount);
+    }
+    if (to === 1) {
+      await this.radiusGasERC20.convert(this.account, amount);
+    }
+    if (to === 2) {
+      await this.radiusCatalystERC20.convert(this.account, amount);
+    }
+    if (to === 3) {
+      await this.radiusToken.convert(this.account, 0, amount);
+    }
+    if (to === 4) {
+      await this.radiusToken.convert(this.account, 1, amount);
+    }
+    if (to === 5) {
+      await this.radiusToken.convert(this.account, 2, amount);
+    }
   }
 
   get stakedRadiusBalance() {

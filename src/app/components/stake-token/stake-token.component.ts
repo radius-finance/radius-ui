@@ -29,7 +29,6 @@ export class StakeTokenComponent implements OnInit {
 
   get inputAmount() {
     const stakeAmount = this.stakeForm.controls.amount.value;
-    this.stakeForm.patchValue({amount: 0});
     return stakeAmount;
   }
 
@@ -38,7 +37,10 @@ export class StakeTokenComponent implements OnInit {
       this.type == 'RAD'
         ? this.blockchainService.stakeRadius
         : this.blockchainService.stakeRadiusLP;
-    stakeFunc(this.inputAmount).then(() => console.log('staked'));
+    stakeFunc(this.inputAmount).then(() => {
+      this.stakeForm.patchValue({amount: 0});
+      console.log('staked');
+    });
   }
 
   handleWithdrawClick() {
@@ -46,7 +48,10 @@ export class StakeTokenComponent implements OnInit {
       this.type == 'RAD'
         ? this.blockchainService.withdrawRadius
         : this.blockchainService.withdrawRadiusLP;
-    withdrawFunc(this.inputAmount).then(() => console.log('staked'));
+    withdrawFunc(this.inputAmount).then(() => {
+      this.stakeForm.patchValue({amount: 0});
+      console.log('withdrawn');
+    });
   }
 
   handleHarvestClick() {
@@ -54,7 +59,10 @@ export class StakeTokenComponent implements OnInit {
       this.type == 'RAD'
         ? this.blockchainService.harvestRadiusGas
         : this.blockchainService.harvestRadiusCatalyst;
-    harvestFunc().then(() => console.log('staked'));
+    harvestFunc().then(() => {
+      this.stakeForm.patchValue({amount: 0});
+      console.log('harvested');
+    });
   }
 
   get hourlyEarnRate() {
