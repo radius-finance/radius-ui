@@ -114,6 +114,6 @@ export class ConvertPanelComponent implements OnInit {
 
     this.blockchainService
       .convertRadiusToken(amt, to)
-      .then(() => self.convertForm.patchValue({amount: 0}));
+      .then(() => self.convertForm.patchValue({amount: null}));
   }
 }

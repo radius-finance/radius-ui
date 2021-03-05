@@ -30,7 +30,7 @@ export class ForgeItemComponent implements OnInit {
 
   get inputAmount() {
     const forgeAmount = this.forgeForm.controls.amount.value;
-    this.forgeForm.patchValue({amount: 0});
+    this.forgeForm.patchValue({amount: null});
     return forgeAmount;
   }
 
