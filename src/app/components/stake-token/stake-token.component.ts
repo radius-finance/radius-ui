@@ -20,7 +20,7 @@ export class StakeTokenComponent implements OnInit {
 
   ngOnInit(): void {
     this.stakeForm = this.formBuilder.group({
-      amount: [0, Validators.required],
+      amount: [null, Validators.required],
     });
     this.handleStakeClick = this.handleStakeClick.bind(this);
     this.handleWithdrawClick = this.handleWithdrawClick.bind(this);
