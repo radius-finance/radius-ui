@@ -16,7 +16,7 @@ export class ForgeItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.forgeForm = this.formBuilder.group({
-      amount: [0, Validators.required],
+      amount: [null, Validators.required],
     });
     this.handleForgeClick = this.handleForgeClick.bind(this);
   }
