@@ -2,8 +2,8 @@
   <div class="card-header">
     <h4 class="card-title">{{ title }}</h4>
   </div>
-  <div class="card-body">
-    <form [formGroup]="stakeForm" class="form-horizontal">
+  <form [formGroup]="stakeForm" class="form-horizontal">
+    <div class="card-body">
       <div class="row">
         <div class="col-md-6">
           <label class="col-form-label">
@@ -20,7 +20,7 @@
       <div class="mt-3 row">
         <div class="col-md-12">
           <div class="form-group">
-            <input class="form-control" formControlName="amount" type="text" />
+            <input class="form-control" formControlName="amount" placeholder="Enter amount" type="text" />
           </div>
         </div>
       </div>
@@ -38,15 +38,14 @@
           </label>
         </div>
       </div>
-    </form>
-  </div>
-  <div class="card-footer">
-    <form class="form-horizontal">
+    </div>
+    <div class="card-footer">
       <div class="row">
         <div class="col-md-12">
           <button
             class="btn btn-fill btn-primary"
             (click)="handleStakeClick()"
+            [disabled]="!stakeForm.valid"
             type="button"
           >
             Stake
@@ -54,6 +53,7 @@
           <button
             class="btn btn-fill btn-primary"
             (click)="handleWithdrawClick()"
+            [disabled]="!stakeForm.valid"
             type="button"
           >
             Withdraw
@@ -61,12 +61,13 @@
           <button
             class="btn btn-fill btn-primary"
             (click)="handleHarvestClick()"
+            [disabled]="!stakeForm.valid"
             type="button"
           >
             Harvest
           </button>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>

@@ -23,7 +23,7 @@ export class ConvertPanelComponent implements OnInit {
   // 5 - radius catalyst erc20
   ngOnInit(): void {
     this.convertForm = this.formBuilder.group({
-      amount: [0, Validators.required],
+      amount: [null, Validators.required],
       to: [null, [Validators.required]],
     });
     this.handleConvertClick = this.handleConvertClick.bind(this);
@@ -114,6 +114,6 @@ export class ConvertPanelComponent implements OnInit {
 
     this.blockchainService
       .convertRadiusToken(amt, to)
-      .then(() => self.convertForm.patchValue({amount: 0}));
+      .then(() => self.convertForm.patchValue({amount: null}));
   }
 }

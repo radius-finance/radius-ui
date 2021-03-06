@@ -2,8 +2,8 @@
   <div class="card-header">
     <h4 class="card-title">Forge Items using Radius Gas and Catalyst</h4>
   </div>
-  <div class="card-body">
-    <form [formGroup]="forgeForm" class="form-horizontal">
+  <form [formGroup]="forgeForm" class="form-horizontal">
+    <div class="card-body">
       <div class="row">
         <div class="col-md-6">
           <label class="col-form-label"> Forging Cost: 1 RADG </label>
@@ -15,7 +15,7 @@
       <div class="mt-3 row">
         <div class="col-md-12">
           <div class="form-group">
-            <input class="form-control" formControlName="amount" type="text" />
+            <input class="form-control" formControlName="amount" placeholder="Enter amount" type="text" />
           </div>
         </div>
       </div>
@@ -26,21 +26,20 @@
           </label>
         </div>
       </div>
-    </form>
-  </div>
-  <div class="card-footer">
-    <form class="form-horizontal">
+    </div>
+    <div class="card-footer">
       <div class="row">
         <div class="col-md-12">
           <button
             class="btn btn-fill btn-primary"
             (click)="handleForgeClick()"
+            [disabled]="!forgeForm.valid"
             type="button"
           >
             Forge
           </button>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>

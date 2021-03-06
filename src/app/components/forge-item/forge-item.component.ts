@@ -16,7 +16,7 @@ export class ForgeItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.forgeForm = this.formBuilder.group({
-      amount: [0, Validators.required],
+      amount: [null, Validators.required],
     });
     this.handleForgeClick = this.handleForgeClick.bind(this);
   }
@@ -30,12 +30,12 @@ export class ForgeItemComponent implements OnInit {
 
   get inputAmount() {
     const forgeAmount = this.forgeForm.controls.amount.value;
-    this.forgeForm.patchValue({amount: 0});
+    this.forgeForm.patchValue({amount: null});
     return forgeAmount;
   }
 
   get catalystMagnificationRatio() {
-    if (!isNaN(this.forgeForm.controls.amount.value)) {
+    if (this.forgeForm.controls.amount.value && !isNaN(this.forgeForm.controls.amount.value)) {
       const floatValue = parseFloat(this.forgeForm.controls.amount.value);
       return Math.round(floatValue * 128);
     } else return 0;

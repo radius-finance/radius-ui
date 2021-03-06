@@ -20,7 +20,7 @@ export class StakeTokenComponent implements OnInit {
 
   ngOnInit(): void {
     this.stakeForm = this.formBuilder.group({
-      amount: [0, Validators.required],
+      amount: [null, Validators.required],
     });
     this.handleStakeClick = this.handleStakeClick.bind(this);
     this.handleWithdrawClick = this.handleWithdrawClick.bind(this);
@@ -38,7 +38,7 @@ export class StakeTokenComponent implements OnInit {
         ? this.blockchainService.stakeRadius
         : this.blockchainService.stakeRadiusLP;
     stakeFunc(this.inputAmount).then(() => {
-      this.stakeForm.patchValue({amount: 0});
+      this.stakeForm.patchValue({amount: null});
       console.log('staked');
     });
   }
@@ -49,7 +49,7 @@ export class StakeTokenComponent implements OnInit {
         ? this.blockchainService.withdrawRadius
         : this.blockchainService.withdrawRadiusLP;
     withdrawFunc(this.inputAmount).then(() => {
-      this.stakeForm.patchValue({amount: 0});
+      this.stakeForm.patchValue({amount: null});
       console.log('withdrawn');
     });
   }
@@ -60,7 +60,7 @@ export class StakeTokenComponent implements OnInit {
         ? this.blockchainService.harvestRadiusGas
         : this.blockchainService.harvestRadiusCatalyst;
     harvestFunc().then(() => {
-      this.stakeForm.patchValue({amount: 0});
+      this.stakeForm.patchValue({amount: null});
       console.log('harvested');
     });
   }
