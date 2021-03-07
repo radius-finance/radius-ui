@@ -41,40 +41,48 @@ export class ItemVisualizerComponent implements AfterViewInit {
     this.scope.setup(this.paperCanvas.nativeElement);
     this.scope.activate();
 
-    var scope = this.scope;
+    const scope = this.scope;
     const rndColor = () =>
       '#' + colors[Math.round(Math.random() * colors.length)] + 'ff';
     const colorAt = (ndx) => '#' + colors[ndx % colors.length] + 'ff';
 
-    var centerSides = 3 + Math.round(Math.random() * 9);
-    var centerDiameter = 400 + Math.round(Math.random() * 500);
-    var canvasWidth = this.paperCanvas.nativeElement.clientWidth;
-    var canvasHeight = this.paperCanvas.nativeElement.clientHeight;
-    var centerPoint = new scope.Point(canvasWidth / 2, canvasHeight / 2);
+    let centerSides = 3 + Math.round(Math.random() * 9);
+    let centerDiameter = 400 + Math.round(Math.random() * 500);
+    const canvasWidth = this.paperCanvas.nativeElement.clientWidth;
+    const canvasHeight = this.paperCanvas.nativeElement.clientHeight;
+    const centerPoint = new scope.Point(canvasWidth / 2, canvasHeight / 2);
 
     const drawFlowerIter = (iter, max) => {
-      var petalSides = 3 + Math.round(Math.random() * 9);
-      var petalDiameter = 400 + Math.round(Math.random() * 500);
-      var centerColor = rndColor();
-      var petalColor = rndColor();
-      var backShapeColor = rndColor();
+      let petalSides = 3 + Math.round(Math.random() * 9);
+      let petalDiameter = 400 + Math.round(Math.random() * 500);
+      let centerColor = rndColor();
+      let petalColor = rndColor();
+      let backShapeColor = rndColor();
 
       if (this.itemType === 1) {
         centerSides = 3;
-        centerDiameter = 600;
+        centerDiameter = 300;
         petalSides = 3;
-        petalDiameter = 600;
+        petalDiameter = 300 + this.itemOvershoot * 30;
         petalColor = '#ff00ffff';
         centerColor = '#00ff00ff';
         backShapeColor = '#000000ff';
       }
       if (this.itemType === 2) {
         centerSides = 5;
-        centerDiameter = 600;
+        centerDiameter = 500;
         petalSides = 5;
-        petalDiameter = 500;
-        petalColor = '#ffff00ff';
-        centerColor = '#0000ffff';
+        petalDiameter = 500 + this.itemOvershoot * 50;
+        petalColor = '#ff00ffff';
+        centerColor = colorAt(
+          parseInt(
+            '0x' +
+              this.itemId.substring(
+                this.itemId.length - 1 - iter,
+                this.itemId.length - iter
+              )
+          )
+        );
         backShapeColor = '#000000ff';
       }
       if (this.itemType === 3) {
@@ -143,7 +151,7 @@ export class ItemVisualizerComponent implements AfterViewInit {
       // console.log('petalDiameter', petalDiameter);
 
       if (iter === 1) {
-        var backShape = new scope.Path.RegularPolygon(
+        const backShape = new scope.Path.RegularPolygon(
           centerPoint,
           centerSides,
           petalDiameter + centerDiameter
@@ -152,7 +160,7 @@ export class ItemVisualizerComponent implements AfterViewInit {
       }
 
       const scale = iter;
-      var centerPath = new scope.Path.RegularPolygon(
+      const centerPath = new scope.Path.RegularPolygon(
         centerPoint,
         petalSides,
         centerDiameter / scale
@@ -162,7 +170,7 @@ export class ItemVisualizerComponent implements AfterViewInit {
       centerPath.strokeWidth = 6 / scale;
       centerPath.blendMode = 'xor';
       centerPath.segments.forEach((segment) => {
-        var polygon = new scope.Path.RegularPolygon(
+        const polygon = new scope.Path.RegularPolygon(
           new scope.Point(segment.point.x, segment.point.y),
           petalSides,
           petalDiameter / scale
@@ -186,5 +194,13 @@ export class ItemVisualizerComponent implements AfterViewInit {
     if (this.itemId >= 256 && this.itemId <= 256 + 256) return 1; // relic
     if (this.itemId >= 4096 && this.itemId <= 4096 + 256) return 2; // powerup
     if (this.itemId > 4096 + 256) return 3; //gem
+    return 0;
+  }
+
+  get itemOvershoot() {
+    if (this.itemType === 1 || this.itemType === 2) {
+      const startPoint = this.itemType === 1 ? 256 : 4096;
+      return this.itemId - startPoint;
+    } else return 0;
   }
 }

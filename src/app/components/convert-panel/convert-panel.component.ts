@@ -48,8 +48,8 @@ export class ConvertPanelComponent implements OnInit {
       !this.blockchainService.balances.radius.erc20.eq(0)
     ) {
       out.push({
-        type: 0,
-        label: 'Radius',
+        id: 0,
+        itemName: 'Radius',
         balance: this.blockchainService.balances.radius.erc20,
       });
     }
@@ -58,8 +58,8 @@ export class ConvertPanelComponent implements OnInit {
       !this.blockchainService.balances.gas.erc20.eq(0)
     ) {
       out.push({
-        type: 1,
-        label: 'Radius Gas',
+        id: 1,
+        itemName: 'Radius Gas',
         balance: this.blockchainService.balances.gas.erc20,
       });
     }
@@ -68,8 +68,8 @@ export class ConvertPanelComponent implements OnInit {
       !this.blockchainService.balances.catalyst.erc20.eq(0)
     ) {
       out.push({
-        type: 2,
-        label: 'Radius Catalyst',
+        id: 2,
+        itemName: 'Radius Catalyst',
         balance: this.blockchainService.balances.catalyst.erc20,
       });
     }
@@ -78,8 +78,8 @@ export class ConvertPanelComponent implements OnInit {
       !this.blockchainService.balances.radius.native.eq(0)
     ) {
       out.push({
-        type: 3,
-        label: 'Radius ERC20',
+        id: 3,
+        itemName: 'Radius ERC20',
         balance: this.blockchainService.balances.radius.native,
       });
     }
@@ -88,8 +88,8 @@ export class ConvertPanelComponent implements OnInit {
       !this.blockchainService.balances.gas.native.eq(0)
     ) {
       out.push({
-        type: 4,
-        label: 'Radius Gas ERC20',
+        id: 4,
+        itemName: 'Radius Gas ERC20',
         balance: this.blockchainService.balances.gas.native,
       });
     }
@@ -98,8 +98,8 @@ export class ConvertPanelComponent implements OnInit {
       !this.blockchainService.balances.catalyst.native.eq(0)
     ) {
       out.push({
-        type: 5,
-        label: 'Radius Catalyst ERC20',
+        id: 5,
+        itemName: 'Radius Catalyst ERC20',
         balance: this.blockchainService.balances.catalyst.native,
       });
     }
@@ -108,12 +108,10 @@ export class ConvertPanelComponent implements OnInit {
   }
 
   handleConvertClick() {
-    const self = this;
     const amt = this.inputAmount;
     const to = this.convertTo;
-
     this.blockchainService
       .convertRadiusToken(amt, to)
-      .then(() => self.convertForm.patchValue({amount: null}));
+      .then(() => this.convertForm.patchValue({amount: null}));
   }
 }

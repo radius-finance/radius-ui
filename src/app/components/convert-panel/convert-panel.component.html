@@ -18,11 +18,18 @@
                 type="text"
               />
               <div class="input-group-append">
-                <select formControlName="to" class="form-select">
-                  <option *ngFor="let item of availableTo" [ngValue]="item">
-                    {{ item.label }}
-                  </option>
-                </select>
+                <angular2-multiselect
+                  [data]="availableTo"
+                  formControlName="to"
+                  [settings]="{
+                    singleSelection: true,
+                    text: '',
+                    classes: 'selectpicker btn-danger',
+                    lazyLoading: true,
+                    maxHeight: 100
+                  }"
+                >
+                </angular2-multiselect>
               </div>
             </div>
           </div>
