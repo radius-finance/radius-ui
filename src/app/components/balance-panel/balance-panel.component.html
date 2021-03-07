@@ -10,16 +10,16 @@
         <div class="numbers">
           <p class="card-category">{{ tokenTypeTitle }} Balance</p>
           <h4 *ngIf="type !== '3'" class="card-title">
-            Total: {{ tokenTotalBalance | number: '1.9' }}
+            Total: {{ tokenTotalBalance | number: '1.4' }}
           </h4>
           <h4 *ngIf="type === '3'" class="card-title">
             Total: {{ tokenTotalBalance | number: '1.0' }}
           </h4>
           <h5 *ngIf="type !== '3' && type !== '4'" class="card-title">
-            Native: {{ tokenNativeBalance | number: '1.9' }}
+            Native: {{ tokenNativeBalance | number: '1.4' }}
           </h5>
           <h5 *ngIf="type !== '3' && type !== '4'" class="card-title">
-            ERC20: {{ tokenErc20Balance | number: '1.9' }}
+            ERC20: {{ tokenErc20Balance | number: '1.4' }}
           </h5>
         </div>
       </div>

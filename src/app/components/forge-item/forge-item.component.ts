@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BlockchainService} from '../../services/blockchain.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Options} from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'app-forge-item',
@@ -8,36 +8,47 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./forge-item.component.scss'],
 })
 export class ForgeItemComponent implements OnInit {
-  public forgeForm: FormGroup;
-  constructor(
-    private formBuilder: FormBuilder,
-    private blockchainService: BlockchainService
-  ) {}
+  catalystAmount: number;
+  catalystOptions: Options = {
+    floor: 0,
+    step: 0.1,
+    ceil: 1,
+  };
+  forgeAmount: number;
+  forgeOptions: Options = {
+    floor: 1,
+    step: 1,
+    ceil: 255,
+  };
+  constructor(private blockchainService: BlockchainService) {}
 
   ngOnInit(): void {
-    this.forgeForm = this.formBuilder.group({
-      amount: [null, Validators.required],
-    });
     this.handleForgeClick = this.handleForgeClick.bind(this);
+    this.catalystAmount = 0;
+    this.forgeAmount = 1;
+    this.forgeOptions.ceil = ~~parseFloat(
+      this.blockchainService.formatEther(
+        this.blockchainService.balances.gas.total
+      )
+    );
   }
 
   handleForgeClick() {
-    const amt = this.inputAmount;
     this.blockchainService
-      .forgeRadiusItem(amt)
-      .then(() => console.log('staked'));
-  }
-
-  get inputAmount() {
-    const forgeAmount = this.forgeForm.controls.amount.value;
-    this.forgeForm.patchValue({amount: null});
-    return forgeAmount;
+      .forgeRadiusItems(this.forgeAmount, this.catalystAmount)
+      .then(() => {
+        console.log('forging');
+        this.forgeOptions.ceil = ~~parseFloat(
+          this.blockchainService.formatEther(
+            this.blockchainService.balances.gas.total
+          )
+        );
+      });
   }
 
   get catalystMagnificationRatio() {
-    if (this.forgeForm.controls.amount.value && !isNaN(this.forgeForm.controls.amount.value)) {
-      const floatValue = parseFloat(this.forgeForm.controls.amount.value);
-      return Math.round(floatValue * 128);
+    if (this.catalystAmount && !isNaN(this.catalystAmount)) {
+      return ~~(this.catalystAmount * 128);
     } else return 0;
   }
 }

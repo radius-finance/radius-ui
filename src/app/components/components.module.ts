@@ -9,6 +9,7 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {DxVectorMapModule} from 'devextreme-angular';
 import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
+import {NgxSliderModule} from '@angular-slider/ngx-slider';
 
 import {FooterComponent} from './footer/footer.component';
 import {NavbarComponent} from './navbar/navbar.component';
@@ -34,6 +35,7 @@ import {BalancePanelComponent} from './balance-panel/balance-panel.component';
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
+    NgxSliderModule,
   ],
   declarations: [
     FooterComponent,
