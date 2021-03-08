@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Check your Radius Lottery Tickets</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <label class="col-form-label"> Radius Gas Jackpot: {{radiusGasJackpot}} RADG </label>
+      </div>
+      <div class="col-md-6">
+        <label class="col-form-label"> Radius Catalyst Jackpot: {{radiusCatalystJackpot}} RADC</label>
+      </div>
+    </div>
+    <div class="mt-3 row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <ngx-slider
+            [(value)]="checkLottoAmount"
+            [options]="checkLottoOptions"
+          ></ngx-slider>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="row">
+      <div class="col-md-12">
+        <button
+          class="btn btn-fill btn-primary"
+          (click)="handleCheckLottoClick()"
+          type="button"
+        >
+          Check Lottery
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -387,11 +387,15 @@ export class BlockchainService {
   }
 
   addToUpdateList(el: any) {
-    this.updateList.push(el);
+    if (this.updateList.push) {
+      this.updateList.push(el);
+    }
   }
 
   removeFromUpdateList(el: any) {
-    this.updateList.remove(el);
+    if (this.updateList.remove) {
+      this.updateList.remove(el);
+    }
   }
 
   async showToast(title, body) {
@@ -665,10 +669,7 @@ export class BlockchainService {
     const catAmount = parseFloat(catalystAmount);
     // we wanna use catalyst so check that we have enough catalyst balance to forge with
     if (catAmount > 0) {
-      if (
-        caterc20Balance
-          .lt(this.parseEther(catAmount * forgeAmount + ''))
-      ) {
+      if (caterc20Balance.lt(this.parseEther(catAmount * forgeAmount + ''))) {
         return;
       }
     }
@@ -679,6 +680,8 @@ export class BlockchainService {
       this.parseEther(catalystAmount)
     );
   }
+
+  async checkRadiusLottery(numTickets) {}
 
   // valid to: values:
   // 0 - radius native

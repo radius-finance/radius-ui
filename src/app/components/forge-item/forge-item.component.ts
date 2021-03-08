@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {BlockchainService} from '../../services/blockchain.service';
 import {Options} from '@angular-slider/ngx-slider';
 
@@ -7,7 +7,8 @@ import {Options} from '@angular-slider/ngx-slider';
   templateUrl: './forge-item.component.html',
   styleUrls: ['./forge-item.component.scss'],
 })
-export class ForgeItemComponent implements OnInit {
+export class ForgeItemComponent implements OnInit, OnDestroy {
+  updateSliderBounds;
   catalystAmount: number;
   catalystOptions: Options = {
     floor: 0,
@@ -25,12 +26,26 @@ export class ForgeItemComponent implements OnInit {
   ngOnInit(): void {
     this.handleForgeClick = this.handleForgeClick.bind(this);
     this.catalystAmount = 0;
-    this.forgeAmount = 1;
-    this.forgeOptions.ceil = ~~parseFloat(
-      this.blockchainService.formatEther(
-        this.blockchainService.balances.gas.erc20
-      )
-    );
+    this.catalystOptions.ceil = 1;
+    this.catalystOptions.step = 1 / 4096;
+    this.catalystOptions.floor = 0;
+    this.forgeAmount = 0;
+    // gets called after balances are updated in the blockchain service
+    this.updateSliderBounds = (type, balances) => {
+      if (type !== 'balances') return;
+      this.forgeOptions.ceil = ~~parseFloat(
+        this.blockchainService.formatEther(balances.gas.erc20)
+      );
+      this.forgeOptions.floor = this.forgeOptions.ceil !== 0 ? 1 : 0;
+      this.forgeAmount = this.forgeOptions.floor;
+    };
+    // register the handler above with the blockchain service && call it to update UI
+    this.blockchainService.addToUpdateList(this.updateSliderBounds);
+    this.updateSliderBounds('balances', this.blockchainService.balances);
+  }
+
+  ngOnDestroy(): void {
+    this.blockchainService.removeFromUpdateList(this.updateSliderBounds);
   }
 
   handleForgeClick() {
@@ -47,7 +62,7 @@ export class ForgeItemComponent implements OnInit {
 
   get catalystMagnificationRatio() {
     if (this.catalystAmount && !isNaN(this.catalystAmount)) {
-      return ~~(this.catalystAmount * 64);
+      return ~~(this.catalystAmount * 4096);
     } else return 0;
   }
 }

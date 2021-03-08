@@ -21,6 +21,7 @@ import {StakeTokenComponent} from './stake-token/stake-token.component';
 import {ItemPanelComponent} from './item-panel/item-panel.component';
 import {ForgeItemComponent} from './forge-item/forge-item.component';
 import {BalancePanelComponent} from './balance-panel/balance-panel.component';
+import {CheckLotteryComponent} from './check-lottery/check-lottery.component';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import {BalancePanelComponent} from './balance-panel/balance-panel.component';
     ItemPanelComponent,
     ForgeItemComponent,
     BalancePanelComponent,
+    CheckLotteryComponent,
   ],
   exports: [
     FooterComponent,
@@ -59,6 +61,7 @@ import {BalancePanelComponent} from './balance-panel/balance-panel.component';
     ItemPanelComponent,
     ForgeItemComponent,
     BalancePanelComponent,
+    CheckLotteryComponent
   ],
 })
 export class ComponentsModule {}
