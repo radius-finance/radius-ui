@@ -19,7 +19,19 @@ scheme
   // the color wheel.
   .variation('hard'); // Use the 'soft' color variation
 
-const colors = scheme.colors();
+const colors = [
+'5e72e4',
+'5603ad',
+'8965e0',
+'e14eca',
+'f3a4b5',
+'f5365c',
+'fb6340',
+'ffd600',
+'2dce89',
+'11cdef',
+'2bffc6',
+];
 
 @Component({
   selector: 'app-item-visualizer',
@@ -64,26 +76,18 @@ export class ItemVisualizerComponent implements AfterViewInit {
         centerDiameter = 300;
         petalSides = 3;
         petalDiameter = 300 + this.itemOvershoot * 30;
-        petalColor = '#ff00ffff';
-        centerColor = '#00ff00ff';
-        backShapeColor = '#000000ff';
+        petalColor =  colorAt(0 + this.itemOvershoot);
+        centerColor = colorAt(1 + this.itemOvershoot);
+        backShapeColor = colorAt(2 + this.itemOvershoot);
       }
       if (this.itemType === 2) {
         centerSides = 6;
-        centerDiameter = 600;
+        centerDiameter = 300;
         petalSides = 6;
-        petalDiameter = 600 + this.itemOvershoot * 60;
-        petalColor = '#ff00ffff';
-        centerColor = colorAt(
-          parseInt(
-            '0x' +
-              this.itemId.substring(
-                this.itemId.length - 1 - iter,
-                this.itemId.length - iter
-              )
-          )
-        );
-        backShapeColor = '#000000ff';
+        petalDiameter = 300 + this.itemOvershoot * 60;
+        petalColor =  colorAt(1 + this.itemOvershoot);
+        centerColor = colorAt(2 + this.itemOvershoot);
+        backShapeColor = colorAt(3 + this.itemOvershoot);
       }
       if (this.itemType === 3) {
         petalColor = colorAt(
@@ -151,11 +155,24 @@ export class ItemVisualizerComponent implements AfterViewInit {
       // console.log('petalDiameter', petalDiameter);
 
       if (iter === 1) {
-        const backShape = new scope.Path.RegularPolygon(
-          centerPoint,
-          centerSides,
-          petalDiameter + centerDiameter
-        );
+        const backdrop = (this.itemType === 1 || this.itemType === 2) ? 
+          scope.Path.Circle : 
+          scope.Path.RegularPolygon
+
+        let backShape;
+        if(this.itemType === 1 || this.itemType === 2) {
+          backShape = new scope.Path.Circle(
+            centerPoint,
+            petalDiameter + centerDiameter
+          );
+        } else {
+          backShape = new scope.Path.RegularPolygon(
+            centerPoint,
+            centerSides,
+            petalDiameter + centerDiameter
+          );
+        }
+
         backShape.fillColor = new scope.Color(backShapeColor);
       }
 
