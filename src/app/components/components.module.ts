@@ -20,7 +20,6 @@ import {ItemVisualizerComponent} from './item-visualizer/item-visualizer.compone
 import {StakeTokenComponent} from './stake-token/stake-token.component';
 import {ItemPanelComponent} from './item-panel/item-panel.component';
 import {ForgeItemComponent} from './forge-item/forge-item.component';
-import {ConvertPanelComponent} from './convert-panel/convert-panel.component';
 import {BalancePanelComponent} from './balance-panel/balance-panel.component';
 
 @NgModule({
@@ -47,7 +46,6 @@ import {BalancePanelComponent} from './balance-panel/balance-panel.component';
     StakeTokenComponent,
     ItemPanelComponent,
     ForgeItemComponent,
-    ConvertPanelComponent,
     BalancePanelComponent,
   ],
   exports: [
@@ -60,7 +58,6 @@ import {BalancePanelComponent} from './balance-panel/balance-panel.component';
     StakeTokenComponent,
     ItemPanelComponent,
     ForgeItemComponent,
-    ConvertPanelComponent,
     BalancePanelComponent,
   ],
 })

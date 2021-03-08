@@ -47,7 +47,7 @@ export class ForgeItemComponent implements OnInit {
 
   get catalystMagnificationRatio() {
     if (this.catalystAmount && !isNaN(this.catalystAmount)) {
-      return ~~(this.catalystAmount * 128);
+      return ~~(this.catalystAmount * 64);
     } else return 0;
   }
 }

@@ -29,7 +29,7 @@
   </div>
 
   <div *ngIf="hasNFTItems" class="row">
-    <div *ngFor="let nftItem of nftItems" class="col-lg-4">
+    <div *ngFor="let nftItem of nftItems" class="col-sm-12 col-md-3 col-lg-4">
       <app-item-panel itemId="{{ nftItem.toHexString() }}"></app-item-panel>
     </div>
   </div>

@@ -41,26 +41,6 @@
       id="navigation"
     >
       <ul class=" navbar-nav ml-auto">
-        <li class=" search-bar input-group">
-          <button
-            class=" btn btn-link"
-            (click)="connectWallet()"
-            style="color:#FFF"
-          >
-            Connect Wallet
-          </button>
-        </li>
-        <li class=" search-bar input-group">
-          <button
-            class=" btn btn-link"
-            data-target="#searchModal"
-            (click)="searchModal.show()"
-            id="search-button"
-          >
-            <i class=" tim-icons icon-zoom-split"> </i>
-            <span class=" d-lg-none d-md-block"> Search </span>
-          </button>
-        </li>
         <li class=" dropdown nav-item" dropdown>
           <a
             class=" dropdown-toggle nav-link dropdown-toggle"
@@ -104,40 +84,17 @@
             </li>
           </ul>
         </li>
+        <li class=" search-bar input-group">
+          <button
+            class=" btn btn-sm btn-primary btn-round mr-1"
+            (click)="connectWallet()"
+            style="color:#FFF"
+          >
+            Connect Wallet
+          </button>
+        </li>
         <li class=" separator d-lg-none"></li>
       </ul>
     </div>
   </div>
 </nav>
-<div
-  aria-hidden="true"
-  aria-labelledby="searchModal"
-  bsModal
-  class=" modal modal-search fade"
-  #searchModal="bs-modal"
-  id="searchModal"
-  role="dialog"
-  tabindex="-1"
->
-  <div class=" modal-dialog" role="document">
-    <div class=" modal-content">
-      <div class=" modal-header">
-        <input
-          class=" form-control"
-          id="inlineFormInputGroup"
-          placeholder="SEARCH"
-          type="text"
-        />
-        <button
-          aria-label="Close"
-          class=" close"
-          (click)="searchModal.hide()"
-          data-dismiss="modal"
-          type="button"
-        >
-          <i class=" tim-icons icon-simple-remove"> </i>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>

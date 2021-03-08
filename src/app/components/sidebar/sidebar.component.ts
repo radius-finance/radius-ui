@@ -48,13 +48,6 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'tim-icons icon-settings',
   },
   {
-    path: '/convert',
-    title: 'Convert',
-    type: 'link',
-    rtlTitle: '',
-    icontype: 'tim-icons icon-settings',
-  },
-  {
     path: '/forge',
     title: 'Forge',
     type: 'link',

@@ -26,10 +26,6 @@ const routes: Routes = [
         loadChildren: './pages/examples/stake/stake.module#StakeModule',
       },
       {
-        path: 'convert',
-        loadChildren: './pages/examples/convert/convert.module#ConvertModule',
-      },
-      {
         path: 'forge',
         loadChildren: './pages/examples/forge/forge.module#ForgeModule',
       },
