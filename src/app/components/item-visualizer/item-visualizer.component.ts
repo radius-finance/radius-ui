@@ -69,10 +69,10 @@ export class ItemVisualizerComponent implements AfterViewInit {
         backShapeColor = '#000000ff';
       }
       if (this.itemType === 2) {
-        centerSides = 5;
-        centerDiameter = 500;
-        petalSides = 5;
-        petalDiameter = 500 + this.itemOvershoot * 50;
+        centerSides = 6;
+        centerDiameter = 600;
+        petalSides = 6;
+        petalDiameter = 600 + this.itemOvershoot * 60;
         petalColor = '#ff00ffff';
         centerColor = colorAt(
           parseInt(

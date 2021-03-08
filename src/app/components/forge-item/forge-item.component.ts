@@ -28,7 +28,7 @@ export class ForgeItemComponent implements OnInit {
     this.forgeAmount = 1;
     this.forgeOptions.ceil = ~~parseFloat(
       this.blockchainService.formatEther(
-        this.blockchainService.balances.gas.total
+        this.blockchainService.balances.gas.erc20
       )
     );
   }
@@ -37,10 +37,9 @@ export class ForgeItemComponent implements OnInit {
     this.blockchainService
       .forgeRadiusItems(this.forgeAmount, this.catalystAmount)
       .then(() => {
-        console.log('forging');
         this.forgeOptions.ceil = ~~parseFloat(
           this.blockchainService.formatEther(
-            this.blockchainService.balances.gas.total
+            this.blockchainService.balances.gas.erc20
           )
         );
       });

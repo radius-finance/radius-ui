@@ -37,7 +37,7 @@ export class BalancePanelComponent implements OnInit {
         : '0';
     if (this.type === '3') {
       result = this.blockchainService.balances
-        ? this.blockchainService.balances.lottery
+        ? this.blockchainService.balances.lottery.total
         : '0';
       return result ? result.toString() : '0';
     }
@@ -63,6 +63,10 @@ export class BalancePanelComponent implements OnInit {
       result = this.blockchainService.balances
         ? this.blockchainService.balances.catalyst.native
         : '0';
+    if (this.type === '3')
+      result = this.blockchainService.balances
+        ? this.blockchainService.balances.lottery.native
+        : '0';
     result = result ? result : '0';
     return this.blockchainService.formatEther(result);
   }
@@ -81,6 +85,10 @@ export class BalancePanelComponent implements OnInit {
       result = this.blockchainService.balances
         ? this.blockchainService.balances.catalyst.erc20
         : '0';
+    if (this.type === '3')
+      result = this.blockchainService.balances
+        ? this.blockchainService.balances.lottery.erc20
+        : '0';        
     result = result ? result : '0';
     return this.blockchainService.formatEther(result);
   }
