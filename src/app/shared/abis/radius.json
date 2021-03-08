@@ -7,7 +7,7 @@
       "abi": []
     },
     "RadiusTokenLib": {
-      "address": "0x745257376e5221749e5C75fab53eF32c86807528",
+      "address": "0x0474b50293DcB1503b5B59a25b71Ac7b4dA09cB1",
       "abi": [
         {
           "anonymous": false,
@@ -732,6 +732,24 @@
           "inputs": [
             {
               "internalType": "address",
+              "name": "forgee",
+              "type": "address"
+            },
+            {
+              "internalType": "uint8",
+              "name": "amount",
+              "type": "uint8"
+            }
+          ],
+          "name": "checkLotteryManyErc20",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
               "name": "account",
               "type": "address"
             },
@@ -791,47 +809,6 @@
             }
           ],
           "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "forgee",
-              "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "catalystValue",
-              "type": "uint256"
-            }
-          ],
-          "name": "forge",
-          "outputs": [],
-          "stateMutability": "payable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "forgee",
-              "type": "address"
-            },
-            {
-              "internalType": "uint8",
-              "name": "amount",
-              "type": "uint8"
-            },
-            {
-              "internalType": "uint256",
-              "name": "catalystValue",
-              "type": "uint256"
-            }
-          ],
-          "name": "forgeMany",
-          "outputs": [],
-          "stateMutability": "payable",
           "type": "function"
         },
         {
@@ -2362,6 +2339,24 @@
           "inputs": [
             {
               "internalType": "address",
+              "name": "forgee",
+              "type": "address"
+            },
+            {
+              "internalType": "uint8",
+              "name": "amount",
+              "type": "uint8"
+            }
+          ],
+          "name": "checkLotteryManyErc20",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
               "name": "account",
               "type": "address"
             },
@@ -2421,47 +2416,6 @@
             }
           ],
           "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "forgee",
-              "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "catalystValue",
-              "type": "uint256"
-            }
-          ],
-          "name": "forge",
-          "outputs": [],
-          "stateMutability": "payable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "forgee",
-              "type": "address"
-            },
-            {
-              "internalType": "uint8",
-              "name": "amount",
-              "type": "uint8"
-            },
-            {
-              "internalType": "uint256",
-              "name": "catalystValue",
-              "type": "uint256"
-            }
-          ],
-          "name": "forgeMany",
-          "outputs": [],
-          "stateMutability": "payable",
           "type": "function"
         },
         {
@@ -10667,9 +10621,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "checkHash",
@@ -10691,9 +10645,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "difficultyOvershootIndex",
@@ -10725,9 +10679,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "forgeItem",
@@ -11373,9 +11327,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "checkHash",
@@ -11397,9 +11351,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "difficultyOvershootIndex",
@@ -11431,9 +11385,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "forgeItem",
@@ -11864,9 +11818,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "checkHash",
@@ -11888,9 +11842,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "difficultyOvershootIndex",
@@ -11922,9 +11876,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "forgeItem",
@@ -12570,9 +12524,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "checkHash",
@@ -12594,9 +12548,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "difficultyOvershootIndex",
@@ -12628,9 +12582,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "forgeItem",
@@ -13061,9 +13015,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "checkHash",
@@ -13085,9 +13039,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "difficultyOvershootIndex",
@@ -13119,9 +13073,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "forgeItem",
@@ -13729,9 +13683,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "checkHash",
@@ -13753,9 +13707,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "difficultyOvershootIndex",
@@ -13787,9 +13741,1130 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
+            }
+          ],
+          "name": "forgeItem",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getDifficulty",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getHash",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getLastDifficultyAdjustTime",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getNextDifficulty",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTargetMintAmount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTargetMintSpan",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getThisPeriodMinted",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTimespanMintAverage",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTimespanMintDeviationAverage",
+          "outputs": [
+            {
+              "internalType": "int256",
+              "name": "",
+              "type": "int256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTotalMinted",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "origin",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "___salt",
+              "type": "uint256"
+            }
+          ],
+          "name": "hash",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            }
+          ],
+          "name": "initialize",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "recordTokenMintEvent",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "salt",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "implementationAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "ownerAddress",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "payable",
+          "type": "constructor"
+        }
+      ]
+    },
+    "LotteryTokenForge_Implementation": {
+      "address": "0xA63c92b3bf5dc0D1B90FeA26a8DaCB23B683cc7e",
+      "abi": [
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "tokenDiff",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "TokenForgeRecorded",
+          "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "_range",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMintSpan",
+              "type": "uint256"
+            }
+          ],
+          "name": "__SecuredNonfungibleTokenForge_init",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMintSpan",
+              "type": "uint256"
+            }
+          ],
+          "name": "__TokenForge_init",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "actualForgedAmount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "pure",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "adjustDifficulty",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_hash",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            }
+          ],
+          "name": "checkAgainst",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "pure",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_hash",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "catalystAdjust",
+              "type": "uint128"
+            }
+          ],
+          "name": "checkHash",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "hashVal",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "",
+              "type": "uint128"
+            }
+          ],
+          "name": "difficultyOvershootIndex",
+          "outputs": [
+            {
+              "internalType": "uint80",
+              "name": "",
+              "type": "uint80"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "forgingDiffId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "forgee",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "hashVal",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "catalystAdjust",
+              "type": "uint128"
+            }
+          ],
+          "name": "forgeItem",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getDifficulty",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getHash",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getLastDifficultyAdjustTime",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getNextDifficulty",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTargetMintAmount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTargetMintSpan",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getThisPeriodMinted",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTimespanMintAverage",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTimespanMintDeviationAverage",
+          "outputs": [
+            {
+              "internalType": "int256",
+              "name": "",
+              "type": "int256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTotalMinted",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "origin",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "___salt",
+              "type": "uint256"
+            }
+          ],
+          "name": "hash",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            }
+          ],
+          "name": "initialize",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "recordTokenMintEvent",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "salt",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ]
+    },
+    "LotteryTokenForge_Proxy": {
+      "address": "0xD14781B2e59F594A53aB360FeaACACf32184C280",
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "implementationAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "ownerAddress",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "payable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousImplementation",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newImplementation",
+              "type": "address"
+            }
+          ],
+          "name": "ProxyImplementationUpdated",
+          "type": "event"
+        },
+        {
+          "stateMutability": "payable",
+          "type": "fallback"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newImplementation",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "name": "changeImplementation",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes4",
+              "name": "id",
+              "type": "bytes4"
+            }
+          ],
+          "name": "supportsInterface",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ]
+    },
+    "LotteryTokenForge": {
+      "address": "0xD14781B2e59F594A53aB360FeaACACf32184C280",
+      "abi": [
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousImplementation",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newImplementation",
+              "type": "address"
+            }
+          ],
+          "name": "ProxyImplementationUpdated",
+          "type": "event"
+        },
+        {
+          "stateMutability": "payable",
+          "type": "fallback"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newImplementation",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "name": "changeImplementation",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes4",
+              "name": "id",
+              "type": "bytes4"
+            }
+          ],
+          "name": "supportsInterface",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "tokenDiff",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "TokenForgeRecorded",
+          "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "_range",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMintSpan",
+              "type": "uint256"
+            }
+          ],
+          "name": "__SecuredNonfungibleTokenForge_init",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMintSpan",
+              "type": "uint256"
+            }
+          ],
+          "name": "__TokenForge_init",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "actualForgedAmount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "pure",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "adjustDifficulty",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_hash",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            }
+          ],
+          "name": "checkAgainst",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "pure",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_hash",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "catalystAdjust",
+              "type": "uint128"
+            }
+          ],
+          "name": "checkHash",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "hashVal",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "",
+              "type": "uint128"
+            }
+          ],
+          "name": "difficultyOvershootIndex",
+          "outputs": [
+            {
+              "internalType": "uint80",
+              "name": "",
+              "type": "uint80"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "forgingDiffId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "forgee",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "hashVal",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "catalystAdjust",
+              "type": "uint128"
             }
           ],
           "name": "forgeItem",
@@ -14020,7 +15095,7 @@
       ]
     },
     "TestTokenForge_Implementation": {
-      "address": "0xA63c92b3bf5dc0D1B90FeA26a8DaCB23B683cc7e",
+      "address": "0x93aD014471FCf3B420d80b6ac0E3a1141ca657e1",
       "abi": [
         {
           "anonymous": false,
@@ -14144,9 +15219,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "checkHash",
@@ -14168,9 +15243,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "difficultyOvershootIndex",
@@ -14202,9 +15277,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "forgeItem",
@@ -14453,7 +15528,7 @@
       ]
     },
     "TestTokenForge_Proxy": {
-      "address": "0xD14781B2e59F594A53aB360FeaACACf32184C280",
+      "address": "0x812D3E21bb9Cd18518FB70764b70B89Fd583B81c",
       "abi": [
         {
           "inputs": [
@@ -14584,7 +15659,7 @@
       ]
     },
     "TestTokenForge": {
-      "address": "0xD14781B2e59F594A53aB360FeaACACf32184C280",
+      "address": "0x812D3E21bb9Cd18518FB70764b70B89Fd583B81c",
       "abi": [
         {
           "anonymous": false,
@@ -14813,9 +15888,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "catalystAdjust",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "checkHash",
@@ -14837,9 +15912,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "difficultyOvershootIndex",
@@ -14871,9 +15946,9 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint8",
+              "internalType": "uint128",
               "name": "",
-              "type": "uint8"
+              "type": "uint128"
             }
           ],
           "name": "forgeItem",
@@ -15143,7 +16218,7 @@
       ]
     },
     "RadiusMineLib": {
-      "address": "0x7d123738986496264A145faAfD47f10ffBC1f956",
+      "address": "0x30425e85112331160e83Db51AD142c621aEaa44e",
       "abi": [
         {
           "anonymous": false,
@@ -15327,7 +16402,7 @@
       ]
     },
     "RadiusGasMine_Implementation": {
-      "address": "0x812D3E21bb9Cd18518FB70764b70B89Fd583B81c",
+      "address": "0xe3f91f3289D3D5B105aF6183d6dBCfAA11cb7928",
       "abi": [
         {
           "anonymous": false,
@@ -16022,7 +17097,7 @@
       ]
     },
     "RadiusGasMine_Proxy": {
-      "address": "0x30425e85112331160e83Db51AD142c621aEaa44e",
+      "address": "0x4428266CcEC018F4E307B96536AF33A60753a970",
       "abi": [
         {
           "inputs": [
@@ -16153,7 +17228,7 @@
       ]
     },
     "RadiusGasMine": {
-      "address": "0x30425e85112331160e83Db51AD142c621aEaa44e",
+      "address": "0x4428266CcEC018F4E307B96536AF33A60753a970",
       "abi": [
         {
           "anonymous": false,
@@ -16974,7 +18049,7 @@
       ]
     },
     "RadiusCatalystMine_Implementation": {
-      "address": "0xe3f91f3289D3D5B105aF6183d6dBCfAA11cb7928",
+      "address": "0x5A3a17Fe585561341bAfF5C6b574844c20Fb987F",
       "abi": [
         {
           "anonymous": false,
@@ -17669,7 +18744,7 @@
       ]
     },
     "RadiusCatalystMine_Proxy": {
-      "address": "0x4428266CcEC018F4E307B96536AF33A60753a970",
+      "address": "0xE82E5463397c43a1b81f7e74aB37eFE64B220eAB",
       "abi": [
         {
           "inputs": [
@@ -17800,7 +18875,7 @@
       ]
     },
     "RadiusCatalystMine": {
-      "address": "0x4428266CcEC018F4E307B96536AF33A60753a970",
+      "address": "0xE82E5463397c43a1b81f7e74aB37eFE64B220eAB",
       "abi": [
         {
           "anonymous": false,

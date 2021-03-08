@@ -27,7 +27,7 @@ export class ForgeItemComponent implements OnInit, OnDestroy {
     this.handleForgeClick = this.handleForgeClick.bind(this);
     this.catalystAmount = 0;
     this.catalystOptions.ceil = 1;
-    this.catalystOptions.step = 1 / 4096;
+    this.catalystOptions.step = 1 / 65536;
     this.catalystOptions.floor = 0;
     this.forgeAmount = 0;
     // gets called after balances are updated in the blockchain service
@@ -62,7 +62,7 @@ export class ForgeItemComponent implements OnInit, OnDestroy {
 
   get catalystMagnificationRatio() {
     if (this.catalystAmount && !isNaN(this.catalystAmount)) {
-      return ~~(this.catalystAmount * 4096);
+      return ~~(this.catalystAmount * 65536);
     } else return 0;
   }
 }
