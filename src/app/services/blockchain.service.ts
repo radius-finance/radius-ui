@@ -141,6 +141,11 @@ export class BlockchainService {
         native: 0,
         total: 0,
       },
+      lottery: {
+        erc20: 0,
+        native: 0,
+        total: 0,
+      },
       catalyst: {
         erc20: 0,
         native: 0,
