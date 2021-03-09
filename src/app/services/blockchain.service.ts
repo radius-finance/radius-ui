@@ -118,13 +118,17 @@ export class BlockchainService {
     await this.loadEthers();
   }
 
+  async reloadAccount() {
+    if (window.ethereum) {
+      this.provider = new ethers.providers.Web3Provider(window.ethereum);
+      await this.setupAccount();
+    }
+  }
+
   async loadEthers() {
     if (window.ethereum) {
       this.provider = new ethers.providers.Web3Provider(window.ethereum);
       await window.ethereum.enable();
-      await this.setupAccount();
-    } else if (this.provider) {
-      this.provider = new ethers.providers.Web3Provider(this.provider);
       await this.setupAccount();
     } else {
       window.alert(
@@ -567,7 +571,10 @@ export class BlockchainService {
       'LotteryWinner',
       async (recipient, nonce, gasWon, catalystWon) => {
         this.lotteryWinners.push({
-          recipient, nonce, gasWon, catalystWon
+          recipient,
+          nonce,
+          gasWon,
+          catalystWon,
         });
         if (recipient == this.account) {
           await this.updateBalances();

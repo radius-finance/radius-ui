@@ -13,7 +13,9 @@ export class ConnectWalletButtonComponent implements OnInit {
     public toastr: ToastrService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.blockchainService.reloadAccount();
+  }
 
   connectWallet() {
     this.blockchainService.connectAccount();
