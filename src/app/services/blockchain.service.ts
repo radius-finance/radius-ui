@@ -25,6 +25,8 @@ import {getCreate2Address} from '@ethersproject/address';
 
 import contractData from '../shared/abis/radius.json';
 
+declare let confetti: any;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -42,6 +44,12 @@ export class BlockchainService {
   radiusLP: any;
   radiusLPRef: any;
   updateList: any;
+  confettiOn: any;
+  updatingNFTList: any;
+  updatingBalances: any;
+
+  public globalItems: any;
+  public lotteryWinners: any;
 
   public radiusToken: RadiusToken;
   public radiusERC20: RadiusERC20;
@@ -89,6 +97,9 @@ export class BlockchainService {
     this.forgeRadiusItems = this.forgeRadiusItems.bind(this);
 
     this.updateList = [];
+    this.confettiOn = false;
+    this.globalItems = [];
+    this.lotteryWinners = [];
   }
 
   parseEther(n: any) {
@@ -321,7 +332,11 @@ export class BlockchainService {
   }
 
   async updateBalances() {
+    if (this.updatingBalances) {
+      return;
+    }
     if (!this.balances) return;
+    this.updatingBalances = true;
 
     // this is the users total usd token balance
     this.balances.radius = await this.getDualBalances(0, this.radiusERC20);
@@ -359,9 +374,14 @@ export class BlockchainService {
       this.account
     );
     await this.invokeUpdateList('balances', this.balances);
+    this.updatingBalances = false;
   }
 
   async updateNFTList() {
+    if (this.updatingNFTList) {
+      return;
+    }
+    this.updatingNFTList = true;
     const tokensHeldCount = await this.radiusToken.getTokenHeldCount(
       this.account
     );
@@ -380,6 +400,7 @@ export class BlockchainService {
       }
     }
     await this.invokeUpdateList('nftlist', this.nftItems);
+    this.updatingNFTList = false;
   }
 
   async invokeUpdateList(tag: any, vals) {
@@ -495,8 +516,8 @@ export class BlockchainService {
     this.radiusCatalystMine.on(
       'Withdrawn',
       async (erc20token, toAddress, amount) => {
-        await this.updateBalances();
         if (toAddress == this.account) {
+          await this.updateBalances();
           this.showToast(
             'LP Tokens Withdrawn',
             `Withdrawn ${this.formatEther(
@@ -508,8 +529,8 @@ export class BlockchainService {
     );
     // Catalyst tokens are withdrawn
     this.radiusCatalystMine.on('WithdrawnMined', async (toAddress, amount) => {
-      await this.updateBalances();
       if (toAddress == this.account) {
+        await this.updateBalances();
         this.showToast(
           'Catalyst Tokens Withdrawn',
           `Withdrawn ${this.formatEther(
@@ -521,51 +542,43 @@ export class BlockchainService {
     // Gas token is mined
     this.radiusToken.on(
       'Forged',
-      async (recipient, forgedIndex, salt, consumed, amount) => {
-        await this.updateBalances();
+      async (recipient, forgedIndex, nonce, consumed, amount) => {
+        if (forgedIndex.toString() !== '3') {
+          this.globalItems.push({
+            recipient,
+            forgedIndex,
+            nonce,
+            consumed,
+            amount,
+          });
+        }
         if (recipient == this.account) {
           this.showToast('Items Forged', `forged ${forgedIndex}`);
-          if (forgedIndex.toString() !== '3') await this.updateNFTList();
+          await this.updateBalances();
+          if (forgedIndex.toString() !== '3') {
+            await this.updateNFTList();
+            this.confetti(1000);
+          }
         }
       }
     );
-    // Gas token is mined
-    this.radiusToken.on('ConvertedToERC20', async (id, account, amount) => {
-      await this.updateBalances();
-      if (account == this.account) {
-        this.showToast('Tokens Converted', `Converted to native tokens`);
-      }
-    });
-    // Gas token is mined
-    this.radiusERC20.on('ConvertedToERC1155', async (id, account, amount) => {
-      await this.updateBalances();
-      if (account == this.account) {
-        this.showToast('Tokens Converted', `Converted to Radius native tokens`);
-      }
-    });
-    // Gas token is mined
-    this.radiusGasERC20.on(
-      'ConvertedToERC1155',
-      async (id, account, amount) => {
-        await this.updateBalances();
-        if (account == this.account) {
+    // User won the lottery!!
+    this.radiusToken.on(
+      'LotteryWinner',
+      async (recipient, nonce, gasWon, catalystWon) => {
+        this.lotteryWinners.push({
+          recipient, nonce, gasWon, catalystWon
+        });
+        if (recipient == this.account) {
+          await this.updateBalances();
+          await this.updateNFTList();
           this.showToast(
-            'Tokens Converted',
-            `Converted to Radius native gas tokens`
+            'Lottery Winner',
+            `You just won the Radius Lottery and ${this.formatEther(
+              gasWon
+            )} RADG / ${this.formatEther(catalystWon)} RADG`
           );
-        }
-      }
-    );
-    // Gas token is mined
-    this.radiusCatalystERC20.on(
-      'ConvertedToERC1155',
-      async (id, account, amount) => {
-        await this.updateBalances();
-        if (account == this.account) {
-          this.showToast(
-            'Tokens Converted',
-            `Converted to Radius native catalyst tokens`
-          );
+          this.confetti(5000);
         }
       }
     );
@@ -679,6 +692,18 @@ export class BlockchainService {
       forgeAmount,
       this.parseEther(catalystAmount)
     );
+  }
+
+  confetti(time) {
+    if (this.confettiOn) {
+      return;
+    }
+    this.confettiOn = true;
+    confetti.start();
+    setTimeout(() => {
+      confetti.stop();
+      this.confettiOn = false;
+    }, time);
   }
 
   async checkRadiusLottery(numTickets) {

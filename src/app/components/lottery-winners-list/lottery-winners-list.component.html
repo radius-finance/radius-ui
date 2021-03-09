@@ -1,0 +1,48 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Lottery Winners Leaderboard</h4>
+    <p class="card-category">Here are the latest Radius Lottery winners</p>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table">
+            <tbody *ngIf="!hasLotteryWinners">
+              <tr>
+                <th>Timestamp</th>
+                <th>Winner</th>
+                <th>Radius Gas Amount</th>
+                <th>Radius Catalyst Amount</th>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  There are no lottery winners yet!
+                  <a href="#">Play the lottery</a> to be the first.
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="hasLotteryWinners">
+              <tr>
+                <th>Timestamp</th>
+                <th>Winner</th>
+                <th>Radius Gas Amount</th>
+                <th>Radius Catalyst Amount</th>
+              </tr>
+              <tr *ngFor="let lotteryWinner of lotteryWinnersList">
+                <td>.</td>
+                <td>{{ lotteryWinner.recipient }}</td>
+                <td>
+                  {{ blockchainService.formatEther(lotteryWinner.gasWon) }}
+                </td>
+                <td>
+                  {{ blockchainService.formatEther(lotteryWinner.gasWon) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

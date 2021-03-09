@@ -22,6 +22,7 @@ import {ItemPanelComponent} from './item-panel/item-panel.component';
 import {ForgeItemComponent} from './forge-item/forge-item.component';
 import {BalancePanelComponent} from './balance-panel/balance-panel.component';
 import {CheckLotteryComponent} from './check-lottery/check-lottery.component';
+import {LotteryWinnersListComponent} from './lottery-winners-list/lottery-winners-list.component';
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import {CheckLotteryComponent} from './check-lottery/check-lottery.component';
     ForgeItemComponent,
     BalancePanelComponent,
     CheckLotteryComponent,
+    LotteryWinnersListComponent,
   ],
   exports: [
     FooterComponent,
@@ -61,7 +63,8 @@ import {CheckLotteryComponent} from './check-lottery/check-lottery.component';
     ItemPanelComponent,
     ForgeItemComponent,
     BalancePanelComponent,
-    CheckLotteryComponent
+    CheckLotteryComponent,
+    LotteryWinnersListComponent,
   ],
 })
 export class ComponentsModule {}
