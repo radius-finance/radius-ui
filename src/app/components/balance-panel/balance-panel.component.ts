@@ -39,7 +39,6 @@ export class BalancePanelComponent implements OnInit {
       result = this.blockchainService.balances
         ? this.blockchainService.balances.lottery.total
         : '0';
-      return result ? result.toString() : '0';
     }
     if (this.type === '4')
       result = this.blockchainService.balances
@@ -88,7 +87,7 @@ export class BalancePanelComponent implements OnInit {
     if (this.type === '3')
       result = this.blockchainService.balances
         ? this.blockchainService.balances.lottery.erc20
-        : '0';        
+        : '0';
     result = result ? result : '0';
     return this.blockchainService.formatEther(result);
   }

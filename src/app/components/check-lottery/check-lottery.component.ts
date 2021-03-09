@@ -23,9 +23,7 @@ export class CheckLotteryComponent implements OnInit, OnDestroy {
     // gets called after balances are updated in the blockchain service
     this.updateSliderBounds = (type, balances) => {
       if (type !== 'balances') return;
-      this.checkLottoOptions.ceil = ~~parseFloat(
-        this.blockchainService.formatEther(balances.lottery.erc20)
-      );
+      this.checkLottoOptions.ceil = 10;
       this.checkLottoOptions.floor = this.checkLottoOptions.ceil != 0 ? 1 : 0;
       this.checkLottoAmount = this.checkLottoOptions.ceil != 0 ? 1 : 0;
     };

@@ -681,7 +681,19 @@ export class BlockchainService {
     );
   }
 
-  async checkRadiusLottery(numTickets) {}
+  async checkRadiusLottery(numTickets) {
+    const lotteryErc20Balance = await this.radiusLotteryERC20.balanceOf(
+      this.account
+    );
+    // exit if there's not enough gas to forge something
+    if (lotteryErc20Balance.lt(this.parseEther('' + numTickets))) {
+      return false;
+    }
+    return await this.radiusToken.checkLotteryManyErc20(
+      this.account,
+      numTickets
+    );
+  }
 
   // valid to: values:
   // 0 - radius native
