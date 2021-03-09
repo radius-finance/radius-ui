@@ -1,99 +1,65 @@
-<nav class=" navbar navbar-expand-lg navbar-absolute" [ngClass]="{'bg-white': isCollapsed === false, 'navbar-transparent': isCollapsed === true}">
-  <div class=" container-fluid">
-    <div class=" navbar-wrapper">
-      <div class=" navbar-minimize d-inline">
+<nav
+  class="navbar navbar-expand-lg navbar-absolute"
+  [ngClass]="{
+    'bg-white': isCollapsed === false,
+    'navbar-transparent': isCollapsed === true
+  }"
+>
+  <div class="container-fluid">
+    <div class="navbar-wrapper">
+      <div class="navbar-minimize d-inline">
         <button
-          class=" minimize-sidebar btn btn-link btn-just-icon"
+          class="minimize-sidebar btn btn-link btn-just-icon"
           tooltil="Sidebar toggle"
           placement="right"
           (click)="minimizeSidebar()"
         >
-          <i class=" tim-icons icon-align-center visible-on-sidebar-regular">
+          <i class="tim-icons icon-align-center visible-on-sidebar-regular">
           </i>
-          <i class=" tim-icons icon-bullet-list-67 visible-on-sidebar-mini">
-          </i>
+          <i class="tim-icons icon-bullet-list-67 visible-on-sidebar-mini"> </i>
         </button>
       </div>
-      <div class=" navbar-toggle d-inline">
-        <button class=" navbar-toggler" type="button" (click)="sidebarOpen()">
-          <span class=" navbar-toggler-bar bar1"> </span>
-          <span class=" navbar-toggler-bar bar2"> </span>
-          <span class=" navbar-toggler-bar bar3"> </span>
+      <div class="navbar-toggle d-inline">
+        <button class="navbar-toggler" type="button" (click)="sidebarOpen()">
+          <span class="navbar-toggler-bar bar1"> </span>
+          <span class="navbar-toggler-bar bar2"> </span>
+          <span class="navbar-toggler-bar bar3"> </span>
         </button>
       </div>
-      <a class=" navbar-brand" href="javascript:void(0)"> {{ getTitle() }} </a>
+      <a class="navbar-brand" href="javascript:void(0)"> {{ getTitle() }} </a>
     </div>
     <button
       aria-label="Toggle navigation"
-      class=" navbar-toggler"
+      class="navbar-toggler"
       [attr.aria-expanded]="!isCollapsed"
       (click)="isCollapsed = !isCollapsed"
       id="navigation"
       type="button"
     >
-      <span class=" navbar-toggler-bar navbar-kebab"> </span>
-      <span class=" navbar-toggler-bar navbar-kebab"> </span>
-      <span class=" navbar-toggler-bar navbar-kebab"> </span>
+      <span class="navbar-toggler-bar navbar-kebab"> </span>
+      <span class="navbar-toggler-bar navbar-kebab"> </span>
+      <span class="navbar-toggler-bar navbar-kebab"> </span>
     </button>
-    <div
-      class=" navbar-collapse"
-      [collapse]="isCollapsed"
-      id="navigation"
-    >
-      <ul class=" navbar-nav ml-auto">
-        <li class=" dropdown nav-item" dropdown>
+    <div class="navbar-collapse" [collapse]="isCollapsed" id="navigation">
+      <ul class="navbar-nav ml-auto">
+        <li class="dropdown nav-item" dropdown>
           <a
-            class=" dropdown-toggle nav-link dropdown-toggle"
+            class="dropdown-toggle nav-link dropdown-toggle"
             data-toggle="dropdown"
             dropdownToggle
             href="javascript:void(0)"
             (click)="$event.preventDefault()"
           >
-            <div class=" notification d-none d-lg-block d-xl-block"></div>
-            <i class=" tim-icons icon-sound-wave"> </i>
-            <p class=" d-lg-none">Notifications</p>
+            <div class="notification d-none d-lg-block d-xl-block"></div>
+            <i class="tim-icons icon-sound-wave"> </i>
+            <p class="d-lg-none">Notifications</p>
           </a>
-          <ul
-            class=" dropdown-menu dropdown-menu-right dropdown-navbar"
-            *dropdownMenu
-          >
-            <li class=" nav-link">
-              <a class=" nav-item dropdown-item" href="#">
-                Mike John responded to your email
-              </a>
-            </li>
-            <li class=" nav-link">
-              <a class=" nav-item dropdown-item" href="javascript:void(0)">
-                You have 5 more tasks
-              </a>
-            </li>
-            <li class=" nav-link">
-              <a class=" nav-item dropdown-item" href="javascript:void(0)">
-                Your friend Michael is in town
-              </a>
-            </li>
-            <li class=" nav-link">
-              <a class=" nav-item dropdown-item" href="javascript:void(0)">
-                Another notification
-              </a>
-            </li>
-            <li class=" nav-link">
-              <a class=" nav-item dropdown-item" href="javascript:void(0)">
-                Another one
-              </a>
-            </li>
-          </ul>
+          <app-notification-dropdown></app-notification-dropdown>
         </li>
-        <li class=" search-bar input-group">
-          <button
-            class=" btn btn-sm btn-primary btn-round mr-1"
-            (click)="connectWallet()"
-            style="color:#FFF"
-          >
-            Connect Wallet
-          </button>
+        <li class="search-bar input-group">
+          <app-connect-wallet-button></app-connect-wallet-button>
         </li>
-        <li class=" separator d-lg-none"></li>
+        <li class="separator d-lg-none"></li>
       </ul>
     </div>
   </div>

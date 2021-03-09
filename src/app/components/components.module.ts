@@ -23,6 +23,8 @@ import {ForgeItemComponent} from './forge-item/forge-item.component';
 import {BalancePanelComponent} from './balance-panel/balance-panel.component';
 import {CheckLotteryComponent} from './check-lottery/check-lottery.component';
 import {LotteryWinnersListComponent} from './lottery-winners-list/lottery-winners-list.component';
+import {ConnectWalletButtonComponent} from './connect-wallet-button/connect-wallet-button.component';
+import {NotificationDropdownComponent} from './notification-dropdown/notification-dropdown.component';
 
 @NgModule({
   imports: [
@@ -51,6 +53,8 @@ import {LotteryWinnersListComponent} from './lottery-winners-list/lottery-winner
     BalancePanelComponent,
     CheckLotteryComponent,
     LotteryWinnersListComponent,
+    ConnectWalletButtonComponent,
+    NotificationDropdownComponent,
   ],
   exports: [
     FooterComponent,
@@ -65,6 +69,8 @@ import {LotteryWinnersListComponent} from './lottery-winners-list/lottery-winner
     BalancePanelComponent,
     CheckLotteryComponent,
     LotteryWinnersListComponent,
+    ConnectWalletButtonComponent,
+    NotificationDropdownComponent,
   ],
 })
 export class ComponentsModule {}
