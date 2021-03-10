@@ -57,6 +57,10 @@ export class BlockchainService {
   public radiusCatalystERC20: RadiusCatalystERC20;
   public radiusLotteryERC20: RadiusLotteryERC20;
 
+  public lastGemMintedId: any;
+  public lastPowerupMintedId: any;
+  public lastRelicMintedId: any;
+
   public radiusGasMine: RadiusGasMine;
   public radiusCatalystMine: RadiusCatalystMine;
 
@@ -100,6 +104,9 @@ export class BlockchainService {
     this.confettiOn = false;
     this.globalItems = [];
     this.lotteryWinners = [];
+    this.lastGemMintedId = undefined;
+    this.lastPowerupMintedId = undefined;
+    this.lastRelicMintedId = undefined;
   }
 
   parseEther(n: any) {
@@ -175,6 +182,17 @@ export class BlockchainService {
         staked: 0,
         earned: 0,
         total: 0,
+      },
+      unpaidDividends: {
+        gas: 0,
+        catalyst: 0,
+      },
+      totalSupplies: {
+        gas: 0,
+        catalyst: 0,
+        gem: 0,
+        powerup: 0,
+        relic: 0,
       },
     };
 
@@ -377,6 +395,19 @@ export class BlockchainService {
       this.radiusLP,
       this.account
     );
+    this.balances.unpaidDividends.gas = await this.radiusToken.getUnpaidDividends(
+      1
+    );
+    this.balances.unpaidDividends.catalyst = await this.radiusToken.getUnpaidDividends(
+      2
+    );
+
+    this.balances.totalSupplies.gas = await this.radiusGasERC20.totalSupply();
+    this.balances.totalSupplies.catalyst = await this.radiusCatalystERC20.totalSupply();
+    this.balances.totalSupplies.gem = await this.radiusToken.gemTotalSupply();
+    this.balances.totalSupplies.powerup = await this.radiusToken.powerupTotalSupply();
+    this.balances.totalSupplies.relic = await this.radiusToken.relicTotalSupply();
+
     await this.invokeUpdateList('balances', this.balances);
     this.updatingBalances = false;
   }
@@ -560,8 +591,15 @@ export class BlockchainService {
           this.showToast('Items Forged', `forged ${forgedIndex}`);
           await this.updateBalances();
           if (forgedIndex.toString() !== '3') {
+            if (forgedIndex.gte(256) && forgedIndex.lt(256 + 256)) {
+              this.lastRelicMintedId = forgedIndex;
+            } else if (forgedIndex.gte(4096) && forgedIndex.lt(4096 + 256)) {
+              this.lastPowerupMintedId = forgedIndex;
+            } else if (forgedIndex.gte(4096 + 256)) {
+              this.lastGemMintedId = forgedIndex;
+            }
             await this.updateNFTList();
-            this.confetti(1000);
+            this.confetti(2000);
           }
         }
       }
