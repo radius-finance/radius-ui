@@ -27,6 +27,13 @@ export class ItemPanelComponent implements OnInit {
     return 'Invalid';
   }
 
+  get itemTypeIcon() {
+    if (this.itemType === 1) return 'icon-key-25';
+    if (this.itemType === 2) return 'icon-spaceship';
+    if (this.itemType === 3) return 'icon-shape-star';
+    return 'Invalid';
+  }
+
   get itemTitle() {
     return this.makeCompact(this.itemId);
   }

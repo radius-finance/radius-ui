@@ -21,6 +21,14 @@ export class BalancePanelComponent implements OnInit {
     if (this.type === '4') return 'Radius Uni-V2 LP';
   }
 
+  get tokenTypeIcon() {
+    if (this.type === '0') return 'icon-compass-05';
+    if (this.type === '1') return 'icon-atom';
+    if (this.type === '2') return 'icon-molecule-40';
+    if (this.type === '3') return 'icon-coins';
+    if (this.type === '4') return 'icon-puzzle-10';
+  }
+
   get tokenTotalBalance() {
     let result = '0';
     if (this.type === '0')

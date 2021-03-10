@@ -45,7 +45,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Stake',
     type: 'link',
     rtlTitle: '',
-    icontype: 'tim-icons icon-settings',
+    icontype: 'tim-icons icon-molecule-40',
   },
   {
     path: '/forge',
@@ -59,14 +59,14 @@ export const ROUTES: RouteInfo[] = [
     title: 'Win',
     type: 'link',
     rtlTitle: '',
-    icontype: 'tim-icons icon-settings',
+    icontype: 'tim-icons icon-trophy',
   },
   {
     path: '/wallet',
     title: 'Wallet',
     type: 'link',
     rtlTitle: '',
-    icontype: 'tim-icons icon-chart-bar-32',
+    icontype: 'tim-icons icon-wallet-43',
   },
   {
     path: '/explore',

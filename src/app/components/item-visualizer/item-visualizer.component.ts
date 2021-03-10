@@ -188,12 +188,13 @@ export class ItemVisualizerComponent implements AfterViewInit {
           petalSides,
           petalDiameter / scale
         );
+        polygon.rotate(rot);
         polygon.fillColor = new scope.Color(centerColor);
         polygon.strokeWidth = 60 / scale;
         polygon.blendMode = 'xor';
       });
       if (iter < max) {
-        drawFlowerIter(iter + 1, max, rot);
+        drawFlowerIter(iter + 1, max, rot / 2);
       }
     };
 
@@ -208,7 +209,7 @@ export class ItemVisualizerComponent implements AfterViewInit {
       scope.project.activeLayer.remove();
       drawFlowerIter(1, 4, angle);
       scope.project.activeLayer.fitBounds(scope.view.bounds);
-      angle = angle + 1;
+      angle = angle + 0.4;
     };
 
     scope.view.onMouseEnter = (event) => {
