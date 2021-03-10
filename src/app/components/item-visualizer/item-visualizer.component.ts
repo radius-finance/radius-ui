@@ -20,17 +20,17 @@ scheme
   .variation('hard'); // Use the 'soft' color variation
 
 const colors = [
-'5e72e4',
-'5603ad',
-'8965e0',
-'e14eca',
-'f3a4b5',
-'f5365c',
-'fb6340',
-'ffd600',
-'2dce89',
-'11cdef',
-'2bffc6',
+  '5e72e4',
+  '5603ad',
+  '8965e0',
+  'e14eca',
+  'f3a4b5',
+  'f5365c',
+  'fb6340',
+  'ffd600',
+  '2dce89',
+  '11cdef',
+  '2bffc6',
 ];
 
 @Component({
@@ -64,7 +64,7 @@ export class ItemVisualizerComponent implements AfterViewInit {
     const canvasHeight = this.paperCanvas.nativeElement.clientHeight;
     const centerPoint = new scope.Point(canvasWidth / 2, canvasHeight / 2);
 
-    const drawFlowerIter = (iter, max) => {
+    const drawFlowerIter = (iter, max, rot) => {
       let petalSides = 3 + Math.round(Math.random() * 9);
       let petalDiameter = 400 + Math.round(Math.random() * 500);
       let centerColor = rndColor();
@@ -76,7 +76,7 @@ export class ItemVisualizerComponent implements AfterViewInit {
         centerDiameter = 300;
         petalSides = 3;
         petalDiameter = 300 + this.itemOvershoot * 30;
-        petalColor =  colorAt(0 + this.itemOvershoot);
+        petalColor = colorAt(0 + this.itemOvershoot);
         centerColor = colorAt(1 + this.itemOvershoot);
         backShapeColor = colorAt(2 + this.itemOvershoot);
       }
@@ -85,7 +85,7 @@ export class ItemVisualizerComponent implements AfterViewInit {
         centerDiameter = 300;
         petalSides = 6;
         petalDiameter = 300 + this.itemOvershoot * 60;
-        petalColor =  colorAt(1 + this.itemOvershoot);
+        petalColor = colorAt(1 + this.itemOvershoot);
         centerColor = colorAt(2 + this.itemOvershoot);
         backShapeColor = colorAt(3 + this.itemOvershoot);
       }
@@ -155,12 +155,8 @@ export class ItemVisualizerComponent implements AfterViewInit {
       // console.log('petalDiameter', petalDiameter);
 
       if (iter === 1) {
-        const backdrop = (this.itemType === 1 || this.itemType === 2) ? 
-          scope.Path.Circle : 
-          scope.Path.RegularPolygon
-
         let backShape;
-        if(this.itemType === 1 || this.itemType === 2) {
+        if (this.itemType === 1 || this.itemType === 2) {
           backShape = new scope.Path.Circle(
             centerPoint,
             petalDiameter + centerDiameter
@@ -172,7 +168,6 @@ export class ItemVisualizerComponent implements AfterViewInit {
             petalDiameter + centerDiameter
           );
         }
-
         backShape.fillColor = new scope.Color(backShapeColor);
       }
 
@@ -182,6 +177,7 @@ export class ItemVisualizerComponent implements AfterViewInit {
         petalSides,
         centerDiameter / scale
       );
+      centerPath.rotate(rot);
       centerPath.fillColor = new scope.Color(petalColor);
       centerPath.strokeColor = new scope.Color(petalColor);
       centerPath.strokeWidth = 6 / scale;
@@ -197,13 +193,34 @@ export class ItemVisualizerComponent implements AfterViewInit {
         polygon.blendMode = 'xor';
       });
       if (iter < max) {
-        drawFlowerIter(iter + 1, max);
+        drawFlowerIter(iter + 1, max, rot);
       }
     };
 
-    drawFlowerIter(1, 4);
-
+    drawFlowerIter(1, 4, 0);
     scope.project.activeLayer.fitBounds(scope.view.bounds);
+
+    let angle = 0;
+    let animated = false;
+
+    scope.view.onFrame = (event) => {
+      if (!animated) return;
+      scope.project.activeLayer.remove();
+      drawFlowerIter(1, 4, angle);
+      scope.project.activeLayer.fitBounds(scope.view.bounds);
+      angle = angle + 1;
+    };
+
+    scope.view.onMouseEnter = (event) => {
+      animated = true;
+      setTimeout(() => {
+        animated = false;
+      }, 30000);
+    };
+    scope.view.onMouseLeave = (event) => {
+      animated = false;
+      angle = 0;
+    };
   }
 
   get itemType() {

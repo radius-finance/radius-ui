@@ -1,0 +1,58 @@
+<div *ngIf="hasNFTItems">
+  <tabset class="nav-pills-danger" type="pills">
+    <tab heading="All">
+      <div class="row">
+        <div
+          *ngFor="let nftItem of nftItems"
+          class="col-sm-12 col-md-3 col-lg-4"
+        >
+          <app-item-panel itemId="{{ nftItem.toHexString() }}"></app-item-panel>
+        </div>
+      </div>
+    </tab>
+    <tab heading="Relics">
+      <div class="row">
+        <div
+          *ngFor="let nftItem of relicNftItems"
+          class="col-sm-12 col-md-3 col-lg-4"
+        >
+          <app-item-panel itemId="{{ nftItem.toHexString() }}"></app-item-panel>
+        </div>
+      </div>
+    </tab>
+    <tab heading="Powerups">
+      <div class="row">
+        <div
+          *ngFor="let nftItem of powerupNftItems"
+          class="col-sm-12 col-md-3 col-lg-4"
+        >
+          <app-item-panel itemId="{{ nftItem.toHexString() }}"></app-item-panel>
+        </div>
+      </div>
+    </tab>
+    <tab heading="Gems">
+      <div class="row">
+        <div
+          *ngFor="let nftItem of gemNftItems"
+          class="col-sm-12 col-md-3 col-lg-4"
+        >
+          <app-item-panel itemId="{{ nftItem.toHexString() }}"></app-item-panel>
+        </div>
+      </div>
+    </tab>
+  </tabset>
+</div>
+
+<div *ngIf="!hasNFTItems" class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">No NFT Items</h4>
+      </div>
+      <div class="card-body">
+        You haven't forged any NFT items yet and have none in your inventory. Go
+        to the <a href="#/forge">forging tab</a> to forge some.
+      </div>
+    </div>
+  </div>
+</div>

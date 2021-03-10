@@ -52,8 +52,8 @@ export class StatsComponent implements OnInit {
         : [];
     if (arr.length === 0) return arr;
     const out = arr.map((e) => e).reverse();
-    if (arr.length < 24) return arr;
-    else return arr.slice(0, 24);
+    if (out.length < 24) return out;
+    else return out.slice(0, 23);
   }
 
   get hasGlobalItems() {

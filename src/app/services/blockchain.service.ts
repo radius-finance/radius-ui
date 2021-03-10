@@ -714,6 +714,16 @@ export class BlockchainService {
   }
 
   async forgeRadiusItems(forgeAmount, catalystAmount) {
+    const isApprovedForAll = await this.radiusToken.isApprovedForAll(
+      this.account,
+      this.radiusToken.address
+    );
+    if (!isApprovedForAll) {
+      return await this.radiusToken.setApprovalForAll(
+        this.radiusToken.address,
+        true
+      );
+    }
     const gaserc20Balance = await this.radiusGasERC20.balanceOf(this.account);
     const caterc20Balance = await this.radiusCatalystERC20.balanceOf(
       this.account

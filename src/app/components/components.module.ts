@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {TabsModule} from 'ngx-bootstrap/tabs';
 import {DxVectorMapModule} from 'devextreme-angular';
 import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
 import {NgxSliderModule} from '@angular-slider/ngx-slider';
@@ -25,6 +26,7 @@ import {CheckLotteryComponent} from './check-lottery/check-lottery.component';
 import {LotteryWinnersListComponent} from './lottery-winners-list/lottery-winners-list.component';
 import {ConnectWalletButtonComponent} from './connect-wallet-button/connect-wallet-button.component';
 import {NotificationDropdownComponent} from './notification-dropdown/notification-dropdown.component';
+import {ItemListComponent} from './item-list/item-list.component';
 
 @NgModule({
   imports: [
@@ -38,6 +40,7 @@ import {NotificationDropdownComponent} from './notification-dropdown/notificatio
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
+    TabsModule.forRoot(),
     NgxSliderModule,
   ],
   declarations: [
@@ -55,6 +58,7 @@ import {NotificationDropdownComponent} from './notification-dropdown/notificatio
     LotteryWinnersListComponent,
     ConnectWalletButtonComponent,
     NotificationDropdownComponent,
+    ItemListComponent,
   ],
   exports: [
     FooterComponent,
@@ -71,6 +75,7 @@ import {NotificationDropdownComponent} from './notification-dropdown/notificatio
     LotteryWinnersListComponent,
     ConnectWalletButtonComponent,
     NotificationDropdownComponent,
+    ItemListComponent,
   ],
 })
 export class ComponentsModule {}
