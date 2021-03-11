@@ -591,11 +591,11 @@ export class BlockchainService {
           this.showToast('Items Forged', `forged ${forgedIndex}`);
           await this.updateBalances();
           if (forgedIndex.toString() !== '3') {
-            if (forgedIndex.gte(256) && forgedIndex.lt(256 + 256)) {
+            if (forgedIndex.gte(256) && forgedIndex.lt(4096)) {
               this.lastRelicMintedId = forgedIndex;
-            } else if (forgedIndex.gte(4096) && forgedIndex.lt(4096 + 256)) {
+            } else if (forgedIndex.gte(4096) && forgedIndex.lt(8192)) {
               this.lastPowerupMintedId = forgedIndex;
-            } else if (forgedIndex.gte(4096 + 256)) {
+            } else if (forgedIndex.gte(8192)) {
               this.lastGemMintedId = forgedIndex;
             }
             await this.updateNFTList();
