@@ -460,10 +460,7 @@ export class BlockchainService {
 
   async setupEvents() {
     this.allAddressesFilter = {
-      filter: {
-        toAddress: 0,
-      },
-      fromBlock: 0,
+      filter: {},
     };
 
     // Gas token is mined
