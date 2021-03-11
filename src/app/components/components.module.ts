@@ -27,6 +27,7 @@ import {LotteryWinnersListComponent} from './lottery-winners-list/lottery-winner
 import {ConnectWalletButtonComponent} from './connect-wallet-button/connect-wallet-button.component';
 import {NotificationDropdownComponent} from './notification-dropdown/notification-dropdown.component';
 import {ItemListComponent} from './item-list/item-list.component';
+import {ContractAddressesPanelComponent} from './contract-addresses-panel/contract-addresses-panel.component';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import {ItemListComponent} from './item-list/item-list.component';
     ConnectWalletButtonComponent,
     NotificationDropdownComponent,
     ItemListComponent,
+    ContractAddressesPanelComponent,
   ],
   exports: [
     FooterComponent,
@@ -76,6 +78,7 @@ import {ItemListComponent} from './item-list/item-list.component';
     ConnectWalletButtonComponent,
     NotificationDropdownComponent,
     ItemListComponent,
+    ContractAddressesPanelComponent
   ],
 })
 export class ComponentsModule {}
