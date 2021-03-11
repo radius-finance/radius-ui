@@ -6,6 +6,8 @@ import {
   Input,
 } from '@angular/core';
 
+import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+import { ModalComponent } from "../modal/modal.component";
 import ColorScheme from 'color-scheme';
 
 import * as paper from 'paper';
@@ -39,6 +41,9 @@ const colors = [
   styleUrls: ['./item-visualizer.component.scss'],
 })
 export class ItemVisualizerComponent implements AfterViewInit {
+  constructor(private modalService: BsModalService) {}
+  bsModalRef: BsModalRef;
+
   @Input() itemId;
 
   @ViewChild('paperCanvas')
@@ -222,6 +227,10 @@ export class ItemVisualizerComponent implements AfterViewInit {
       animated = false;
       angle = 0;
     };
+  }
+
+  openModal() {
+    this.bsModalRef = this.modalService.show(ModalComponent);
   }
 
   get itemType() {
