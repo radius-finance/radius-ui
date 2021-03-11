@@ -463,7 +463,7 @@ export class BlockchainService {
       filter: {
         toAddress: 0,
       },
-      fromBlock: await this.provider.getBlockNumber(),
+      fromBlock: 0,
     };
 
     // Gas token is mined
