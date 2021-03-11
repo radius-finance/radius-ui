@@ -226,9 +226,9 @@ export class ItemVisualizerComponent implements AfterViewInit {
 
   get itemType() {
     if (this.itemId < 3) return 0;
-    if (this.itemId >= 256 && this.itemId <= 256 + 256) return 1; // relic
-    if (this.itemId >= 4096 && this.itemId <= 4096 + 256) return 2; // powerup
-    if (this.itemId > 4096 + 256) return 3; //gem
+    if (this.itemId >= 256 && this.itemId < 4096) return 1; // relic
+    if (this.itemId >= 4096 && this.itemId < 8192) return 2; // powerup
+    if (this.itemId >= 8192) return 3; //gem
     return 0;
   }
 
