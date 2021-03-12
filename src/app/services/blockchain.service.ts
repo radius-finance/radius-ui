@@ -12,6 +12,11 @@ import {RadiusGasERC20} from '../shared/types/RadiusGasERC20';
 import {RadiusCatalystERC20} from '../shared/types/RadiusCatalystERC20';
 import {RadiusLotteryERC20} from '../shared/types/RadiusLotteryERC20';
 
+import {RelicTokenForge} from '../shared/types/RelicTokenForge';
+import {PowerupTokenForge} from '../shared/types/PowerupTokenForge';
+import {GemTokenForge} from '../shared/types/GemTokenForge';
+import {LotteryTokenForge} from '../shared/types/LotteryTokenForge';
+
 import {
   ChainId,
   Token,
@@ -57,12 +62,19 @@ export class BlockchainService {
   public radiusCatalystERC20: RadiusCatalystERC20;
   public radiusLotteryERC20: RadiusLotteryERC20;
 
+  public relicTokenForge: RelicTokenForge;
+  public powerupTokenForge: PowerupTokenForge;
+  public gemTokenForge: GemTokenForge;
+  public lotteryTokenForge: LotteryTokenForge;
+
   public lastGemMintedId: any;
   public lastPowerupMintedId: any;
   public lastRelicMintedId: any;
 
   public radiusGasMine: RadiusGasMine;
   public radiusCatalystMine: RadiusCatalystMine;
+
+  public tokenForgeData: any;
 
   allAddressesFilter;
 
@@ -104,6 +116,7 @@ export class BlockchainService {
     this.confettiOn = false;
     this.globalItems = [];
     this.lotteryWinners = [];
+    this.tokenForgeData = {};
     this.lastGemMintedId = undefined;
     this.lastPowerupMintedId = undefined;
     this.lastRelicMintedId = undefined;
@@ -218,6 +231,19 @@ export class BlockchainService {
       'RadiusLotteryERC20'
     )) as RadiusLotteryERC20;
 
+    this.relicTokenForge = (await this.getContractRef(
+      'RelicTokenForge'
+    )) as RelicTokenForge;
+    this.powerupTokenForge = (await this.getContractRef(
+      'PowerupTokenForge'
+    )) as PowerupTokenForge;
+    this.gemTokenForge = (await this.getContractRef(
+      'GemTokenForge'
+    )) as GemTokenForge;
+    this.lotteryTokenForge = (await this.getContractRef(
+      'LotteryTokenForge'
+    )) as LotteryTokenForge;
+
     if (this.networkId === ChainId.KOVAN) {
       this.RAD = new Token(
         this.networkId,
@@ -253,7 +279,57 @@ export class BlockchainService {
     await this.setupEvents();
 
     await this.updateBalances();
+    await this.updateTokenForgeData();
     await this.updateNFTList();
+  }
+
+  async updateTokenForgeData() {
+
+    this.tokenForgeData['Gem'] = {
+      type: 'Gem',
+      totalMinted: (await this.gemTokenForge.getTotalMinted()),
+      target: (await this.gemTokenForge.getTargetMintAmount()),
+      span: (await this.gemTokenForge.getTargetMintSpan()),
+      thisPeriodMinted: (await this.gemTokenForge.getThisPeriodMinted()),
+      difficulty: (await this.gemTokenForge.getDifficulty()).toHexString(),
+      adjustedDifficulty: (await this.gemTokenForge.getDifficulty()).add(65535).toHexString(),
+      nextDifficulty: (await this.gemTokenForge.getNextDifficulty()).toHexString(),
+      lastDifficultyAdjustTime: (await this.gemTokenForge.getLastDifficultyAdjustTime())
+    };
+    this.tokenForgeData['Relic'] = {
+      type: 'Relic',
+      totalMinted: (await this.relicTokenForge.getTotalMinted()),
+      target: (await this.relicTokenForge.getTargetMintAmount()),
+      span: (await this.relicTokenForge.getTargetMintSpan()),
+      thisPeriodMinted: (await this.relicTokenForge.getThisPeriodMinted()),
+      difficulty: (await this.relicTokenForge.getDifficulty()).toHexString(),
+      adjustedDifficulty: (await this.relicTokenForge.getDifficulty()).add(65535).toHexString(),
+      nextDifficulty: (await this.relicTokenForge.getNextDifficulty()).toHexString(),
+      lastDifficultyAdjustTime: (await this.relicTokenForge.getLastDifficultyAdjustTime())
+    };
+    this.tokenForgeData['Powerup'] = {
+      type: 'Powerup',
+      totalMinted: (await this.powerupTokenForge.getTotalMinted()),
+      target: (await this.powerupTokenForge.getTargetMintAmount()),
+      span: (await this.powerupTokenForge.getTargetMintSpan()),
+      thisPeriodMinted: (await this.powerupTokenForge.getThisPeriodMinted()),
+      difficulty: (await this.powerupTokenForge.getDifficulty()).toHexString(),
+      adjustedDifficulty: (await this.powerupTokenForge.getDifficulty()).add(65535).toHexString(),
+      nextDifficulty: (await this.powerupTokenForge.getNextDifficulty()).toHexString(),
+      lastDifficultyAdjustTime: (await this.powerupTokenForge.getLastDifficultyAdjustTime())
+    };
+    this.tokenForgeData['Lottery'] = {
+      type: 'Lottery',
+      totalMinted: (await this.lotteryTokenForge.getTotalMinted()),
+      target: (await this.lotteryTokenForge.getTargetMintAmount()),
+      span: (await this.lotteryTokenForge.getTargetMintSpan()),
+      thisPeriodMinted: (await this.lotteryTokenForge.getThisPeriodMinted()),
+      difficulty: (await this.lotteryTokenForge.getDifficulty()).toHexString(),
+      adjustedDifficulty: (await this.lotteryTokenForge.getDifficulty()).add(65535).toHexString(),
+      nextDifficulty: (await this.lotteryTokenForge.getNextDifficulty()).toHexString(),
+      lastDifficultyAdjustTime: (await this.lotteryTokenForge.getLastDifficultyAdjustTime())
+    };
+
   }
 
   async getTinyERCRef(address) {

@@ -28,6 +28,7 @@ import {ConnectWalletButtonComponent} from './connect-wallet-button/connect-wall
 import {NotificationDropdownComponent} from './notification-dropdown/notification-dropdown.component';
 import {ItemListComponent} from './item-list/item-list.component';
 import {ContractAddressesPanelComponent} from './contract-addresses-panel/contract-addresses-panel.component';
+import { ForgingDifficultiesPanelComponent } from './forging-difficulties-panel/forging-difficulties-panel.component';
 
 @NgModule({
   imports: [
@@ -61,6 +62,7 @@ import {ContractAddressesPanelComponent} from './contract-addresses-panel/contra
     NotificationDropdownComponent,
     ItemListComponent,
     ContractAddressesPanelComponent,
+    ForgingDifficultiesPanelComponent,
   ],
   exports: [
     FooterComponent,
@@ -78,7 +80,8 @@ import {ContractAddressesPanelComponent} from './contract-addresses-panel/contra
     ConnectWalletButtonComponent,
     NotificationDropdownComponent,
     ItemListComponent,
-    ContractAddressesPanelComponent
+    ContractAddressesPanelComponent,
+    ForgingDifficultiesPanelComponent
   ],
 })
 export class ComponentsModule {}
