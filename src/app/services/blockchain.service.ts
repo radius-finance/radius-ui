@@ -536,10 +536,7 @@ export class BlockchainService {
 
   async setupEvents() {
     this.allAddressesFilter = {
-      filter: {
-        toAddress: 0,
-      },
-      fromBlock: await this.provider.getBlockNumber(),
+      filter: {},
     };
 
     // Gas token is mined
