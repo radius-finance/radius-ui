@@ -1,3 +1,5 @@
+import {ToastrService} from 'ngx-toastr';
+
 import {Injectable} from '@angular/core';
 import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
@@ -76,11 +78,11 @@ export class BlockchainService {
 
   public tokenForgeData: any;
 
-  allAddressesFilter;
+  historicalEvents;
 
   web3Modal;
 
-  constructor() {
+  constructor(public toastr: ToastrService) {
     const providerOptions = {
       walletconnect: {
         package: WalletConnectProvider, // required
@@ -278,58 +280,97 @@ export class BlockchainService {
 
     await this.setupEvents();
 
+    const filter = {
+      // topics: [
+      //   ethers.utils.id('forged(address,uint256,uint256,uint256,uint256)'),
+      // ],
+    };
+
+    this.historicalEvents = await this.provider.getLogs(filter);
+    this.historicalEvents.forEach((log) => {
+      if (log.removed) {
+        return;
+      }
+
+      console.log(JSON.stringify(log, null, 4));
+
+      // if (forgedIndex.toString() !== '3') {
+      //   this.globalItems.push({
+      //     recipient,
+      //     forgedIndex,
+      //     nonce,
+      //     consumed,
+      //     amount,
+      //   });
+      // }
+    });
+
     await this.updateBalances();
     await this.updateTokenForgeData();
     await this.updateNFTList();
   }
 
   async updateTokenForgeData() {
-
     this.tokenForgeData['Gem'] = {
       type: 'Gem',
-      totalMinted: (await this.gemTokenForge.getTotalMinted()),
-      target: (await this.gemTokenForge.getTargetMintAmount()),
-      span: (await this.gemTokenForge.getTargetMintSpan()),
-      thisPeriodMinted: (await this.gemTokenForge.getThisPeriodMinted()),
+      totalMinted: await this.gemTokenForge.getTotalMinted(),
+      target: await this.gemTokenForge.getTargetMintAmount(),
+      span: await this.gemTokenForge.getTargetMintSpan(),
+      thisPeriodMinted: await this.gemTokenForge.getThisPeriodMinted(),
       difficulty: (await this.gemTokenForge.getDifficulty()).toHexString(),
-      adjustedDifficulty: (await this.gemTokenForge.getDifficulty()).add(65535).toHexString(),
-      nextDifficulty: (await this.gemTokenForge.getNextDifficulty()).toHexString(),
-      lastDifficultyAdjustTime: (await this.gemTokenForge.getLastDifficultyAdjustTime())
+      adjustedDifficulty: (await this.gemTokenForge.getDifficulty())
+        .add(65535)
+        .toHexString(),
+      nextDifficulty: (
+        await this.gemTokenForge.getNextDifficulty()
+      ).toHexString(),
+      lastDifficultyAdjustTime: await this.gemTokenForge.getLastDifficultyAdjustTime(),
     };
     this.tokenForgeData['Relic'] = {
       type: 'Relic',
-      totalMinted: (await this.relicTokenForge.getTotalMinted()),
-      target: (await this.relicTokenForge.getTargetMintAmount()),
-      span: (await this.relicTokenForge.getTargetMintSpan()),
-      thisPeriodMinted: (await this.relicTokenForge.getThisPeriodMinted()),
+      totalMinted: await this.relicTokenForge.getTotalMinted(),
+      target: await this.relicTokenForge.getTargetMintAmount(),
+      span: await this.relicTokenForge.getTargetMintSpan(),
+      thisPeriodMinted: await this.relicTokenForge.getThisPeriodMinted(),
       difficulty: (await this.relicTokenForge.getDifficulty()).toHexString(),
-      adjustedDifficulty: (await this.relicTokenForge.getDifficulty()).add(65535).toHexString(),
-      nextDifficulty: (await this.relicTokenForge.getNextDifficulty()).toHexString(),
-      lastDifficultyAdjustTime: (await this.relicTokenForge.getLastDifficultyAdjustTime())
+      adjustedDifficulty: (await this.relicTokenForge.getDifficulty())
+        .add(65535)
+        .toHexString(),
+      nextDifficulty: (
+        await this.relicTokenForge.getNextDifficulty()
+      ).toHexString(),
+      lastDifficultyAdjustTime: await this.relicTokenForge.getLastDifficultyAdjustTime(),
     };
     this.tokenForgeData['Powerup'] = {
       type: 'Powerup',
-      totalMinted: (await this.powerupTokenForge.getTotalMinted()),
-      target: (await this.powerupTokenForge.getTargetMintAmount()),
-      span: (await this.powerupTokenForge.getTargetMintSpan()),
-      thisPeriodMinted: (await this.powerupTokenForge.getThisPeriodMinted()),
+      totalMinted: await this.powerupTokenForge.getTotalMinted(),
+      target: await this.powerupTokenForge.getTargetMintAmount(),
+      span: await this.powerupTokenForge.getTargetMintSpan(),
+      thisPeriodMinted: await this.powerupTokenForge.getThisPeriodMinted(),
       difficulty: (await this.powerupTokenForge.getDifficulty()).toHexString(),
-      adjustedDifficulty: (await this.powerupTokenForge.getDifficulty()).add(65535).toHexString(),
-      nextDifficulty: (await this.powerupTokenForge.getNextDifficulty()).toHexString(),
-      lastDifficultyAdjustTime: (await this.powerupTokenForge.getLastDifficultyAdjustTime())
+      adjustedDifficulty: (await this.powerupTokenForge.getDifficulty())
+        .add(65535)
+        .toHexString(),
+      nextDifficulty: (
+        await this.powerupTokenForge.getNextDifficulty()
+      ).toHexString(),
+      lastDifficultyAdjustTime: await this.powerupTokenForge.getLastDifficultyAdjustTime(),
     };
     this.tokenForgeData['Lottery'] = {
       type: 'Lottery',
-      totalMinted: (await this.lotteryTokenForge.getTotalMinted()),
-      target: (await this.lotteryTokenForge.getTargetMintAmount()),
-      span: (await this.lotteryTokenForge.getTargetMintSpan()),
-      thisPeriodMinted: (await this.lotteryTokenForge.getThisPeriodMinted()),
+      totalMinted: await this.lotteryTokenForge.getTotalMinted(),
+      target: await this.lotteryTokenForge.getTargetMintAmount(),
+      span: await this.lotteryTokenForge.getTargetMintSpan(),
+      thisPeriodMinted: await this.lotteryTokenForge.getThisPeriodMinted(),
       difficulty: (await this.lotteryTokenForge.getDifficulty()).toHexString(),
-      adjustedDifficulty: (await this.lotteryTokenForge.getDifficulty()).add(65535).toHexString(),
-      nextDifficulty: (await this.lotteryTokenForge.getNextDifficulty()).toHexString(),
-      lastDifficultyAdjustTime: (await this.lotteryTokenForge.getLastDifficultyAdjustTime())
+      adjustedDifficulty: (await this.lotteryTokenForge.getDifficulty())
+        .add(65535)
+        .toHexString(),
+      nextDifficulty: (
+        await this.lotteryTokenForge.getNextDifficulty()
+      ).toHexString(),
+      lastDifficultyAdjustTime: await this.lotteryTokenForge.getLastDifficultyAdjustTime(),
     };
-
   }
 
   async getTinyERCRef(address) {
@@ -532,13 +573,24 @@ export class BlockchainService {
 
   async showToast(title, body) {
     console.log(title, body);
+    this.showSidebarMessage(body);
+  }
+
+  showSidebarMessage(message) {
+    this.toastr.show(
+      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
+      message,
+      {
+        timeOut: 4000,
+        closeButton: true,
+        enableHtml: true,
+        toastClass: 'alert alert-danger alert-with-icon',
+        positionClass: 'toast-top-right',
+      }
+    );
   }
 
   async setupEvents() {
-    this.allAddressesFilter = {
-      filter: {},
-    };
-
     // Gas token is mined
     this.radiusGasMine.on('Mined', async (toAddress, amount) => {
       await this.updateBalances();
@@ -561,7 +613,7 @@ export class BlockchainService {
             'Tokens Deposited',
             `Deposited ${this.formatEther(
               amount
-            ).toString()} Radius to ${toAddress}`
+            ).toString()} Radius tokens to ${toAddress}`
           );
         }
       }
@@ -574,9 +626,9 @@ export class BlockchainService {
         if (toAddress == this.account) {
           this.showToast(
             'Tokens Withdrawn',
-            `Withdrawn ${this.formatEther(
+            `Withdrew ${this.formatEther(
               amount
-            ).toString()} Radius to ${toAddress}`
+            ).toString()} Radius from ${toAddress}`
           );
         }
       }
@@ -587,7 +639,7 @@ export class BlockchainService {
       if (toAddress == this.account) {
         this.showToast(
           'Gas Tokens Withdrawn',
-          `Withdrawn ${this.formatEther(
+          `Withdrew ${this.formatEther(
             amount
           ).toString()} Radius Gas to ${toAddress}`
         );
@@ -601,7 +653,7 @@ export class BlockchainService {
           'Catalyst Tokens Mined',
           `Mined ${this.formatEther(
             amount
-          ).toString()} Radius Catalyst to ${toAddress}`
+          ).toString()} Radius Catalyst tokens to ${toAddress}`
         );
       }
     });
@@ -615,7 +667,7 @@ export class BlockchainService {
             'LP Tokens Deposited',
             `Deposited ${this.formatEther(
               amount
-            ).toString()} Radius LP to ${toAddress}`
+            ).toString()} Radius UNI-v2 LP tokens to ${toAddress}`
           );
         }
       }
@@ -628,9 +680,9 @@ export class BlockchainService {
           await this.updateBalances();
           this.showToast(
             'LP Tokens Withdrawn',
-            `Withdrawn ${this.formatEther(
+            `Withdrew ${this.formatEther(
               amount
-            ).toString()} Radius LP to ${toAddress}`
+            ).toString()} Radius UNI-V2 LP tokens to ${toAddress}`
           );
         }
       }
@@ -641,9 +693,9 @@ export class BlockchainService {
         await this.updateBalances();
         this.showToast(
           'Catalyst Tokens Withdrawn',
-          `Withdrawn ${this.formatEther(
+          `Withdrew ${this.formatEther(
             amount
-          ).toString()} Radius Catalyst to ${toAddress}`
+          ).toString()} Radius Catalyst tokens to ${toAddress}`
         );
       }
     });
@@ -661,8 +713,20 @@ export class BlockchainService {
           });
         }
         if (recipient == this.account) {
-          this.showToast('Items Forged', `forged ${forgedIndex}`);
+          let forgedText = '';
+          if (forgedIndex.gte(256) && forgedIndex.lt(4096)) {
+            forgedText = 'Relic';
+          } else if (forgedIndex.gte(4096) && forgedIndex.lt(8192)) {
+            forgedText = 'Powerup';
+          } else if (forgedIndex.gte(8192)) {
+            forgedText = 'Powerup';
+          } else if (forgedIndex.eq(4)) {
+            forgedText = 'Lottery Jackpot Winner Medallion';
+          }
+
+          this.showToast('Items Forged', `Forged a ${forgedText}`);
           await this.updateBalances();
+
           if (forgedIndex.toString() !== '3') {
             if (forgedIndex.gte(256) && forgedIndex.lt(4096)) {
               this.lastRelicMintedId = forgedIndex;
@@ -694,7 +758,7 @@ export class BlockchainService {
             'Lottery Winner',
             `You just won the Radius Lottery and ${this.formatEther(
               gasWon
-            )} RADG / ${this.formatEther(catalystWon)} RADG`
+            )} Radius Gas / ${this.formatEther(catalystWon)} Radius Catalyst`
           );
           this.confetti(5000);
         }

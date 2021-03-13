@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {BlockchainService} from '../../services/blockchain.service';
-import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-connect-wallet-button',
@@ -8,10 +7,7 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./connect-wallet-button.component.scss'],
 })
 export class ConnectWalletButtonComponent implements OnInit {
-  constructor(
-    private blockchainService: BlockchainService,
-    public toastr: ToastrService
-  ) {}
+  constructor(private blockchainService: BlockchainService) {}
 
   ngOnInit(): void {
     this.blockchainService.reloadAccount();
