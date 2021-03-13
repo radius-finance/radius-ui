@@ -16,6 +16,7 @@ deployments/hardhat
 deployments/localhost
 
 build/
+dist/
 types/
 
 .openzeppelin/
