@@ -82,6 +82,8 @@ export class BlockchainService {
 
   web3Modal;
 
+  maxUINT256;
+
   constructor(public toastr: ToastrService) {
     const providerOptions = {
       walletconnect: {
@@ -122,6 +124,9 @@ export class BlockchainService {
     this.lastGemMintedId = undefined;
     this.lastPowerupMintedId = undefined;
     this.lastRelicMintedId = undefined;
+
+    this.maxUINT256 =
+      '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff';
   }
 
   parseEther(n: any) {
@@ -311,6 +316,12 @@ export class BlockchainService {
   }
 
   async updateTokenForgeData() {
+    const adjustedDifficulty = (n) => {
+      const nn = n.add(65535);
+      if (nn.gte(BigNumber.from(this.maxUINT256))) {
+        return this.maxUINT256;
+      } else return nn.toHexString();
+    };
     this.tokenForgeData['Gem'] = {
       type: 'Gem',
       totalMinted: await this.gemTokenForge.getTotalMinted(),
@@ -318,9 +329,9 @@ export class BlockchainService {
       span: await this.gemTokenForge.getTargetMintSpan(),
       thisPeriodMinted: await this.gemTokenForge.getThisPeriodMinted(),
       difficulty: (await this.gemTokenForge.getDifficulty()).toHexString(),
-      adjustedDifficulty: (await this.gemTokenForge.getDifficulty())
-        .add(65535)
-        .toHexString(),
+      adjustedDifficulty: adjustedDifficulty(
+        await this.gemTokenForge.getDifficulty()
+      ),
       nextDifficulty: (
         await this.gemTokenForge.getNextDifficulty()
       ).toHexString(),
@@ -333,9 +344,9 @@ export class BlockchainService {
       span: await this.relicTokenForge.getTargetMintSpan(),
       thisPeriodMinted: await this.relicTokenForge.getThisPeriodMinted(),
       difficulty: (await this.relicTokenForge.getDifficulty()).toHexString(),
-      adjustedDifficulty: (await this.relicTokenForge.getDifficulty())
-        .add(65535)
-        .toHexString(),
+      adjustedDifficulty: adjustedDifficulty(
+        await this.relicTokenForge.getDifficulty()
+      ),
       nextDifficulty: (
         await this.relicTokenForge.getNextDifficulty()
       ).toHexString(),
@@ -348,9 +359,9 @@ export class BlockchainService {
       span: await this.powerupTokenForge.getTargetMintSpan(),
       thisPeriodMinted: await this.powerupTokenForge.getThisPeriodMinted(),
       difficulty: (await this.powerupTokenForge.getDifficulty()).toHexString(),
-      adjustedDifficulty: (await this.powerupTokenForge.getDifficulty())
-        .add(65535)
-        .toHexString(),
+      adjustedDifficulty: adjustedDifficulty(
+        await this.powerupTokenForge.getDifficulty()
+      ),
       nextDifficulty: (
         await this.powerupTokenForge.getNextDifficulty()
       ).toHexString(),
@@ -363,9 +374,7 @@ export class BlockchainService {
       span: await this.lotteryTokenForge.getTargetMintSpan(),
       thisPeriodMinted: await this.lotteryTokenForge.getThisPeriodMinted(),
       difficulty: (await this.lotteryTokenForge.getDifficulty()).toHexString(),
-      adjustedDifficulty: (await this.lotteryTokenForge.getDifficulty())
-        .add(65535)
-        .toHexString(),
+      adjustedDifficulty: '-',
       nextDifficulty: (
         await this.lotteryTokenForge.getNextDifficulty()
       ).toHexString(),

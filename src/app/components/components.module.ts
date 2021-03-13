@@ -28,7 +28,8 @@ import {ConnectWalletButtonComponent} from './connect-wallet-button/connect-wall
 import {NotificationDropdownComponent} from './notification-dropdown/notification-dropdown.component';
 import {ItemListComponent} from './item-list/item-list.component';
 import {ContractAddressesPanelComponent} from './contract-addresses-panel/contract-addresses-panel.component';
-import { ForgingDifficultiesPanelComponent } from './forging-difficulties-panel/forging-difficulties-panel.component';
+import {ForgingDifficultiesPanelComponent} from './forging-difficulties-panel/forging-difficulties-panel.component';
+import {ModalComponent} from './modal/modal.component';
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import { ForgingDifficultiesPanelComponent } from './forging-difficulties-panel/
     ItemListComponent,
     ContractAddressesPanelComponent,
     ForgingDifficultiesPanelComponent,
+    ModalComponent,
   ],
   exports: [
     FooterComponent,
@@ -81,7 +83,8 @@ import { ForgingDifficultiesPanelComponent } from './forging-difficulties-panel/
     NotificationDropdownComponent,
     ItemListComponent,
     ContractAddressesPanelComponent,
-    ForgingDifficultiesPanelComponent
+    ForgingDifficultiesPanelComponent,
+    ModalComponent,
   ],
 })
 export class ComponentsModule {}

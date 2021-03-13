@@ -6,15 +6,16 @@
       class="close"
       aria-label="Close"
       data-dismiss="modal"
-      (click)="closeModal()"
+      (click)="close()"
     >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <app-item-visualizer
-      class="large-visualizer"
-      itemId="{{ itemId }}"
-    ></app-item-visualizer>
+    <div class="row">
+      <div class="col-md-12">
+        <app-item-visualizer itemId="{{ itemId }}"></app-item-visualizer>
+      </div>
+    </div>
   </div>
 </div>

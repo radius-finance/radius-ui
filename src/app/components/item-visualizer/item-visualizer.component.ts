@@ -6,8 +6,8 @@ import {
   Input,
 } from '@angular/core';
 
-import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
-import { ModalComponent } from "../modal/modal.component";
+import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
+import {ModalComponent} from '../modal/modal.component';
 import ColorScheme from 'color-scheme';
 
 import * as paper from 'paper';
@@ -230,7 +230,10 @@ export class ItemVisualizerComponent implements AfterViewInit {
   }
 
   openModal() {
-    this.bsModalRef = this.modalService.show(ModalComponent);
+    const initialState = {
+      itemId: this.itemId,
+    };
+    this.bsModalRef = this.modalService.show(ModalComponent, {initialState});
   }
 
   get itemType() {
