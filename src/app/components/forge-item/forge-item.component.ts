@@ -32,9 +32,11 @@ export class ForgeItemComponent implements OnInit, OnDestroy {
     // gets called after balances are updated in the blockchain service
     this.updateSliderBounds = (type, balances) => {
       if (type !== 'balances') return;
-      this.forgeOptions.ceil = ~~parseFloat(
+      let amt = ~~parseFloat(
         this.blockchainService.formatEther(balances.gas.erc20)
       );
+      amt = amt < 10 ? amt : 10;
+      this.forgeOptions.ceil = amt;
       this.forgeOptions.floor = this.forgeOptions.ceil !== 0 ? 1 : 0;
     };
     // register the handler above with the blockchain service && call it to update UI
