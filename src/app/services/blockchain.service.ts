@@ -9,6 +9,7 @@ const {BigNumber, utils} = ethers;
 import {RadiusGasMine} from '../shared/types/RadiusGasMine';
 import {RadiusCatalystMine} from '../shared/types/RadiusCatalystMine';
 import {RadiusToken} from '../shared/types/RadiusToken';
+import {RadiusTokenLib} from '../shared/types/RadiusTokenLib';
 import {RadiusERC20} from '../shared/types/RadiusERC20';
 import {RadiusGasERC20} from '../shared/types/RadiusGasERC20';
 import {RadiusCatalystERC20} from '../shared/types/RadiusCatalystERC20';
@@ -59,6 +60,7 @@ export class BlockchainService {
   public lotteryWinners: any;
 
   public radiusToken: RadiusToken;
+  public radiusTokenLib: RadiusTokenLib;
   public radiusERC20: RadiusERC20;
   public radiusGasERC20: RadiusGasERC20;
   public radiusCatalystERC20: RadiusCatalystERC20;
@@ -77,6 +79,7 @@ export class BlockchainService {
   public radiusCatalystMine: RadiusCatalystMine;
 
   public tokenForgeData: any;
+  public forgingApprovedForAll: any;
 
   historicalEvents;
 
@@ -124,6 +127,7 @@ export class BlockchainService {
     this.lastGemMintedId = undefined;
     this.lastPowerupMintedId = undefined;
     this.lastRelicMintedId = undefined;
+    this.forgingApprovedForAll = false;
 
     this.maxUINT256 =
       '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff';
@@ -222,6 +226,9 @@ export class BlockchainService {
     this.radiusCatalystMine = (await this.getContractRef(
       'RadiusCatalystMine'
     )) as RadiusCatalystMine;
+    this.radiusTokenLib = (await this.getContractRef(
+      'RadiusTokenLib'
+    )) as RadiusTokenLib;
     this.radiusToken = (await this.getContractRef(
       'RadiusToken'
     )) as RadiusToken;
@@ -282,37 +289,71 @@ export class BlockchainService {
     }
 
     this.radiusLPRef = await this.getTinyERCRef(this.radiusLP);
+    this.forgingApprovedForAll = await this.isForgingApprovedForAll();
 
     await this.setupEvents();
 
-    const filter = {
-      // topics: [
-      //   ethers.utils.id('forged(address,uint256,uint256,uint256,uint256)'),
-      // ],
-    };
-
-    this.historicalEvents = await this.provider.getLogs(filter);
+    this.historicalEvents = await this.loadForgeEvents();
     this.historicalEvents.forEach((log) => {
-      if (log.removed) {
-        return;
-      }
-
-      console.log(JSON.stringify(log, null, 4));
-
-      // if (forgedIndex.toString() !== '3') {
-      //   this.globalItems.push({
-      //     recipient,
-      //     forgedIndex,
-      //     nonce,
-      //     consumed,
-      //     amount,
-      //   });
-      // }
+      console.log(log.address);
     });
-
     await this.updateBalances();
-    await this.updateTokenForgeData();
     await this.updateNFTList();
+    await this.updateTokenForgeData();
+  }
+
+  loadInterfaces() {
+    const ifaces = {};
+    ifaces[
+      contractData.contracts['RadiusToken'].address
+    ] = new ethers.utils.Interface(contractData.contracts['RadiusToken'].abi);
+    ifaces[
+      contractData.contracts['RadiusERC20'].address
+    ] = new ethers.utils.Interface(contractData.contracts['RadiusERC20'].abi);
+    ifaces[
+      contractData.contracts['RadiusGasERC20'].address
+    ] = new ethers.utils.Interface(
+      contractData.contracts['RadiusGasERC20'].abi
+    );
+    ifaces[
+      contractData.contracts['RadiusCatalystERC20'].address
+    ] = new ethers.utils.Interface(
+      contractData.contracts['RadiusCatalystERC20'].abi
+    );
+    ifaces[
+      contractData.contracts['RadiusLotteryERC20'].address
+    ] = new ethers.utils.Interface(
+      contractData.contracts['RadiusLotteryERC20'].abi
+    );
+    ifaces[
+      contractData.contracts['RadiusGasMine'].address
+    ] = new ethers.utils.Interface(contractData.contracts['RadiusGasMine'].abi);
+    ifaces[
+      contractData.contracts['RadiusCatalystMine'].address
+    ] = new ethers.utils.Interface(
+      contractData.contracts['RadiusCatalystMine'].abi
+    );
+    ifaces[
+      contractData.contracts['RadiusTokenLib'].address
+    ] = new ethers.utils.Interface(
+      contractData.contracts['RadiusTokenLib'].abi
+    );
+    return ifaces;
+  }
+
+  async loadForgeEvents() {
+    const ifaces = this.loadInterfaces();
+
+    const logs = await this.provider.getLogs(
+      this.radiusTokenLib.filters.Forged(null, null, null, null, null)
+    );
+    //   const decodedEvents = logs.map((log) => {
+    //     return ifaces[log.address].decodeEventLog('Forged', log.data);
+    //   });
+
+    //   const eventValues = decodedEvents.map((event) => event['values']);
+    //   return eventValues;
+    return logs;
   }
 
   async updateTokenForgeData() {
@@ -380,6 +421,7 @@ export class BlockchainService {
       ).toHexString(),
       lastDifficultyAdjustTime: await this.lotteryTokenForge.getLastDifficultyAdjustTime(),
     };
+    await this.invokeUpdateList('forgeData', this.tokenForgeData);
   }
 
   async getTinyERCRef(address) {
@@ -539,10 +581,6 @@ export class BlockchainService {
   }
 
   async updateNFTList() {
-    if (this.updatingNFTList) {
-      return;
-    }
-    this.updatingNFTList = true;
     const tokensHeldCount = await this.radiusToken.getTokenHeldCount(
       this.account
     );
@@ -561,7 +599,6 @@ export class BlockchainService {
       }
     }
     await this.invokeUpdateList('nftlist', this.nftItems);
-    this.updatingNFTList = false;
   }
 
   async invokeUpdateList(tag: any, vals) {
@@ -728,15 +765,15 @@ export class BlockchainService {
           } else if (forgedIndex.gte(4096) && forgedIndex.lt(8192)) {
             forgedText = 'Powerup';
           } else if (forgedIndex.gte(8192)) {
-            forgedText = 'Powerup';
+            forgedText = 'Gem';
           } else if (forgedIndex.eq(4)) {
             forgedText = 'Lottery Jackpot Winner Medallion';
           }
 
-          this.showToast('Items Forged', `Forged a ${forgedText}`);
           await this.updateBalances();
 
-          if (forgedIndex.toString() !== '3') {
+          if (!forgedIndex.eq(3)) {
+            this.showToast('Items Forged', `Forged a ${forgedText}`);
             if (forgedIndex.gte(256) && forgedIndex.lt(4096)) {
               this.lastRelicMintedId = forgedIndex;
             } else if (forgedIndex.gte(4096) && forgedIndex.lt(8192)) {
@@ -744,8 +781,10 @@ export class BlockchainService {
             } else if (forgedIndex.gte(8192)) {
               this.lastGemMintedId = forgedIndex;
             }
-            await this.updateNFTList();
-            this.confetti(2000);
+            if (!this.nftItems.find((el) => el && el.eq(forgedIndex))) {
+              this.nftItems.unshift(forgedIndex);
+              this.confetti(2000);
+            }
           }
         }
       }
@@ -762,7 +801,7 @@ export class BlockchainService {
         });
         if (recipient == this.account) {
           await this.updateBalances();
-          await this.updateNFTList();
+          // todo - add & viz the lottery NFT
           this.showToast(
             'Lottery Winner',
             `You just won the Radius Lottery and ${this.formatEther(
@@ -859,12 +898,15 @@ export class BlockchainService {
     );
   }
 
-  async forgeRadiusItems(forgeAmount, catalystAmount) {
-    const isApprovedForAll = await this.radiusToken.isApprovedForAll(
+  async isForgingApprovedForAll() {
+    return await this.radiusToken.isApprovedForAll(
       this.account,
       this.radiusToken.address
     );
-    if (!isApprovedForAll) {
+  }
+
+  async forgeRadiusItems(forgeAmount, catalystAmount) {
+    if (!this.forgingApprovedForAll) {
       return await this.radiusToken.setApprovalForAll(
         this.radiusToken.address,
         true

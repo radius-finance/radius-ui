@@ -42,10 +42,11 @@
       <div class="col-md-12">
         <button
           class="btn btn-fill btn-primary"
+          disabled="{{ buttonEnabled }}"
           (click)="handleForgeClick()"
           type="button"
         >
-          Forge
+          {{ buttonText }}
         </button>
       </div>
     </div>

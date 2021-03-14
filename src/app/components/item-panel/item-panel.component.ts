@@ -1,4 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
+import {BsModalService, BsModalRef, ModalOptions} from 'ngx-bootstrap/modal';
+import {ModalComponent} from '../modal/modal.component';
 
 @Component({
   selector: 'app-item-panel',
@@ -6,9 +8,13 @@ import {Component, OnInit, Input} from '@angular/core';
   styleUrls: ['./item-panel.component.scss'],
 })
 export class ItemPanelComponent implements OnInit {
+  bsModalRef: BsModalRef;
+
   @Input() itemId;
 
-  constructor() {}
+  constructor(private modalService: BsModalService) {
+    this.openModal = this.openModal.bind(this);
+  }
 
   ngOnInit(): void {}
 
@@ -43,5 +49,15 @@ export class ItemPanelComponent implements OnInit {
     if (this.itemId >= 256 && this.itemId < 4096) return 1; // relic
     if (this.itemId >= 4096 && this.itemId < 8192) return 2; // powerup
     if (this.itemId >= 8192) return 3; //gem
+  }
+
+  openModal() {
+    const config: ModalOptions = {
+      class: 'modal-xl',
+      initialState: {
+        itemId: this.itemId,
+      },
+    };
+    this.bsModalRef = this.modalService.show(ModalComponent, config);
   }
 }
