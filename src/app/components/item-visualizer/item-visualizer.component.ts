@@ -51,6 +51,9 @@ export class ItemVisualizerComponent implements AfterViewInit {
   private scope: any;
 
   ngAfterViewInit(): void {
+    this.paperCanvas.nativeElement.width = 1000;
+    this.paperCanvas.nativeElement.height = 1000;
+
     this.scope = new paper.PaperScope();
     this.scope.setup(this.paperCanvas.nativeElement);
     this.scope.activate();

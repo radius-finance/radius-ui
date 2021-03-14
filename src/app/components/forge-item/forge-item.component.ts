@@ -43,6 +43,7 @@ export class ForgeItemComponent implements OnInit, OnDestroy {
       this.forgeOptions.ceil = amt;
       this.forgeOptions.floor = this.forgeOptions.ceil !== 0 ? 1 : 0;
       this.forgingApproved = await this.blockchainService.isForgingApprovedForAll();
+      this.state = 0;
     };
     // register the handler above with the blockchain service && call it to update UI
     this.blockchainService.addToUpdateList(this.updateSliderBounds);

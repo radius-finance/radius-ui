@@ -14,10 +14,21 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-md-12">
-        <app-item-visualizer
-          class="large-visualizer"
-          itemId="{{ itemId }}"
-        ></app-item-visualizer>
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-category">{{ itemTypeTitle }}</h5>
+            <h4 class="card-title">
+              <i class="tim-icons {{ itemTypeIcon }} text-primary"> </i>
+              {{ itemId }}
+            </h4>
+          </div>
+          <div class="card-body">
+            <app-item-visualizer
+              itemId="{{ itemId }}"
+              class="large-visualizer"
+            ></app-item-visualizer>
+          </div>
+        </div>
       </div>
     </div>
   </div>
