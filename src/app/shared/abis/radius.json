@@ -1,13 +1,13 @@
 {
-  "name": "kovan",
-  "chainId": "42",
+  "name": "localhost",
+  "chainId": "1337",
   "contracts": {
     "AddressSet": {
-      "address": "0x1e7b7DC5b663b2577fe5208f278650433eEC9bdC",
+      "address": "0xEEF5Bd229322a06cbA10D5dCb28119BD42Fd4a2d",
       "abi": []
     },
     "RadiusTokenLib": {
-      "address": "0x53D117016ed01e0fcfB175219D643c0Ac7eE1676",
+      "address": "0x0474b50293DcB1503b5B59a25b71Ac7b4dA09cB1",
       "abi": [
         {
           "anonymous": false,
@@ -232,7 +232,7 @@
       ]
     },
     "RadiusToken_Implementation": {
-      "address": "0x839e7968F26d57091302d38904531B9C11593A44",
+      "address": "0xE6fD01E64cd793D55269f1dcfEA1BEb480AA3650",
       "abi": [
         {
           "anonymous": false,
@@ -1128,6 +1128,25 @@
             }
           ],
           "name": "getUnpaidDividends",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_index",
+              "type": "uint256"
+            }
+          ],
+          "name": "getUnpaidLottery",
           "outputs": [
             {
               "internalType": "uint256",
@@ -1660,7 +1679,7 @@
       ]
     },
     "RadiusToken_Proxy": {
-      "address": "0x87328411152fE3B9aA329E9c3E0b1936c3C75629",
+      "address": "0x1da48ae241B984C8BA795677616DCc13b93e4d60",
       "abi": [
         {
           "inputs": [
@@ -1791,7 +1810,7 @@
       ]
     },
     "RadiusToken": {
-      "address": "0x87328411152fE3B9aA329E9c3E0b1936c3C75629",
+      "address": "0x1da48ae241B984C8BA795677616DCc13b93e4d60",
       "abi": [
         {
           "anonymous": false,
@@ -2792,6 +2811,25 @@
             }
           ],
           "name": "getUnpaidDividends",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_index",
+              "type": "uint256"
+            }
+          ],
+          "name": "getUnpaidLottery",
           "outputs": [
             {
               "internalType": "uint256",
@@ -3326,7 +3364,7 @@
       ]
     },
     "RadiusGasERC20_Implementation": {
-      "address": "0xdbce463b9835aCc9C2eEA8C8Bc620738fEff7aad",
+      "address": "0x32fb51D4f9e5bcb8949294130B8E65a97d87Fa87",
       "abi": [
         {
           "anonymous": false,
@@ -4106,7 +4144,7 @@
       ]
     },
     "RadiusGasERC20_Proxy": {
-      "address": "0x43364CbFf2eaF1e32125a1491F08B7EAb3Ae8a95",
+      "address": "0xB22dB11bBB52ffCb45d832390829Ba67214C6fAa",
       "abi": [
         {
           "inputs": [
@@ -4237,7 +4275,7 @@
       ]
     },
     "RadiusGasERC20": {
-      "address": "0x43364CbFf2eaF1e32125a1491F08B7EAb3Ae8a95",
+      "address": "0xB22dB11bBB52ffCb45d832390829Ba67214C6fAa",
       "abi": [
         {
           "anonymous": false,
@@ -5143,7 +5181,7 @@
       ]
     },
     "RadiusERC20_Implementation": {
-      "address": "0x335429371344C18D07Ae573CEA92522Dda9B841C",
+      "address": "0x14528C987867F4cBfC37010bF62eC95b6A95aF06",
       "abi": [
         {
           "anonymous": false,
@@ -5928,7 +5966,7 @@
       ]
     },
     "RadiusERC20_Proxy": {
-      "address": "0x92Df75a59Ab40eecaaaf1eDc22288022E271E591",
+      "address": "0x31C39200452Ba593fF2083421aeFa7921B830eb2",
       "abi": [
         {
           "inputs": [
@@ -6059,7 +6097,7 @@
       ]
     },
     "RadiusERC20": {
-      "address": "0x92Df75a59Ab40eecaaaf1eDc22288022E271E591",
+      "address": "0x31C39200452Ba593fF2083421aeFa7921B830eb2",
       "abi": [
         {
           "anonymous": false,
@@ -6970,7 +7008,7 @@
       ]
     },
     "RadiusCatalystERC20_Implementation": {
-      "address": "0xc08f9C31b445daAE47A06Ae0570De90db53B89f3",
+      "address": "0x4A6bcA3C92caC20f16f6DA6dE30caa7E03772ABf",
       "abi": [
         {
           "anonymous": false,
@@ -7750,7 +7788,7 @@
       ]
     },
     "RadiusCatalystERC20_Proxy": {
-      "address": "0xe28145b85478369D5B1C2D5875846b3cF58d8ed3",
+      "address": "0xD91d1Bc305B74d01D449D0C3E72a76d6A553c54B",
       "abi": [
         {
           "inputs": [
@@ -7881,7 +7919,7 @@
       ]
     },
     "RadiusCatalystERC20": {
-      "address": "0xe28145b85478369D5B1C2D5875846b3cF58d8ed3",
+      "address": "0xD91d1Bc305B74d01D449D0C3E72a76d6A553c54B",
       "abi": [
         {
           "anonymous": false,
@@ -8787,7 +8825,7 @@
       ]
     },
     "RadiusLotteryERC20_Implementation": {
-      "address": "0xA0C6e693334C420D28007F0BF28159D08C730D73",
+      "address": "0x047a12B6Be14AEE36B3346CC27fF5b4C9A8d03F9",
       "abi": [
         {
           "anonymous": false,
@@ -9567,7 +9605,7 @@
       ]
     },
     "RadiusLotteryERC20_Proxy": {
-      "address": "0x0Ec525A66198250e4e0b3bE1911f91de210e77b7",
+      "address": "0x543e712c216CF072992d58059e6716873040549B",
       "abi": [
         {
           "inputs": [
@@ -9698,7 +9736,7 @@
       ]
     },
     "RadiusLotteryERC20": {
-      "address": "0x0Ec525A66198250e4e0b3bE1911f91de210e77b7",
+      "address": "0x543e712c216CF072992d58059e6716873040549B",
       "abi": [
         {
           "anonymous": false,
@@ -10604,7 +10642,7 @@
       ]
     },
     "RelicTokenForge_Implementation": {
-      "address": "0x3696bCb0fA12C98fd4BacF276290AB4c927634C9",
+      "address": "0x89232DF8F773D0185f79cdE7122d3540e288d545",
       "abi": [
         {
           "anonymous": false,
@@ -11074,7 +11112,7 @@
       ]
     },
     "RelicTokenForge_Proxy": {
-      "address": "0x5Bb1efa384fEe6a607a2517a4EEd2310b04433D4",
+      "address": "0xcb66dc8044bB7108b781D10d17Aa8577bDCFF400",
       "abi": [
         {
           "inputs": [
@@ -11205,7 +11243,7 @@
       ]
     },
     "RelicTokenForge": {
-      "address": "0x5Bb1efa384fEe6a607a2517a4EEd2310b04433D4",
+      "address": "0xcb66dc8044bB7108b781D10d17Aa8577bDCFF400",
       "abi": [
         {
           "anonymous": false,
@@ -11801,7 +11839,7 @@
       ]
     },
     "PowerupTokenForge_Implementation": {
-      "address": "0xE7504A16F225B9B0e5C497b4Ac9A242fb6ff83c2",
+      "address": "0x175779cd27aE2Ba7A1951d582fE351FbD2aBBfa5",
       "abi": [
         {
           "anonymous": false,
@@ -12271,7 +12309,7 @@
       ]
     },
     "PowerupTokenForge_Proxy": {
-      "address": "0x70501283DE5E5427E66FF1a1777b3C002b3Ba89b",
+      "address": "0xBDA1285480cb8bE35ce013E314083F828A0d8f86",
       "abi": [
         {
           "inputs": [
@@ -12402,7 +12440,7 @@
       ]
     },
     "PowerupTokenForge": {
-      "address": "0x70501283DE5E5427E66FF1a1777b3C002b3Ba89b",
+      "address": "0xBDA1285480cb8bE35ce013E314083F828A0d8f86",
       "abi": [
         {
           "anonymous": false,
@@ -12998,7 +13036,7 @@
       ]
     },
     "GemTokenForge_Implementation": {
-      "address": "0x69C9079a11371cDEA3845d27E52376264409eC8f",
+      "address": "0xbB4E52e3Abe677E0df481197554E09cbB0BD7FA1",
       "abi": [
         {
           "anonymous": false,
@@ -13430,7 +13468,7 @@
       ]
     },
     "GemTokenForge_Proxy": {
-      "address": "0xbf5982dB1920AEFdAeaA2a916191C3167F797696",
+      "address": "0x37d16C0B6f994fcED19957B5543CcB9E8647B5bE",
       "abi": [
         {
           "inputs": [
@@ -13561,7 +13599,7 @@
       ]
     },
     "GemTokenForge": {
-      "address": "0xbf5982dB1920AEFdAeaA2a916191C3167F797696",
+      "address": "0x37d16C0B6f994fcED19957B5543CcB9E8647B5bE",
       "abi": [
         {
           "anonymous": false,
@@ -14119,7 +14157,7 @@
       ]
     },
     "LotteryTokenForge_Implementation": {
-      "address": "0x1a189E533BAb09d58e0b2488c78861fD8dD0baA0",
+      "address": "0xA63c92b3bf5dc0D1B90FeA26a8DaCB23B683cc7e",
       "abi": [
         {
           "anonymous": false,
@@ -14551,7 +14589,7 @@
       ]
     },
     "LotteryTokenForge_Proxy": {
-      "address": "0xb055De7BBfc32B923ec432243a77223f963FC741",
+      "address": "0xD14781B2e59F594A53aB360FeaACACf32184C280",
       "abi": [
         {
           "inputs": [
@@ -14682,7 +14720,7 @@
       ]
     },
     "LotteryTokenForge": {
-      "address": "0xb055De7BBfc32B923ec432243a77223f963FC741",
+      "address": "0xD14781B2e59F594A53aB360FeaACACf32184C280",
       "abi": [
         {
           "anonymous": false,
@@ -15240,7 +15278,7 @@
       ]
     },
     "TestTokenForge_Implementation": {
-      "address": "0xCd395531f196dD17429e57289D52F263c8aDF3F1",
+      "address": "0x93aD014471FCf3B420d80b6ac0E3a1141ca657e1",
       "abi": [
         {
           "anonymous": false,
@@ -15673,7 +15711,7 @@
       ]
     },
     "TestTokenForge_Proxy": {
-      "address": "0x23bd7dC40449dEb3A6513e3f0De6C3dD261C6401",
+      "address": "0x812D3E21bb9Cd18518FB70764b70B89Fd583B81c",
       "abi": [
         {
           "inputs": [
@@ -15804,7 +15842,7 @@
       ]
     },
     "TestTokenForge": {
-      "address": "0x23bd7dC40449dEb3A6513e3f0De6C3dD261C6401",
+      "address": "0x812D3E21bb9Cd18518FB70764b70B89Fd583B81c",
       "abi": [
         {
           "anonymous": false,
@@ -16363,7 +16401,7 @@
       ]
     },
     "RadiusMineLib": {
-      "address": "0xCAF081232a5B69b7Bd059d9e8607511Ce0c04a32",
+      "address": "0x30425e85112331160e83Db51AD142c621aEaa44e",
       "abi": [
         {
           "anonymous": false,
@@ -16455,7 +16493,7 @@
         },
         {
           "inputs": [],
-          "name": "CANDY",
+          "name": "CATALYST",
           "outputs": [
             {
               "internalType": "uint256",
@@ -16468,7 +16506,7 @@
         },
         {
           "inputs": [],
-          "name": "DESSERT",
+          "name": "EARNEDPERPERIOD",
           "outputs": [
             {
               "internalType": "uint256",
@@ -16481,7 +16519,7 @@
         },
         {
           "inputs": [],
-          "name": "LIQUOR",
+          "name": "EARNEDPERTOKEN",
           "outputs": [
             {
               "internalType": "uint256",
@@ -16494,7 +16532,7 @@
         },
         {
           "inputs": [],
-          "name": "LIQUORPERPERIOD",
+          "name": "GAS",
           "outputs": [
             {
               "internalType": "uint256",
@@ -16507,7 +16545,7 @@
         },
         {
           "inputs": [],
-          "name": "LIQUORPERTOKEN",
+          "name": "LOTTERY",
           "outputs": [
             {
               "internalType": "uint256",
@@ -16547,7 +16585,7 @@
       ]
     },
     "RadiusGasMine_Implementation": {
-      "address": "0x11D62aC04a2f1AcCB930E3A5EB6BA69EaEA52259",
+      "address": "0xe3f91f3289D3D5B105aF6183d6dBCfAA11cb7928",
       "abi": [
         {
           "anonymous": false,
@@ -17242,7 +17280,7 @@
       ]
     },
     "RadiusGasMine_Proxy": {
-      "address": "0xD195dD0D79208e68cb28174f60B3fAcc49b7241d",
+      "address": "0x4428266CcEC018F4E307B96536AF33A60753a970",
       "abi": [
         {
           "inputs": [
@@ -17373,7 +17411,7 @@
       ]
     },
     "RadiusGasMine": {
-      "address": "0xD195dD0D79208e68cb28174f60B3fAcc49b7241d",
+      "address": "0x4428266CcEC018F4E307B96536AF33A60753a970",
       "abi": [
         {
           "anonymous": false,
@@ -18194,7 +18232,7 @@
       ]
     },
     "RadiusCatalystMine_Implementation": {
-      "address": "0x4d6aA1d453461f00815d4B99a67191CA43EAdeFc",
+      "address": "0x5A3a17Fe585561341bAfF5C6b574844c20Fb987F",
       "abi": [
         {
           "anonymous": false,
@@ -18889,7 +18927,7 @@
       ]
     },
     "RadiusCatalystMine_Proxy": {
-      "address": "0x58092d2B6d4AE17bf3c783ACf11BE83Aa0D7B04f",
+      "address": "0xE82E5463397c43a1b81f7e74aB37eFE64B220eAB",
       "abi": [
         {
           "inputs": [
@@ -19020,7 +19058,7 @@
       ]
     },
     "RadiusCatalystMine": {
-      "address": "0x58092d2B6d4AE17bf3c783ACf11BE83Aa0D7B04f",
+      "address": "0xE82E5463397c43a1b81f7e74aB37eFE64B220eAB",
       "abi": [
         {
           "anonymous": false,

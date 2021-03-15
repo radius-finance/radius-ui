@@ -118,11 +118,17 @@
             {{ lastGemMintedId }}
           </h3>
         </div>
-        <div class="card-body">
+        <div class="card-body" *ngIf="lastGemMintedId !== undefined">
           <app-item-visualizer
             itemId="{{ lastGemMintedId }}"
             class="card-visualizer"
           ></app-item-visualizer>
+        </div>
+        <div
+          class="card-body text-center"
+          *ngIf="lastGemMintedId === undefined"
+        >
+          No gems forged yet.
         </div>
       </div>
     </div>
@@ -136,11 +142,17 @@
             {{ lastPowerupMintedId }}
           </h3>
         </div>
-        <div class="card-body">
+        <div class="card-body" *ngIf="lastPowerupMintedId !== undefined">
           <app-item-visualizer
             itemId="{{ lastPowerupMintedId }}"
             class="card-visualizer"
           ></app-item-visualizer>
+        </div>
+        <div
+          class="card-body text-center"
+          *ngIf="lastPowerupMintedId === undefined"
+        >
+          No powerups forged yet.
         </div>
       </div>
     </div>
@@ -154,11 +166,17 @@
             {{ lastRelicMintedId }}
           </h3>
         </div>
-        <div class="card-body">
+        <div class="card-body" *ngIf="lastRelicMintedId !== undefined">
           <app-item-visualizer
             itemId="{{ lastRelicMintedId }}"
             class="card-visualizer"
           ></app-item-visualizer>
+        </div>
+        <div
+          class="card-body text-center"
+          *ngIf="lastRelicMintedId === undefined"
+        >
+          No relics forged yet.
         </div>
       </div>
     </div>
@@ -176,13 +194,17 @@
     <div class="col-md-12">
       <h3>Contract Addresses</h3>
     </div>
-    <div class="col-md-12"><app-forging-difficulties-panel></app-forging-difficulties-panel></div>
+    <div class="col-md-12">
+      <app-forging-difficulties-panel></app-forging-difficulties-panel>
+    </div>
   </div>
 
   <div class="row">
     <div class="col-md-12">
       <h3>Contract Addresses</h3>
     </div>
-    <div class="col-md-12"><app-contract-addresses-panel></app-contract-addresses-panel></div>
+    <div class="col-md-12">
+      <app-contract-addresses-panel></app-contract-addresses-panel>
+    </div>
   </div>
 </div>

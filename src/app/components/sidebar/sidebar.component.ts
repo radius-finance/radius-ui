@@ -62,6 +62,13 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'tim-icons icon-trophy',
   },
   {
+    path: '/dividends',
+    title: 'Dividends',
+    type: 'link',
+    rtlTitle: '',
+    icontype: 'tim-icons icon-wallet-43',
+  },
+  {
     path: '/wallet',
     title: 'Wallet',
     type: 'link',

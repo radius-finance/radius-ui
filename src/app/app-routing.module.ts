@@ -34,6 +34,11 @@ const routes: Routes = [
         loadChildren: './pages/examples/win/win.module#WinModule',
       },
       {
+        path: 'dividends',
+        loadChildren:
+          './pages/examples/dividends/dividends.module#DividendsModule',
+      },
+      {
         path: 'wallet',
         loadChildren: './pages/examples/wallet/wallet.module#WalletModule',
       },

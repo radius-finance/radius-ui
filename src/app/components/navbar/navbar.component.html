@@ -42,20 +42,6 @@
     </button>
     <div class="navbar-collapse" [collapse]="isCollapsed" id="navigation">
       <ul class="navbar-nav ml-auto">
-        <li class="dropdown nav-item" dropdown>
-          <a
-            class="dropdown-toggle nav-link dropdown-toggle"
-            data-toggle="dropdown"
-            dropdownToggle
-            href="javascript:void(0)"
-            (click)="$event.preventDefault()"
-          >
-            <div class="notification d-none d-lg-block d-xl-block"></div>
-            <i class="tim-icons icon-sound-wave"> </i>
-            <p class="d-lg-none">Notifications</p>
-          </a>
-          <app-notification-dropdown></app-notification-dropdown>
-        </li>
         <li class="search-bar input-group">
           <app-connect-wallet-button></app-connect-wallet-button>
         </li>

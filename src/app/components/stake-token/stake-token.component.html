@@ -8,7 +8,7 @@
         <div class="col-md-6">
           <label class="col-form-label">
             Total Deposits:
-            {{ totalStakedBalance | number: '1.18' }} {{ stakedSymbol }}
+            {{ totalStakedBalance | number: '1.4' }} {{ stakedSymbol }}
           </label>
         </div>
         <div class="col-md-6">
@@ -17,23 +17,29 @@
           </label>
         </div>
       </div>
-      <div class="mt-3 row">
+      <div *ngIf="!hasStakedTokens" class="mt-3 row">
         <div class="col-md-12">
           <div class="form-group">
-            <input class="form-control" formControlName="amount" placeholder="Enter amount" type="text" />
+            <input
+              class="form-control"
+              formControlName="amount"
+              placeholder="Enter amount"
+              (change)="inputAmountChange()"
+              type="text"
+            />
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <label class="col-form-label">
-            Staked {{ stakedSymbol }}: {{ stakedBalance | number: '1.18' }}
+            Staked {{ stakedSymbol }}: {{ stakedBalance | number: '1.4' }}
             {{ stakedSymbol }}
           </label>
         </div>
         <div class="col-md-6">
           <label class="col-form-label">
-            Earned {{ earnedSymbol }}: {{ earnedBalance | number: '1.18' }}
+            Earned {{ earnedSymbol }}: {{ earnedBalance | number: '1.4' }}
             {{ earnedSymbol }}
           </label>
         </div>
@@ -44,24 +50,16 @@
         <div class="col-md-12">
           <button
             class="btn btn-fill btn-primary"
-            (click)="handleStakeClick()"
-            [disabled]="!stakeForm.valid"
+            (click)="handleActionClick()"
+            disabled="{{ actionButtonEnabled }}"
             type="button"
           >
-            Stake
-          </button>
-          <button
-            class="btn btn-fill btn-primary"
-            (click)="handleWithdrawClick()"
-            [disabled]="!stakeForm.valid"
-            type="button"
-          >
-            Withdraw
+            {{ actionButtonLabel }}
           </button>
           <button
             class="btn btn-fill btn-primary"
             (click)="handleHarvestClick()"
-            [disabled]="!stakeForm.valid"
+            disabled="{{ harvestButtonEnabled }}"
             type="button"
           >
             Harvest

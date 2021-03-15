@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Previous Dividend Claims</h4>
+    <p class="card-category">Here are your previous dividend claims</p>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table">
+            <tbody *ngIf="!hasPreviousDividendClaims">
+              <tr>
+                <th>Timestamp</th>
+                <th>Radius Gas Amount</th>
+                <th>Radius Catalyst Amount</th>
+              </tr>
+              <tr>
+                <td colspan="4">There is no claim history yet.</td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="hasPreviousDividendClaims">
+              <tr>
+                <th>Timestamp</th>
+                <th>Radius Gas Amount</th>
+                <th>Radius Catalyst Amount</th>
+              </tr>
+              <tr *ngFor="let claim of previousDividendClaimsList">
+                <td>{{ claim.timestamp }}</td>
+                <td>
+                  {{ blockchainService.formatEther(claim.gasClaimed) }}
+                </td>
+                <td>
+                  {{ blockchainService.formatEther(claim.catalystClaimed) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

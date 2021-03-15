@@ -30,6 +30,9 @@ import {ItemListComponent} from './item-list/item-list.component';
 import {ContractAddressesPanelComponent} from './contract-addresses-panel/contract-addresses-panel.component';
 import {ForgingDifficultiesPanelComponent} from './forging-difficulties-panel/forging-difficulties-panel.component';
 import {ModalComponent} from './modal/modal.component';
+import {CollectDividendsPanelComponent} from './collect-dividends-panel/collect-dividends-panel.component';
+import {PreviousDividendClaimsComponent} from './previous-dividend-claims/previous-dividend-claims.component';
+import {DividendsBalancePanelComponent} from './dividends-balance-panel/dividends-balance-panel.component';
 
 @NgModule({
   imports: [
@@ -65,6 +68,9 @@ import {ModalComponent} from './modal/modal.component';
     ContractAddressesPanelComponent,
     ForgingDifficultiesPanelComponent,
     ModalComponent,
+    CollectDividendsPanelComponent,
+    PreviousDividendClaimsComponent,
+    DividendsBalancePanelComponent,
   ],
   exports: [
     FooterComponent,
@@ -85,6 +91,9 @@ import {ModalComponent} from './modal/modal.component';
     ContractAddressesPanelComponent,
     ForgingDifficultiesPanelComponent,
     ModalComponent,
+    CollectDividendsPanelComponent,
+    PreviousDividendClaimsComponent,
+    DividendsBalancePanelComponent,
   ],
 })
 export class ComponentsModule {}

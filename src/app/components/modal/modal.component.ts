@@ -1,5 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
+import {BlockchainService} from '../../services/blockchain.service';
+import {ethers} from 'ethers';
+const {BigNumber, utils} = ethers;
 
 @Component({
   selector: 'app-modal',
@@ -7,11 +10,26 @@ import {BsModalRef} from 'ngx-bootstrap/modal';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent {
-  constructor(private bsModalRef: BsModalRef) {}
+  constructor(
+    private blockchainService: BlockchainService,
+    private bsModalRef: BsModalRef
+  ) {}
   @Input() itemId;
 
   close() {
     this.bsModalRef.hide();
+  }
+
+  get itemDNA() {
+    return this.blockchainService.getItemDNA(this.itemId);
+  }
+
+  get itemDNAExtended() {
+    return this.blockchainService.getItemDNAExtended(this.itemId);
+  }
+
+  get itemDNAString() {
+    return this.itemDNA.join(' ');
   }
 
   get itemTypeTitle() {
@@ -32,10 +50,18 @@ export class ModalComponent {
     return this.itemId;
   }
 
+  get itemRarity() {
+    if (this.itemType !== 3) {
+      return 0;
+    }
+    return this.blockchainService.getItemRarity(this.itemId);
+  }
+
   get itemType() {
-    if (this.itemId < 3) return 0;
-    if (this.itemId >= 256 && this.itemId < 4096) return 1; // relic
-    if (this.itemId >= 4096 && this.itemId < 8192) return 2; // powerup
-    if (this.itemId >= 8192) return 3; //gem
+    const bn = BigNumber.from(this.itemId);
+    if (bn.lt(3)) return 0;
+    if (bn.gte(256) && bn.lt(4096)) return 1; // relic
+    if (bn.gte(4096) && bn.lt(8192)) return 2; // powerup
+    if (bn.gte(8192)) return 3; //gem
   }
 }

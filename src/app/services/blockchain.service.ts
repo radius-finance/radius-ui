@@ -74,6 +74,7 @@ export class BlockchainService {
   public lastGemMintedId: any;
   public lastPowerupMintedId: any;
   public lastRelicMintedId: any;
+  public rarestGemFound: any;
 
   public radiusGasMine: RadiusGasMine;
   public radiusCatalystMine: RadiusCatalystMine;
@@ -92,8 +93,7 @@ export class BlockchainService {
       walletconnect: {
         package: WalletConnectProvider, // required
         options: {
-          // TODO: Update
-          infuraId: '1ecc817aeb624f00a3507b2c597ff6f9', // required
+          infuraId: 'b91f3a967d5044b292140b5c8927d584',
           //qrcode: false
         },
       },
@@ -118,6 +118,10 @@ export class BlockchainService {
     this.harvestRadiusGas = this.harvestRadiusGas.bind(this);
     this.harvestRadiusCatalyst = this.harvestRadiusCatalyst.bind(this);
     this.forgeRadiusItems = this.forgeRadiusItems.bind(this);
+    this.getGasMineRadiusAllowance = this.getGasMineRadiusAllowance.bind(this);
+    this.getCatalystMineRadiusAllowance = this.getCatalystMineRadiusAllowance.bind(
+      this
+    );
 
     this.updateList = [];
     this.confettiOn = false;
@@ -127,6 +131,7 @@ export class BlockchainService {
     this.lastGemMintedId = undefined;
     this.lastPowerupMintedId = undefined;
     this.lastRelicMintedId = undefined;
+    this.rarestGemFound = undefined;
     this.forgingApprovedForAll = false;
 
     this.maxUINT256 =
@@ -208,6 +213,14 @@ export class BlockchainService {
         total: 0,
       },
       unpaidDividends: {
+        gas: 0,
+        catalyst: 0,
+      },
+      claimableDividends: {
+        gas: 0,
+        catalyst: 0,
+      },
+      unpaidLottery: {
         gas: 0,
         catalyst: 0,
       },
@@ -429,6 +442,28 @@ export class BlockchainService {
       address,
       [
         {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              name: 'owner',
+              type: 'address',
+            },
+            {
+              indexed: true,
+              name: 'spender',
+              type: 'address',
+            },
+            {
+              indexed: false,
+              name: 'value',
+              type: 'uint256',
+            },
+          ],
+          name: 'Approval',
+          type: 'event',
+        },
+        {
           inputs: [
             {
               name: 'spender',
@@ -569,6 +604,12 @@ export class BlockchainService {
     this.balances.unpaidDividends.catalyst = await this.radiusToken.getUnpaidDividends(
       2
     );
+    this.balances.unpaidLottery.gas = await this.radiusToken.getUnpaidLottery(
+      1
+    );
+    this.balances.unpaidLottery.catalyst = await this.radiusToken.getUnpaidLottery(
+      2
+    );
 
     this.balances.totalSupplies.gas = await this.radiusGasERC20.totalSupply();
     this.balances.totalSupplies.catalyst = await this.radiusCatalystERC20.totalSupply();
@@ -595,7 +636,7 @@ export class BlockchainService {
         tokenIndex.gt(3) &&
         !this.nftItems.find((el) => el && el.eq(tokenIndex))
       ) {
-        this.nftItems.push(tokenIndex);
+        this.nftItems.unshift(tokenIndex);
       }
     }
     await this.invokeUpdateList('nftlist', this.nftItems);
@@ -647,6 +688,7 @@ export class BlockchainService {
             amount
           ).toString()} Radius Gas to ${toAddress}`
         );
+        await this.invokeUpdateList('Mined', {amount});
       }
     });
     // Radius token is deposited
@@ -661,6 +703,7 @@ export class BlockchainService {
               amount
             ).toString()} Radius tokens to ${toAddress}`
           );
+          await this.invokeUpdateList('Deposited', {erc20token, amount});
         }
       }
     );
@@ -676,6 +719,7 @@ export class BlockchainService {
               amount
             ).toString()} Radius from ${toAddress}`
           );
+          await this.invokeUpdateList('Withdrawn', {erc20token, amount});
         }
       }
     );
@@ -689,6 +733,7 @@ export class BlockchainService {
             amount
           ).toString()} Radius Gas to ${toAddress}`
         );
+        await this.invokeUpdateList('WithdrawnMined', {amount});
       }
     });
     // Catalyst token is mined
@@ -701,6 +746,7 @@ export class BlockchainService {
             amount
           ).toString()} Radius Catalyst tokens to ${toAddress}`
         );
+        await this.invokeUpdateList('Mined', {amount});
       }
     });
     // LP Tokens are deposited
@@ -715,6 +761,7 @@ export class BlockchainService {
               amount
             ).toString()} Radius UNI-v2 LP tokens to ${toAddress}`
           );
+          await this.invokeUpdateList('Deposited', {erc20token, amount});
         }
       }
     );
@@ -730,6 +777,7 @@ export class BlockchainService {
               amount
             ).toString()} Radius UNI-V2 LP tokens to ${toAddress}`
           );
+          await this.invokeUpdateList('Withdrawn', {erc20token, amount});
         }
       }
     );
@@ -743,6 +791,7 @@ export class BlockchainService {
             amount
           ).toString()} Radius Catalyst tokens to ${toAddress}`
         );
+        await this.invokeUpdateList('WithdrawnMined', {amount});
       }
     });
     // Gas token is mined
@@ -780,11 +829,18 @@ export class BlockchainService {
               this.lastPowerupMintedId = forgedIndex;
             } else if (forgedIndex.gte(8192)) {
               this.lastGemMintedId = forgedIndex;
+              // rarestGemFound
             }
             if (!this.nftItems.find((el) => el && el.eq(forgedIndex))) {
               this.nftItems.unshift(forgedIndex);
               this.confetti(2000);
             }
+            await this.invokeUpdateList('Forged', {
+              forgedIndex,
+              nonce,
+              consumed,
+              amount,
+            });
           }
         }
       }
@@ -809,26 +865,47 @@ export class BlockchainService {
             )} Radius Gas / ${this.formatEther(catalystWon)} Radius Catalyst`
           );
           this.confetti(5000);
+          await this.invokeUpdateList('LotteryWinner', {gasWon, catalystWon});
         }
       }
+    );
+
+    // Approval to stake
+    this.radiusERC20.on('Approval', async (owner, spender, value) => {
+      if (owner === this.account) {
+        await this.invokeUpdateList('Approval', {owner, spender, value});
+      }
+    });
+
+    // Approval to stake
+    this.radiusLPRef.on('Approval', async (owner, spender, value) => {
+      if (owner === this.account) {
+        await this.invokeUpdateList('Approval', {owner, spender, value});
+      }
+    });
+  }
+
+  async getGasMineRadiusAllowance() {
+    return await this.radiusERC20.allowance(
+      this.account,
+      this.radiusGasMine.address
     );
   }
 
   async stakeRadius(amount: any) {
     const amountInWei = this.parseEther(amount);
-    const allowance = await this.radiusERC20.allowance(
-      this.account,
-      this.radiusGasMine.address
-    );
+    const allowance = await this.getGasMineRadiusAllowance();
     if (allowance.lt(amountInWei)) {
-      await this.radiusERC20.approve(this.radiusGasMine.address, amountInWei);
-    } else {
-      return await this.radiusGasMine.depositFrom(
-        this.radiusERC20.address,
-        this.account,
+      return await this.radiusERC20.approve(
+        this.radiusGasMine.address,
         amountInWei
       );
     }
+    return await this.radiusGasMine.depositFrom(
+      this.radiusERC20.address,
+      this.account,
+      amountInWei
+    );
   }
 
   async withdrawRadius(amount: any) {
@@ -838,7 +915,6 @@ export class BlockchainService {
       this.account
     );
     if (tokenBalance.gte(amountInWei)) {
-      await this.harvestRadiusGas();
       await this.radiusGasMine.withdrawTo(
         this.radiusERC20.address,
         this.account,
@@ -852,12 +928,16 @@ export class BlockchainService {
     await this.radiusGasMine.withdrawMinedTo(this.account, gasBalance);
   }
 
-  async stakeRadiusLP(amount: any) {
-    const amountInWei = this.parseEther(amount);
-    const allowance = await this.radiusLPRef.allowance(
+  async getCatalystMineRadiusAllowance() {
+    return await this.radiusLPRef.allowance(
       this.account,
       this.radiusCatalystMine.address
     );
+  }
+
+  async stakeRadiusLP(amount: any) {
+    const amountInWei = this.parseEther(amount);
+    const allowance = await this.getCatalystMineRadiusAllowance();
     if (allowance.lt(this.parseEther(amountInWei))) {
       await this.radiusLPRef.approve(
         this.radiusCatalystMine.address,
@@ -1014,5 +1094,101 @@ export class BlockchainService {
 
   get earnedRadiusCatalystBalance() {
     return this.balances ? this.balances.catalystMine.earned : 0;
+  }
+
+  getItemDNAExtended(itemId) {
+    const dnaArray = [];
+    const recurseRead = (iter) => {
+      dnaArray.push(
+        itemId.substring(itemId.length - 1 - iter, itemId.length - iter)
+      );
+
+      dnaArray.push(
+        itemId.substring(itemId.length - 2 - iter, itemId.length - 1 - iter)
+      );
+
+      dnaArray.push(
+        itemId.substring(itemId.length - 3 - iter, itemId.length - 2 - iter)
+      );
+
+      dnaArray.push(
+        itemId.substring(itemId.length - 4 - iter, itemId.length - 3 - iter)
+      );
+
+      dnaArray.push(
+        itemId.substring(itemId.length - 5 - iter, itemId.length - 4 - iter)
+      );
+
+      dnaArray.push(
+        itemId.substring(itemId.length - 7 - iter, itemId.length - 5 - iter)
+      );
+
+      dnaArray.push(
+        itemId.substring(itemId.length - 9 - iter, itemId.length - 7 - iter)
+      );
+
+      if (iter < 5) {
+        recurseRead(iter + 1);
+      }
+    };
+    recurseRead(1);
+    return dnaArray;
+  }
+
+  getItemDNA(itemId) {
+    const dnaArray = [];
+    const recurseRead = (iter) => {
+      const dnaElement = [];
+      dnaElement.push(
+        itemId.substring(itemId.length - 1 - iter, itemId.length - iter)
+      );
+
+      dnaElement.push(
+        itemId.substring(itemId.length - 2 - iter, itemId.length - 1 - iter)
+      );
+
+      dnaElement.push(
+        itemId.substring(itemId.length - 3 - iter, itemId.length - 2 - iter)
+      );
+
+      dnaElement.push(
+        itemId.substring(itemId.length - 4 - iter, itemId.length - 3 - iter)
+      );
+
+      dnaElement.push(
+        itemId.substring(itemId.length - 5 - iter, itemId.length - 4 - iter)
+      );
+
+      dnaElement.push(
+        itemId.substring(itemId.length - 7 - iter, itemId.length - 5 - iter)
+      );
+
+      dnaElement.push(
+        itemId.substring(itemId.length - 9 - iter, itemId.length - 7 - iter)
+      );
+
+      dnaArray.push(dnaElement.join(''));
+
+      if (iter < 5) {
+        recurseRead(iter + 1);
+      }
+    };
+    recurseRead(1);
+    return dnaArray;
+  }
+
+  getItemRarity(itemId) {
+    const itemDNA = this.getItemDNAExtended(itemId);
+    if (itemDNA.length === 0) {
+      return 0;
+    }
+    const itemDNANumerical = itemDNA.map((el) => parseInt('0x' + el));
+    const dnaMean =
+      itemDNANumerical.reduce((ac, el) => ac + el) / itemDNA.length;
+    const dnaPow =
+      itemDNANumerical.reduce((ac, el) => ac + Math.pow(el - dnaMean, 2)) /
+      itemDNA.length;
+
+    return 1 / Math.sqrt(dnaPow);
   }
 }

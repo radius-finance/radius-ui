@@ -42,6 +42,8 @@ export class ItemVisualizerComponent implements AfterViewInit {
   constructor() {}
 
   @Input() itemId;
+  @Input() canvasWidth;
+  @Input() canvasHeight;
 
   @ViewChild('paperCanvas')
   paperCanvas: ElementRef<HTMLCanvasElement>;
@@ -51,9 +53,8 @@ export class ItemVisualizerComponent implements AfterViewInit {
   private scope: any;
 
   ngAfterViewInit(): void {
-    this.paperCanvas.nativeElement.width = 1000;
-    this.paperCanvas.nativeElement.height = 1000;
-
+    this.paperCanvas.nativeElement.width = this.canvasWidth || 800;
+    this.paperCanvas.nativeElement.height = this.canvasHeight || 800;
     this.scope = new paper.PaperScope();
     this.scope.setup(this.paperCanvas.nativeElement);
     this.scope.activate();
@@ -203,7 +204,7 @@ export class ItemVisualizerComponent implements AfterViewInit {
       }
     };
 
-    drawFlowerIter(1, 4, 0);
+    drawFlowerIter(1, 5, 0);
     scope.project.activeLayer.fitBounds(scope.view.bounds);
 
     let angle = 0;
@@ -212,7 +213,7 @@ export class ItemVisualizerComponent implements AfterViewInit {
     scope.view.onFrame = (event) => {
       if (!animated) return;
       scope.project.activeLayer.remove();
-      drawFlowerIter(1, 4, angle);
+      drawFlowerIter(1, 5, angle);
       scope.project.activeLayer.fitBounds(scope.view.bounds);
       angle = angle + 0.4;
     };

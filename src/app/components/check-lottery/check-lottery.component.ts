@@ -51,7 +51,7 @@ export class CheckLotteryComponent implements OnInit, OnDestroy {
   get radiusGasJackpot() {
     return this.blockchainService.balances
       ? this.blockchainService.formatEther(
-          this.blockchainService.balances.unpaidDividends.gas
+          this.blockchainService.balances.unpaidLottery.gas
         )
       : '0';
   }
@@ -59,7 +59,7 @@ export class CheckLotteryComponent implements OnInit, OnDestroy {
   get radiusCatalystJackpot() {
     return this.blockchainService.balances
       ? this.blockchainService.formatEther(
-          this.blockchainService.balances.unpaidDividends.catalyst
+          this.blockchainService.balances.unpaidLottery.catalyst
         )
       : '0';
   }

@@ -12,21 +12,41 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-category">{{ itemTypeTitle }}</h5>
-            <h4 class="card-title">
-              <i class="tim-icons {{ itemTypeIcon }} text-primary"> </i>
-              {{ itemId }}
-            </h4>
-          </div>
-          <div class="card-body">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-category">{{ itemTypeTitle }}</h5>
+        <h4 class="card-title">
+          <i class="tim-icons {{ itemTypeIcon }} text-primary"> </i>
+          {{ itemId }}
+        </h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-9">
             <app-item-visualizer
+              canvasWidth="600"
+              canvasHeight="600"
               itemId="{{ itemId }}"
               class="large-visualizer"
             ></app-item-visualizer>
+          </div>
+          <div class="col-md-3">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Type</td>
+                  <td>{{ itemTypeTitle }}</td>
+                </tr>
+                <tr *ngIf="itemType === 3">
+                  <td>Rarity</td>
+                  <td>{{ itemRarity }}</td>
+                </tr>
+                <tr *ngIf="itemType === 3">
+                  <td>DNA</td>
+                  <td>{{ itemDNAString }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
