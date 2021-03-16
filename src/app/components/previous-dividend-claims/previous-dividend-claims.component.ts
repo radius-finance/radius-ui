@@ -12,9 +12,9 @@ export class PreviousDividendClaimsComponent implements OnInit {
   ngOnInit(): void {}
 
   get previousDividendClaimsList() {
-    return this.blockchainService.lotteryWinners &&
-      this.blockchainService.lotteryWinners.length
-      ? this.blockchainService.lotteryWinners
+    return this.blockchainService.dividendPayments &&
+      this.blockchainService.dividendPayments.length
+      ? this.blockchainService.dividendPayments
       : [];
   }
 

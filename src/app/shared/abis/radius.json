@@ -65,6 +65,31 @@
             {
               "indexed": true,
               "internalType": "address",
+              "name": "claimant",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "DividendPaid",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
               "name": "recipient",
               "type": "address"
             },
@@ -314,15 +339,15 @@
           "inputs": [
             {
               "indexed": true,
+              "internalType": "address",
+              "name": "claimant",
+              "type": "address"
+            },
+            {
+              "indexed": false,
               "internalType": "uint256",
               "name": "id",
               "type": "uint256"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "account",
-              "type": "address"
             },
             {
               "indexed": false,
@@ -331,32 +356,7 @@
               "type": "uint256"
             }
           ],
-          "name": "DividendClaimed",
-          "type": "event"
-        },
-        {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "uint256",
-              "name": "id",
-              "type": "uint256"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "account",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            }
-          ],
-          "name": "DividendDisbursed",
+          "name": "DividendPaid",
           "type": "event"
         },
         {
@@ -664,19 +664,6 @@
           "inputs": [
             {
               "internalType": "address",
-              "name": "minter",
-              "type": "address"
-            }
-          ],
-          "name": "addBenefactor",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
               "name": "account",
               "type": "address"
             },
@@ -812,6 +799,19 @@
           "inputs": [
             {
               "internalType": "address",
+              "name": "claimant",
+              "type": "address"
+            }
+          ],
+          "name": "claimDividend",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
               "name": "account",
               "type": "address"
             },
@@ -829,6 +829,30 @@
           "name": "convert",
           "outputs": [],
           "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "claimant",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "idx",
+              "type": "uint256"
+            }
+          ],
+          "name": "currentDividendClaimAmount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
           "type": "function"
         },
         {
@@ -942,6 +966,25 @@
             }
           ],
           "name": "getMintMapValue",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "claimant",
+              "type": "address"
+            }
+          ],
+          "name": "getRelicShares",
           "outputs": [
             {
               "internalType": "uint256",
@@ -1127,7 +1170,20 @@
               "type": "uint256"
             }
           ],
-          "name": "getUnpaidDividends",
+          "name": "getTotalDividends",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTotalRelicShares",
           "outputs": [
             {
               "internalType": "uint256",
@@ -1262,25 +1318,6 @@
             }
           ],
           "name": "isApprovedForAll",
-          "outputs": [
-            {
-              "internalType": "bool",
-              "name": "",
-              "type": "bool"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "minter",
-              "type": "address"
-            }
-          ],
-          "name": "isBenefactor",
           "outputs": [
             {
               "internalType": "bool",
@@ -1997,15 +2034,15 @@
           "inputs": [
             {
               "indexed": true,
+              "internalType": "address",
+              "name": "claimant",
+              "type": "address"
+            },
+            {
+              "indexed": false,
               "internalType": "uint256",
               "name": "id",
               "type": "uint256"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "account",
-              "type": "address"
             },
             {
               "indexed": false,
@@ -2014,32 +2051,7 @@
               "type": "uint256"
             }
           ],
-          "name": "DividendClaimed",
-          "type": "event"
-        },
-        {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "uint256",
-              "name": "id",
-              "type": "uint256"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "account",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            }
-          ],
-          "name": "DividendDisbursed",
+          "name": "DividendPaid",
           "type": "event"
         },
         {
@@ -2347,19 +2359,6 @@
           "inputs": [
             {
               "internalType": "address",
-              "name": "minter",
-              "type": "address"
-            }
-          ],
-          "name": "addBenefactor",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
               "name": "account",
               "type": "address"
             },
@@ -2495,6 +2494,19 @@
           "inputs": [
             {
               "internalType": "address",
+              "name": "claimant",
+              "type": "address"
+            }
+          ],
+          "name": "claimDividend",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
               "name": "account",
               "type": "address"
             },
@@ -2512,6 +2524,30 @@
           "name": "convert",
           "outputs": [],
           "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "claimant",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "idx",
+              "type": "uint256"
+            }
+          ],
+          "name": "currentDividendClaimAmount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
           "type": "function"
         },
         {
@@ -2625,6 +2661,25 @@
             }
           ],
           "name": "getMintMapValue",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "claimant",
+              "type": "address"
+            }
+          ],
+          "name": "getRelicShares",
           "outputs": [
             {
               "internalType": "uint256",
@@ -2810,7 +2865,20 @@
               "type": "uint256"
             }
           ],
-          "name": "getUnpaidDividends",
+          "name": "getTotalDividends",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getTotalRelicShares",
           "outputs": [
             {
               "internalType": "uint256",
@@ -2945,25 +3013,6 @@
             }
           ],
           "name": "isApprovedForAll",
-          "outputs": [
-            {
-              "internalType": "bool",
-              "name": "",
-              "type": "bool"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "minter",
-              "type": "address"
-            }
-          ],
-          "name": "isBenefactor",
           "outputs": [
             {
               "internalType": "bool",

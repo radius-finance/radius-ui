@@ -11,8 +11,8 @@
             <tbody *ngIf="!hasPreviousDividendClaims">
               <tr>
                 <th>Timestamp</th>
-                <th>Radius Gas Amount</th>
-                <th>Radius Catalyst Amount</th>
+                <th>Dividend Type</th>
+                <th>Dividend Amount</th>
               </tr>
               <tr>
                 <td colspan="4">There is no claim history yet.</td>
@@ -21,16 +21,16 @@
             <tbody *ngIf="hasPreviousDividendClaims">
               <tr>
                 <th>Timestamp</th>
-                <th>Radius Gas Amount</th>
-                <th>Radius Catalyst Amount</th>
+                <th>Dividend Type</th>
+                <th>Dividend Amount</th>
               </tr>
               <tr *ngFor="let claim of previousDividendClaimsList">
                 <td>{{ claim.timestamp }}</td>
                 <td>
-                  {{ blockchainService.formatEther(claim.gasClaimed) }}
+                  {{ claim.id.eq(1) ? 'Radius Gas' : 'Radius Catalyst' }}
                 </td>
                 <td>
-                  {{ blockchainService.formatEther(claim.catalystClaimed) }}
+                  {{ blockchainService.formatEther(claim.amount) }}
                 </td>
               </tr>
             </tbody>

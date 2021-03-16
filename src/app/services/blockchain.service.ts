@@ -58,6 +58,7 @@ export class BlockchainService {
 
   public globalItems: any;
   public lotteryWinners: any;
+  public dividendPayments: any;
 
   public radiusToken: RadiusToken;
   public radiusTokenLib: RadiusTokenLib;
@@ -127,6 +128,7 @@ export class BlockchainService {
     this.confettiOn = false;
     this.globalItems = [];
     this.lotteryWinners = [];
+    this.dividendPayments = [];
     this.tokenForgeData = {};
     this.lastGemMintedId = undefined;
     this.lastPowerupMintedId = undefined;
@@ -212,13 +214,15 @@ export class BlockchainService {
         earned: 0,
         total: 0,
       },
-      unpaidDividends: {
+      totalDividends: {
         gas: 0,
         catalyst: 0,
+        shares: 0,
       },
       claimableDividends: {
         gas: 0,
         catalyst: 0,
+        shares: 0,
       },
       unpaidLottery: {
         gas: 0,
@@ -598,12 +602,26 @@ export class BlockchainService {
       this.radiusLP,
       this.account
     );
-    this.balances.unpaidDividends.gas = await this.radiusToken.getUnpaidDividends(
+    this.balances.totalDividends.gas = await this.radiusToken.getTotalDividends(
       1
     );
-    this.balances.unpaidDividends.catalyst = await this.radiusToken.getUnpaidDividends(
+    this.balances.totalDividends.catalyst = await this.radiusToken.getTotalDividends(
       2
     );
+    this.balances.totalDividends.shares = await this.radiusToken.getTotalRelicShares();
+
+    this.balances.claimableDividends.gas = await this.radiusToken.currentDividendClaimAmount(
+      this.account,
+      1
+    );
+    this.balances.claimableDividends.catalyst = await this.radiusToken.currentDividendClaimAmount(
+      this.account,
+      2
+    );
+    this.balances.claimableDividends.shares = await this.radiusToken.getRelicShares(
+      this.account
+    );
+
     this.balances.unpaidLottery.gas = await this.radiusToken.getUnpaidLottery(
       1
     );
@@ -799,7 +817,7 @@ export class BlockchainService {
       'Forged',
       async (recipient, forgedIndex, nonce, consumed, amount) => {
         if (!forgedIndex.eq(3)) {
-          this.globalItems.push({
+          this.globalItems.unshift({
             recipient,
             forgedIndex,
             nonce,
@@ -877,6 +895,26 @@ export class BlockchainService {
         }
       }
     );
+
+    this.radiusToken.on('DividendPaid', async (claimant, id, amount) => {
+      this.dividendPayments.unshift({
+        timestamp: Math.round(Date.now() / 1000),
+        id,
+        amount,
+      });
+      if (claimant == this.account) {
+        await this.updateBalances();
+        // todo - add & viz the lottery NFT
+        const paidType = id.eq(1) ? 'Radius Gas' : 'Radius Catalyst';
+        this.showToast(
+          'Dividend Paid',
+          `You just received a dividend payment of ${this.formatEther(
+            amount
+          )} ${paidType}`
+        );
+        await this.invokeUpdateList('DividendPaid', {id, amount});
+      }
+    });
 
     // Approval to stake
     this.radiusERC20.on('Approval', async (owner, spender, value) => {
@@ -1025,6 +1063,24 @@ export class BlockchainService {
     );
   }
 
+  async collectRadiusDividends() {
+    const claimableGas = await this.radiusToken.currentDividendClaimAmount(
+      this.account,
+      1
+    );
+    const claimableCatalyst = await this.radiusToken.currentDividendClaimAmount(
+      this.account,
+      2
+    );
+
+    // exit if there's nothing to claim
+    if (claimableGas.eq(0) && claimableCatalyst.eq(0)) {
+      return;
+    }
+
+    return await this.radiusToken.claimDividend(this.account);
+  }
+
   confetti(time) {
     if (this.confettiOn) {
       return;
@@ -1106,6 +1162,9 @@ export class BlockchainService {
 
   getItemDNAExtended(itemId) {
     const dnaArray = [];
+    if (!itemId.substring) {
+      return [];
+    }
     const recurseRead = (iter) => {
       dnaArray.push(
         itemId.substring(itemId.length - 1 - iter, itemId.length - iter)
@@ -1145,6 +1204,9 @@ export class BlockchainService {
 
   getItemDNA(itemId) {
     const dnaArray = [];
+    if (!itemId.substring) {
+      return [];
+    }
     const recurseRead = (iter) => {
       const dnaElement = [];
       dnaElement.push(
@@ -1187,7 +1249,7 @@ export class BlockchainService {
 
   getItemRarity(itemId) {
     const itemDNA = this.getItemDNAExtended(itemId);
-    if (itemDNA.length === 0) {
+    if (itemDNA.length < 10) {
       return 0;
     }
     const itemDNANumerical = itemDNA.map((el) => parseInt('0x' + el));
