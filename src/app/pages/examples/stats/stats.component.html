@@ -109,7 +109,7 @@
       </div>
     </div>
 
-    <div class="col-sm-12 col-md-4 col-lg-4">
+    <div class="col-sm-12 col-md-3 col-lg3">
       <div class="card card-chart">
         <div class="card-header">
           <h5 class="card-category">Last Gem Found</h5>
@@ -133,7 +133,31 @@
       </div>
     </div>
 
-    <div class="col-sm-12 col-md-4 col-lg-4">
+    <div class="col-sm-12 col-md-3 col-lg-3">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-category">Rarest Gem Forged</h5>
+          <h3 class="card-title">
+            <i class="tim-icons icon-bell-55 text-primary"> </i>
+            {{ rarestGemForgedId }}
+          </h3>
+        </div>
+        <div class="card-body" *ngIf="rarestGemForgedId !== undefined">
+          <app-item-visualizer
+            itemId="{{ rarestGemForgedId }}"
+            class="card-visualizer"
+          ></app-item-visualizer>
+        </div>
+        <div
+          class="card-body text-center"
+          *ngIf="rarestGemForgedId === undefined"
+        >
+          No gems forged yet.
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-3 col-lg-3">
       <div class="card card-chart">
         <div class="card-header">
           <h5 class="card-category">Last Powerup Found</h5>
@@ -157,7 +181,7 @@
       </div>
     </div>
 
-    <div class="col-sm-12 col-md-4 col-lg-4">
+    <div class="col-sm-12 col-md-3 col-lg-3">
       <div class="card card-chart">
         <div class="card-header">
           <h5 class="card-category">Last Relic Forged</h5>

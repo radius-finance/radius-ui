@@ -798,7 +798,7 @@ export class BlockchainService {
     this.radiusToken.on(
       'Forged',
       async (recipient, forgedIndex, nonce, consumed, amount) => {
-        if (forgedIndex.toString() !== '3') {
+        if (!forgedIndex.eq(3)) {
           this.globalItems.push({
             recipient,
             forgedIndex,
@@ -806,6 +806,22 @@ export class BlockchainService {
             consumed,
             amount,
           });
+          if (forgedIndex.gte(256) && forgedIndex.lt(4096)) {
+            this.lastRelicMintedId = forgedIndex;
+          } else if (forgedIndex.gte(4096) && forgedIndex.lt(8192)) {
+            this.lastPowerupMintedId = forgedIndex;
+          } else if (forgedIndex.gte(8192)) {
+            this.lastGemMintedId = forgedIndex;
+            if (!this.rarestGemFound) {
+              this.rarestGemFound = this.lastGemMintedId;
+            } else {
+              const rarestGemRarity = this.getItemRarity(this.rarestGemFound);
+              const thisGemRarity = this.getItemRarity(this.lastGemMintedId);
+              if (thisGemRarity > rarestGemRarity) {
+                this.rarestGemFound = thisGemRarity;
+              }
+            }
+          }
         }
         if (recipient == this.account) {
           let forgedText = '';
@@ -823,14 +839,6 @@ export class BlockchainService {
 
           if (!forgedIndex.eq(3)) {
             this.showToast('Items Forged', `Forged a ${forgedText}`);
-            if (forgedIndex.gte(256) && forgedIndex.lt(4096)) {
-              this.lastRelicMintedId = forgedIndex;
-            } else if (forgedIndex.gte(4096) && forgedIndex.lt(8192)) {
-              this.lastPowerupMintedId = forgedIndex;
-            } else if (forgedIndex.gte(8192)) {
-              this.lastGemMintedId = forgedIndex;
-              // rarestGemFound
-            }
             if (!this.nftItems.find((el) => el && el.eq(forgedIndex))) {
               this.nftItems.unshift(forgedIndex);
               this.confetti(2000);

@@ -77,4 +77,10 @@ export class StatsComponent implements OnInit {
       ? this.blockchainService.lastRelicMintedId.toHexString()
       : undefined;
   }
+
+  get rarestGemForgedId() {
+    return this.blockchainService.rarestGemFound
+      ? this.blockchainService.rarestGemFound.toHexString()
+      : undefined;
+  }
 }
