@@ -33,6 +33,7 @@ import {ModalComponent} from './modal/modal.component';
 import {CollectDividendsPanelComponent} from './collect-dividends-panel/collect-dividends-panel.component';
 import {PreviousDividendClaimsComponent} from './previous-dividend-claims/previous-dividend-claims.component';
 import {DividendsBalancePanelComponent} from './dividends-balance-panel/dividends-balance-panel.component';
+import {PowerupBalancePanelComponent} from './powerup-balance-panel/powerup-balance-panel.component';
 
 @NgModule({
   imports: [
@@ -71,6 +72,7 @@ import {DividendsBalancePanelComponent} from './dividends-balance-panel/dividend
     CollectDividendsPanelComponent,
     PreviousDividendClaimsComponent,
     DividendsBalancePanelComponent,
+    PowerupBalancePanelComponent,
   ],
   exports: [
     FooterComponent,
@@ -94,6 +96,7 @@ import {DividendsBalancePanelComponent} from './dividends-balance-panel/dividend
     CollectDividendsPanelComponent,
     PreviousDividendClaimsComponent,
     DividendsBalancePanelComponent,
+    PowerupBalancePanelComponent,
   ],
 })
 export class ComponentsModule {}

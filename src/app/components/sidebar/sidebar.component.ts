@@ -55,6 +55,13 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'tim-icons icon-settings',
   },
   {
+    path: '/powerups',
+    title: 'Powerups',
+    type: 'link',
+    rtlTitle: '',
+    icontype: 'tim-icons icon-light-3',
+  },
+  {
     path: '/win',
     title: 'Win',
     type: 'link',

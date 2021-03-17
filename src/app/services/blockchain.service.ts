@@ -224,6 +224,12 @@ export class BlockchainService {
         catalyst: 0,
         shares: 0,
       },
+      powerupShares: {
+        stake: 0,
+        stakeLP: 0,
+        forge: 0,
+        lottery: 0,
+      },
       unpaidLottery: {
         gas: 0,
         catalyst: 0,
@@ -622,6 +628,23 @@ export class BlockchainService {
       this.account
     );
 
+    this.balances.powerupShares.stake = await this.radiusToken.getPowerupShares(
+      this.account,
+      0
+    );
+    this.balances.powerupShares.stakeLP = await this.radiusToken.getPowerupShares(
+      this.account,
+      1
+    );
+    this.balances.powerupShares.forge = await this.radiusToken.getPowerupShares(
+      this.account,
+      2
+    );
+    this.balances.powerupShares.lottery = await this.radiusToken.getPowerupShares(
+      this.account,
+      3
+    );
+
     this.balances.unpaidLottery.gas = await this.radiusToken.getUnpaidLottery(
       1
     );
@@ -632,7 +655,12 @@ export class BlockchainService {
     this.balances.totalSupplies.gas = await this.radiusGasERC20.totalSupply();
     this.balances.totalSupplies.catalyst = await this.radiusCatalystERC20.totalSupply();
     this.balances.totalSupplies.gem = await this.radiusToken.gemTotalSupply();
-    this.balances.totalSupplies.powerup = await this.radiusToken.powerupTotalSupply();
+    this.balances.totalSupplies.powerup = {
+      stake: await this.radiusToken.powerupTotalSupply(0),
+      stakeLP: await this.radiusToken.powerupTotalSupply(1),
+      forge: await this.radiusToken.powerupTotalSupply(2),
+      lottery: await this.radiusToken.powerupTotalSupply(3),
+    };
     this.balances.totalSupplies.relic = await this.radiusToken.relicTotalSupply();
 
     await this.invokeUpdateList('balances', this.balances);

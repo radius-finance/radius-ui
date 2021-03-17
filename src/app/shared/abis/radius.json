@@ -982,6 +982,30 @@
               "internalType": "address",
               "name": "claimant",
               "type": "address"
+            },
+            {
+              "internalType": "uint8",
+              "name": "idx",
+              "type": "uint8"
+            }
+          ],
+          "name": "getPowerupShares",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "claimant",
+              "type": "address"
             }
           ],
           "name": "getRelicShares",
@@ -1171,6 +1195,25 @@
             }
           ],
           "name": "getTotalDividends",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint8",
+              "name": "idx",
+              "type": "uint8"
+            }
+          ],
+          "name": "getTotalPowerupShares",
           "outputs": [
             {
               "internalType": "uint256",
@@ -1450,7 +1493,13 @@
           "type": "function"
         },
         {
-          "inputs": [],
+          "inputs": [
+            {
+              "internalType": "uint8",
+              "name": "idx",
+              "type": "uint8"
+            }
+          ],
           "name": "powerupTotalSupply",
           "outputs": [
             {
@@ -2677,6 +2726,30 @@
               "internalType": "address",
               "name": "claimant",
               "type": "address"
+            },
+            {
+              "internalType": "uint8",
+              "name": "idx",
+              "type": "uint8"
+            }
+          ],
+          "name": "getPowerupShares",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "claimant",
+              "type": "address"
             }
           ],
           "name": "getRelicShares",
@@ -2866,6 +2939,25 @@
             }
           ],
           "name": "getTotalDividends",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint8",
+              "name": "idx",
+              "type": "uint8"
+            }
+          ],
+          "name": "getTotalPowerupShares",
           "outputs": [
             {
               "internalType": "uint256",
@@ -3145,7 +3237,13 @@
           "type": "function"
         },
         {
-          "inputs": [],
+          "inputs": [
+            {
+              "internalType": "uint8",
+              "name": "idx",
+              "type": "uint8"
+            }
+          ],
           "name": "powerupTotalSupply",
           "outputs": [
             {

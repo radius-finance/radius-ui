@@ -30,6 +30,11 @@ const routes: Routes = [
         loadChildren: './pages/examples/forge/forge.module#ForgeModule',
       },
       {
+        path: 'powerups',
+        loadChildren:
+          './pages/examples/powerups/powerups.module#PowerupsModule',
+      },
+      {
         path: 'win',
         loadChildren: './pages/examples/win/win.module#WinModule',
       },

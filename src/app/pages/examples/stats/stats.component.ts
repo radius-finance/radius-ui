@@ -34,7 +34,10 @@ export class StatsComponent implements OnInit {
 
   get powerupTotalSupply() {
     return this.blockchainService.balances
-      ? this.blockchainService.balances.totalSupplies.powerup
+      ? this.blockchainService.balances.totalSupplies.powerup.stake
+          .add(this.blockchainService.balances.totalSupplies.powerup.stakeLP)
+          .add(this.blockchainService.balances.totalSupplies.powerup.forge)
+          .add(this.blockchainService.balances.totalSupplies.powerup.lottery)
       : '0';
   }
 
