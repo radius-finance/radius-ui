@@ -10749,6 +10749,49 @@
               "internalType": "uint256",
               "name": "_targetMintSpan",
               "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_halvingRate",
+              "type": "uint256"
+            }
+          ],
+          "name": "__SecuredNonfungibleTimeDecayTokenForge_init",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "_range",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMintSpan",
+              "type": "uint256"
             }
           ],
           "name": "__SecuredNonfungibleTokenForge_init",
@@ -11455,6 +11498,49 @@
               "internalType": "uint256",
               "name": "_targetMintSpan",
               "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_halvingRate",
+              "type": "uint256"
+            }
+          ],
+          "name": "__SecuredNonfungibleTimeDecayTokenForge_init",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "_range",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMintSpan",
+              "type": "uint256"
             }
           ],
           "name": "__SecuredNonfungibleTokenForge_init",
@@ -11914,6 +12000,49 @@
           ],
           "name": "TokenForgeRecorded",
           "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "_range",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMintSpan",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_halvingRate",
+              "type": "uint256"
+            }
+          ],
+          "name": "__SecuredNonfungibleTimeDecayTokenForge_init",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
         },
         {
           "inputs": [
@@ -12652,6 +12781,49 @@
               "internalType": "uint256",
               "name": "_targetMintSpan",
               "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_halvingRate",
+              "type": "uint256"
+            }
+          ],
+          "name": "__SecuredNonfungibleTimeDecayTokenForge_init",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "_range",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMintSpan",
+              "type": "uint256"
             }
           ],
           "name": "__SecuredNonfungibleTokenForge_init",
@@ -13111,6 +13283,49 @@
           ],
           "name": "TokenForgeRecorded",
           "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "_range",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMintSpan",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_halvingRate",
+              "type": "uint256"
+            }
+          ],
+          "name": "__SecuredNonfungibleTimeDecayTokenForge_init",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
         },
         {
           "inputs": [
@@ -13811,6 +14026,49 @@
               "internalType": "uint256",
               "name": "_targetMintSpan",
               "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_halvingRate",
+              "type": "uint256"
+            }
+          ],
+          "name": "__SecuredNonfungibleTimeDecayTokenForge_init",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "_range",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMintSpan",
+              "type": "uint256"
             }
           ],
           "name": "__SecuredNonfungibleTokenForge_init",
@@ -14232,6 +14490,49 @@
           ],
           "name": "TokenForgeRecorded",
           "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "_range",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMintSpan",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_halvingRate",
+              "type": "uint256"
+            }
+          ],
+          "name": "__SecuredNonfungibleTimeDecayTokenForge_init",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
         },
         {
           "inputs": [
@@ -14900,6 +15201,49 @@
           ],
           "name": "TokenForgeRecorded",
           "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "_token",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "_range",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_difficulty",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMint",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_targetMintSpan",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_halvingRate",
+              "type": "uint256"
+            }
+          ],
+          "name": "__SecuredNonfungibleTimeDecayTokenForge_init",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
         },
         {
           "inputs": [
