@@ -667,6 +667,14 @@ export class BlockchainService {
     this.updatingBalances = false;
   }
 
+  makeCompact(s) {
+    const sLen = s.length;
+    if (sLen <= 18) {
+      return s;
+    }
+    return s.substring(0, 6) + '...' + s.substring(sLen - 6, sLen);
+  }
+
   async updateNFTList() {
     const tokensHeldCount = await this.radiusToken.getTokenHeldCount(
       this.account

@@ -14,10 +14,10 @@ export class PowerupBalancePanelComponent implements OnInit {
   ngOnInit(): void {}
 
   get tokenTypeTitle() {
-    if (this.type === '0') return 'Powerup Stake Shares';
-    if (this.type === '1') return 'Powerup Stake LP Shares';
-    if (this.type === '2') return 'Powerup Forge Shares';
-    if (this.type === '3') return 'Powerup Lottery Shares';
+    if (this.type === '0') return 'Powerup Stake';
+    if (this.type === '1') return 'Powerup Stake LP';
+    if (this.type === '2') return 'Powerup Forge';
+    if (this.type === '3') return 'Powerup Lottery';
   }
 
   get tokenTypeIcon() {
@@ -48,9 +48,20 @@ export class PowerupBalancePanelComponent implements OnInit {
       result = this.blockchainService.balances
         ? this.blockchainService.balances.powerupShares.lottery
         : '0';
-      return result;
     }
     result = result ? result : '0';
     return result.toString();
+  }
+
+  get hasNFTItems(): boolean {
+    return this.powerupNftItems ? this.powerupNftItems.length > 0 : false;
+  }
+
+  get powerupNftItems() {
+    return this.blockchainService.nftItems
+      ? this.blockchainService.nftItems.filter(
+          (e) => e.gte(4096) && e.lt(8192) && e.mod(4).eq(this.type)
+        )
+      : [];
   }
 }

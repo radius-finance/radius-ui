@@ -1,16 +1,30 @@
 <div class="card card-stats">
   <div class="card-body">
     <div class="row">
-      <div class="col-5">
+      <div class="col-1">
         <div class="info-icon text-center icon-primary">
           <i class="tim-icons {{ tokenTypeIcon }}"> </i>
         </div>
       </div>
+      <div class="col-4">
+        <p class="card-title">{{ tokenTypeTitle }}</p>
+      </div>
       <div class="col-7">
         <div class="numbers">
           <p class="card-category">{{ tokenTypeTitle }} Shares</p>
-          <h4 class="card-title">Total: {{ tokenBalance | number: '1.4' }}</h4>
+          <h4 class="card-title">Total: {{ tokenBalance | number: '1.0' }}</h4>
         </div>
+      </div>
+    </div>
+    <div *ngIf="!hasNFTItems" class="row">
+      <div class="col-sm-12">You have no {{ tokenTypeTitle }} shares</div>
+    </div>
+    <div *ngIf="hasNFTItems" class="row">
+      <div
+        *ngFor="let nftItem of powerupNftItems"
+        class="col-sm-12 col-md-4 col-lg-3"
+      >
+        <app-item-panel itemId="{{ nftItem.toHexString() }}"></app-item-panel>
       </div>
     </div>
   </div>

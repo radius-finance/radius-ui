@@ -25,4 +25,15 @@ export class DividendsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.timerRef = null;
     }
   }
+  get hasNFTItems() {
+    return this.blockchainService.nftItems
+      ? this.blockchainService.nftItems.length > 0
+      : false;
+  }
+
+  get relicNftItems() {
+    return this.hasNFTItems
+      ? this.blockchainService.nftItems.filter((e) => e.gte(256) && e.lt(4096))
+      : [];
+  }
 }

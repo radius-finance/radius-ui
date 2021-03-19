@@ -1,6 +1,13 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  AfterViewInit,
+} from '@angular/core';
 import {BsModalService, BsModalRef, ModalOptions} from 'ngx-bootstrap/modal';
 import {ModalComponent} from '../modal/modal.component';
+import {BlockchainService} from '../../services/blockchain.service';
 
 @Component({
   selector: 'app-item-panel',
@@ -12,24 +19,47 @@ export class ItemPanelComponent implements OnInit {
 
   @Input() itemId;
 
-  constructor(private modalService: BsModalService) {
+  itemQuantity;
+
+  constructor(
+    private modalService: BsModalService,
+    private blockchainService: BlockchainService
+  ) {
     this.openModal = this.openModal.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
   }
 
   ngOnInit(): void {}
 
-  makeCompact(s) {
-    const sLen = s.length;
-    if (sLen <= 18) {
-      return s;
+  onUpdate(type, obj) {
+    if (type === 'balances') {
+      this.blockchainService.radiusToken
+        .balanceOf(this.blockchainService.account, this.itemId)
+        .then((b) => {
+          this.itemQuantity = b.toString();
+        });
     }
-    return s.substring(0, 6) + '...' + s.substring(sLen - 6, sLen);
+  }
+
+  ngAfterViewInit(): void {
+    this.blockchainService.addToUpdateList(this.onUpdate);
+    this.onUpdate('balances', null);
+  }
+
+  ngOnDestroy(): void {
+    this.blockchainService.removeFromUpdateList(this.onUpdate);
+  }
+
+  makeCompact(s): string {
+    return this.blockchainService.makeCompact(s);
   }
 
   get itemTypeTitle() {
-    if (this.itemType === 1) return 'Relic';
-    if (this.itemType === 2) return 'Powerup';
-    if (this.itemType === 3) return 'Gem';
+    let qty = '';
+    if (this.itemQuantity) qty = ' X ' + this.itemQuantity;
+    if (this.itemType === 1) return 'Relic' + qty;
+    if (this.itemType === 2) return 'Powerup' + qty;
+    if (this.itemType === 3) return 'Gem' + qty;
     return 'Invalid';
   }
 
