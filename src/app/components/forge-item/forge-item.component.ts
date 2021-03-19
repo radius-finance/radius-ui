@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 import {BlockchainService} from '../../services/blockchain.service';
 import {Options} from '@angular-slider/ngx-slider';
 
@@ -7,8 +7,7 @@ import {Options} from '@angular-slider/ngx-slider';
   templateUrl: './forge-item.component.html',
   styleUrls: ['./forge-item.component.scss'],
 })
-export class ForgeItemComponent implements OnInit, OnDestroy {
-  updateSliderBounds;
+export class ForgeItemComponent implements OnInit, AfterViewInit, OnDestroy {
   forgingApproved;
   state;
   catalystAmount: number;
@@ -23,7 +22,21 @@ export class ForgeItemComponent implements OnInit, OnDestroy {
     ceil: 10,
   };
 
-  constructor(private blockchainService: BlockchainService) {}
+  constructor(private blockchainService: BlockchainService) {
+    this.updateSliderBounds = this.updateSliderBounds.bind(this);
+  }
+
+  async updateSliderBounds(type, balances) {
+    if (type !== 'balances') return;
+    let amt = ~~parseFloat(
+      this.blockchainService.formatEther(balances.gas.erc20)
+    );
+    amt = amt < 10 ? amt : 10;
+    this.forgeOptions.ceil = amt;
+    this.forgeOptions.floor = this.forgeOptions.ceil !== 0 ? 1 : 0;
+    this.forgingApproved = await this.blockchainService.isForgingApprovedForAll();
+    this.state = 0;
+  }
 
   async ngOnInit() {
     this.handleForgeClick = this.handleForgeClick.bind(this);
@@ -34,21 +47,12 @@ export class ForgeItemComponent implements OnInit, OnDestroy {
     this.catalystOptions.floor = 0;
     this.forgeAmount = 0;
     // gets called after balances are updated in the blockchain service
-    this.updateSliderBounds = async (type, balances) => {
-      if (type !== 'balances') return;
-      let amt = ~~parseFloat(
-        this.blockchainService.formatEther(balances.gas.erc20)
-      );
-      amt = amt < 10 ? amt : 10;
-      this.forgeOptions.ceil = amt;
-      this.forgeOptions.floor = this.forgeOptions.ceil !== 0 ? 1 : 0;
-      this.forgingApproved = await this.blockchainService.isForgingApprovedForAll();
-      this.state = 0;
-    };
+  }
+
+  ngAfterViewInit() {
     // register the handler above with the blockchain service && call it to update UI
     this.blockchainService.addToUpdateList(this.updateSliderBounds);
-    await this.updateSliderBounds('balances', this.blockchainService.balances);
-    this.forgingApproved = this.blockchainService.isForgingApprovedForAll;
+    this.updateSliderBounds('balances', this.blockchainService.balances);
   }
 
   ngOnDestroy(): void {

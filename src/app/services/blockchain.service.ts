@@ -181,6 +181,9 @@ export class BlockchainService {
     this.account = await this.signer.getAddress();
     this.network = await this.provider.getNetwork();
     this.networkId = this.network.chainId;
+    if (this.networkId !== 42) {
+      alert('wrong network! Please switch to Kovan');
+    }
     this.nftItems = [];
     this.balances = {
       radius: {

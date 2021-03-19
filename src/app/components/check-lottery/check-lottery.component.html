@@ -5,10 +5,14 @@
   <div class="card-body">
     <div class="row">
       <div class="col-md-6">
-        <label class="col-form-label"> Radius Gas Jackpot: {{radiusGasJackpot}} RADG </label>
+        <label class="col-form-label">
+          Radius Gas Jackpot: {{ radiusGasJackpot }} RADG
+        </label>
       </div>
       <div class="col-md-6">
-        <label class="col-form-label"> Radius Catalyst Jackpot: {{radiusCatalystJackpot}} RADC</label>
+        <label class="col-form-label">
+          Radius Catalyst Jackpot: {{ radiusCatalystJackpot }} RADC</label
+        >
       </div>
     </div>
     <div class="mt-3 row">
@@ -28,6 +32,7 @@
         <button
           class="btn btn-fill btn-primary"
           (click)="handleCheckLottoClick()"
+          disabled="{{ buttonDisabled }}"
           type="button"
         >
           Check Lottery

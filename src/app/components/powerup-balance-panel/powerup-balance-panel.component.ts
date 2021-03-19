@@ -1,4 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
+import {BigNumber} from '@ethersproject/bignumber';
 import {BlockchainService} from '../../services/blockchain.service';
 
 @Component({
@@ -25,6 +26,17 @@ export class PowerupBalancePanelComponent implements OnInit {
     if (this.type === '1') return 'icon-atom';
     if (this.type === '2') return 'icon-molecule-40';
     if (this.type === '3') return 'icon-compass-05';
+  }
+
+  get tokenBonusString() {
+    if (this.type === '0') return `+${this.tokenBalance}% stake bonus`;
+    if (this.type === '1') return `+${this.tokenBalance}% LP stake bonus`;
+    if (this.type === '2')
+      return `+${parseInt(this.tokenBalance) * 4096} forge bonus`;
+    if (this.type === '3')
+      return `+${
+        parseInt(this.tokenBalance) * 4096
+      } lottery jackpot / gem bonus`;
   }
 
   get tokenBalance() {

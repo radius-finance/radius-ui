@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 import {BlockchainService} from '../../services/blockchain.service';
 import {Options} from '@angular-slider/ngx-slider';
 
@@ -7,33 +7,38 @@ import {Options} from '@angular-slider/ngx-slider';
   templateUrl: './check-lottery.component.html',
   styleUrls: ['./check-lottery.component.scss'],
 })
-export class CheckLotteryComponent implements OnInit, OnDestroy {
-  updateSliderBounds;
+export class CheckLotteryComponent implements OnInit, OnDestroy, AfterViewInit {
   checkLottoAmount: number;
   checkLottoOptions: Options = {
     floor: 0,
     step: 1,
     ceil: 0,
   };
-  constructor(private blockchainService: BlockchainService) {}
+  constructor(private blockchainService: BlockchainService) {
+    this.onUpdate = this.onUpdate.bind(this);
+  }
+
+  async onUpdate(type, obj) {
+    if (type !== 'balances') return;
+    const numTickets = obj.lottery.toNumber();
+    this.checkLottoOptions.ceil = numTickets;
+    this.checkLottoOptions.floor = this.checkLottoOptions.ceil != 0 ? 1 : 0;
+    this.checkLottoAmount = this.checkLottoOptions.ceil != 0 ? 1 : 0;
+  }
 
   ngOnInit(): void {
     this.handleCheckLottoClick = this.handleCheckLottoClick.bind(this);
     this.checkLottoAmount = 0;
-    // gets called after balances are updated in the blockchain service
-    this.updateSliderBounds = (type, balances) => {
-      if (type !== 'balances') return;
-      this.checkLottoOptions.ceil = 10;
-      this.checkLottoOptions.floor = this.checkLottoOptions.ceil != 0 ? 1 : 0;
-      this.checkLottoAmount = this.checkLottoOptions.ceil != 0 ? 1 : 0;
-    };
     // register the handler with the blockchain service
-    this.blockchainService.addToUpdateList(this.updateSliderBounds);
-    this.updateSliderBounds('balances', this.blockchainService.balances);
+    this.blockchainService.addToUpdateList(this.onUpdate);
+  }
+
+  ngAfterViewInit() {
+    this.onUpdate('balances', this.blockchainService.balances);
   }
 
   ngOnDestroy(): void {
-    this.blockchainService.removeFromUpdateList(this.updateSliderBounds);
+    this.blockchainService.removeFromUpdateList(this.onUpdate);
   }
 
   handleCheckLottoClick() {
@@ -62,5 +67,9 @@ export class CheckLotteryComponent implements OnInit, OnDestroy {
           this.blockchainService.balances.unpaidLottery.catalyst
         )
       : '0';
+  }
+
+  get buttonDisabled() {
+    return this.checkLottoAmount === 0 ? 'disabled' : '';
   }
 }
