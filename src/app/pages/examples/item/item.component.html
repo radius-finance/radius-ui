@@ -1,0 +1,32 @@
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Item Explorer</h2>
+    </div>
+  </div>
+
+  <div *ngIf="hasGlobalItems" class="row">
+    <div
+      *ngFor="let nftItem of globalItems"
+      class="col-sm-12 col-md-3 col-lg-4"
+    >
+      <app-item-panel
+        itemId="{{ nftItem.forgedIndex.toHexString() }}"
+      ></app-item-panel>
+    </div>
+  </div>
+
+  <div *ngIf="!hasGlobalItems" class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">No NFT Items Forged</h4>
+        </div>
+        <div class="card-body">
+          No NFT Items have yet been forged within Radius. Be the first! Go to
+          the <a href="#/forge">forging tab</a> to forge some.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

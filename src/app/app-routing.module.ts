@@ -22,6 +22,10 @@ const routes: Routes = [
           './pages/examples/dashboard/dashboard.module#DashboardModule',
       },
       {
+        path: 'item',
+        loadChildren: './pages/examples/item/item.module#ItemModule',
+      },
+      {
         path: 'stake',
         loadChildren: './pages/examples/stake/stake.module#StakeModule',
       },

@@ -1,6 +1,8 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {BlockchainService} from '../../services/blockchain.service';
 import {ToastrService} from 'ngx-toastr';
+import swal from 'sweetalert2';
+
 @Component({
   selector: 'app-collect-dividends-panel',
   templateUrl: './collect-dividends-panel.component.html',
@@ -37,24 +39,15 @@ export class CollectDividendsPanelComponent implements OnInit, OnDestroy {
   handleCollectDividendsClick() {
     this.state = 1;
     this.blockchainService.collectRadiusDividends().then(() => {
-      this.showSidebarMessage(
-        `Submitted a transaction to collect earned dividends`
-      );
+      swal.fire({
+        title: 'Collecting Dividends...',
+        text: `Submitted a transaction to collect earned dividends`,
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'btn btn-info',
+        },
+      });
     });
-  }
-
-  showSidebarMessage(message) {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      message,
-      {
-        timeOut: 4000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: 'alert alert-danger alert-with-icon',
-        positionClass: 'toast-top-right',
-      }
-    );
   }
 
   get totalDividends() {

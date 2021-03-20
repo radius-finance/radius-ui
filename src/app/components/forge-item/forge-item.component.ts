@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 import {BlockchainService} from '../../services/blockchain.service';
 import {Options} from '@angular-slider/ngx-slider';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-forge-item',
@@ -60,14 +61,33 @@ export class ForgeItemComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   handleForgeClick() {
-    const afterTxn = () => {
-      this.state = 0;
-    };
+    const forgeAmt = this.forgeAmount;
+    const catalystAmt = this.catalystAmount;
+
     this.state = 1;
     this.blockchainService
-      .forgeRadiusItems(this.forgeAmount, this.catalystAmount)
-      .then(() => afterTxn())
-      .catch(() => afterTxn());
+      .forgeRadiusItems(forgeAmt, catalystAmt)
+      .then(() => {
+        swal.fire({
+          title: 'Forging NFTs...',
+          text:
+            'Submitted a transaction to forge ' +
+            forgeAmt +
+            ' NFTs, at a total cost of ' +
+            forgeAmt +
+            ' Radius Gas.' +
+            (catalystAmt !== 0
+              ? ' Each forge operation additionally contains ' +
+                catalystAmt +
+                ' Radius Catalyst.'
+              : ''),
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'btn btn-info',
+          },
+        });
+      })
+      .catch(() => {});
   }
 
   get catalystMagnificationRatio() {

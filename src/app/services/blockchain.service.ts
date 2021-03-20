@@ -5,6 +5,7 @@ import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import {ethers} from 'ethers';
 const {BigNumber, utils} = ethers;
+import swal from 'sweetalert2';
 
 import {RadiusGasMine} from '../shared/types/RadiusGasMine';
 import {RadiusCatalystMine} from '../shared/types/RadiusCatalystMine';
@@ -169,9 +170,15 @@ export class BlockchainService {
       await window.ethereum.enable();
       await this.setupAccount();
     } else {
-      window.alert(
-        'Non-Ethereum browser detected. You should consider trying MetaMask!'
-      );
+      swal.fire({
+        title: 'Non-Ethererum Browser',
+        text:
+          'Non-Ethereum browser detected. You should consider trying MetaMask!',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'btn btn-info',
+        },
+      });
     }
   }
 
@@ -182,7 +189,15 @@ export class BlockchainService {
     this.network = await this.provider.getNetwork();
     this.networkId = this.network.chainId;
     if (this.networkId !== 42) {
-      alert('wrong network! Please switch to Kovan');
+      swal.fire({
+        title: 'Wrong Network',
+        text:
+          'Radius is not deployed on your selected network. Please select the Kovan network in Metamask and try again.',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'btn btn-info',
+        },
+      });
     }
     this.nftItems = [];
     this.balances = {

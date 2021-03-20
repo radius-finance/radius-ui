@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 import {BlockchainService} from '../../services/blockchain.service';
 import {Options} from '@angular-slider/ngx-slider';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-check-lottery',
@@ -42,15 +43,17 @@ export class CheckLotteryComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   handleCheckLottoClick() {
-    this.blockchainService
-      .checkRadiusLottery(this.checkLottoAmount)
-      .then(() => {
-        this.checkLottoOptions.ceil = ~~parseFloat(
-          this.blockchainService.formatEther(
-            this.blockchainService.balances.lottery.erc20
-          )
-        );
+    const amt = this.checkLottoAmount;
+    this.blockchainService.checkRadiusLottery(amt).then(() => {
+      swal.fire({
+        title: 'Checking Lottery...',
+        text: 'Submitted a transaction to check ' + amt + ' lottery tokens.',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'btn btn-info',
+        },
       });
+    });
   }
 
   get radiusGasJackpot() {

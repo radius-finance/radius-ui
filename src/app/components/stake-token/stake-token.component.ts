@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+import swal from 'sweetalert2';
 
 import {BlockchainService} from '../../services/blockchain.service';
 
@@ -78,20 +79,6 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  showSidebarMessage(message) {
-    this.toastr.show(
-      '<span data-notify="icon" class="tim-icons icon-bell-55"></span>',
-      message,
-      {
-        timeOut: 4000,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: 'alert alert-danger alert-with-icon',
-        positionClass: 'toast-top-right',
-      }
-    );
-  }
-
   get inputAmount() {
     const stakeAmount = this.stakeForm.controls.amount.value;
     return stakeAmount;
@@ -110,9 +97,14 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
           ? this.blockchainService.withdrawRadius
           : this.blockchainService.withdrawRadiusLP;
       return withdrawFunc(parseFloat(this.stakedBalance)).then(() => {
-        this.showSidebarMessage(
-          `Submitted a transaction to withdraw ${this.stakedBalance} ${typeLabel}`
-        );
+        swal.fire({
+          title: `Withdrawing ${typeLabel}`,
+          text: `Submitted a transaction to withdraw ${this.stakedBalance} ${typeLabel}`,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'btn btn-info',
+          },
+        });
       });
     }
     const stakeFunc =
@@ -121,13 +113,23 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
         : this.blockchainService.stakeRadiusLP;
     return stakeFunc(this.inputAmount).then(() => {
       if (!this.allowed) {
-        this.showSidebarMessage(
-          `Submitted a transaction to allow ${this.inputAmount} ${typeLabel}`
-        );
+        swal.fire({
+          title: `Allowing ${typeLabel}`,
+          text: `Submitted a transaction to allow ${this.inputAmount} ${typeLabel}`,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'btn btn-info',
+          },
+        });
       } else {
-        this.showSidebarMessage(
-          `Submitted a transaction to stake ${this.inputAmount} ${typeLabel}`
-        );
+        swal.fire({
+          title: `Staking ${typeLabel}`,
+          text: `Submitted a transaction to stake ${this.inputAmount} ${typeLabel}`,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'btn btn-info',
+          },
+        });
         this.stakeForm.patchValue({amount: null});
       }
     });
@@ -141,9 +143,14 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
         ? this.blockchainService.harvestRadiusGas
         : this.blockchainService.harvestRadiusCatalyst;
     harvestFunc().then(() => {
-      this.showSidebarMessage(
-        `Submitted a transaction to harvest earned Radius Gas`
-      );
+      swal.fire({
+        title: `Staking ${this.stakedLabel}`,
+        text: `Submitted a transaction to harvest earned Radius Gas`,
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'btn btn-info',
+        },
+      });
     });
   }
 
@@ -167,6 +174,10 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
         ? this.blockchainService.totalStakedRadiusBalance
         : this.blockchainService.totalStakedRadiusLPBalance
     );
+  }
+
+  get stakedLabel() {
+    return this.type == 'RAD' ? 'Radius Gas' : 'Radius Catalyst';
   }
 
   get stakedSymbol() {
