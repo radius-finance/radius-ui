@@ -384,13 +384,13 @@ export class BlockchainService {
     return ifaces;
   }
 
-  async loadAndDecodeEvents(filter: any) {
+  async loadAndDecodeEvents(type, filter) {
     const ifaces = this.loadInterfaces();
     return await this.provider
       .getLogs(filter)
       .map((log) => {
         if (ifaces[log.address]) {
-          return ifaces[log.address].decodeEventLog('Forged', log.data);
+          return ifaces[log.address].decodeEventLog(type, log.data);
         } else {
           return {};
         }
@@ -401,6 +401,7 @@ export class BlockchainService {
 
   async loadForgeEvents() {
     return await this.loadAndDecodeEvents(
+      'Forged',
       this.radiusToken.filters.Forged(
         undefined,
         undefined,
