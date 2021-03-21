@@ -7,7 +7,7 @@
       "abi": []
     },
     "RadiusTokenLib": {
-      "address": "0x0474b50293DcB1503b5B59a25b71Ac7b4dA09cB1",
+      "address": "0x248e0991587DA86EBe14B474f3AFaA3861fE0603",
       "abi": [
         {
           "anonymous": false,
@@ -16892,7 +16892,7 @@
       ]
     },
     "RadiusMineLib": {
-      "address": "0x30425e85112331160e83Db51AD142c621aEaa44e",
+      "address": "0xc98B582C6BE76df2e9CAE7e77f820b3eF2867a55",
       "abi": [
         {
           "anonymous": false,

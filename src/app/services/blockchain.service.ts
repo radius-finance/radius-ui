@@ -385,8 +385,12 @@ export class BlockchainService {
   async loadForgeEvents() {
     const ifaces = this.loadInterfaces();
 
+    // const logs = await this.provider.getLogs(
+    //   this.radiusTokenLib.filters.Forged(null, null, null, null, null)
+    // );
+
     const logs = await this.provider.getLogs(
-      this.radiusTokenLib.filters.Forged(null, null, null, null, null)
+      {}
     );
     //   const decodedEvents = logs.map((log) => {
     //     return ifaces[log.address].decodeEventLog('Forged', log.data);
