@@ -5,15 +5,11 @@
   <form [formGroup]="stakeForm" class="form-horizontal">
     <div class="card-body">
       <div class="row">
+        <div class="col-md-6"></div>
         <div class="col-md-6">
           <label class="col-form-label">
             Total Deposits:
             {{ totalStakedBalance | number: '1.4' }} {{ stakedSymbol }}
-          </label>
-        </div>
-        <div class="col-md-6">
-          <label class="col-form-label">
-            Pool Rate: {{ hourlyEarnRate }} {{ earnedSymbol }} / hour
           </label>
         </div>
       </div>

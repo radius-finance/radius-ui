@@ -1203,11 +1203,11 @@ export class BlockchainService {
   }
 
   get totalStakedRadiusBalance() {
-    return this.balances ? this.balances.gasMine.total : 0;
+    return this.balances ? this.balances.gasMine.totalStaked : 0;
   }
 
   get totalStakedRadiusLPBalance() {
-    return this.balances ? this.balances.catalystMine.total : 0;
+    return this.balances ? this.balances.catalystMine.totalStaked : 0;
   }
 
   get earnedRadiusGasBalance() {
