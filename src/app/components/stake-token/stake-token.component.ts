@@ -169,11 +169,36 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get totalStakedBalance() {
-    return this.blockchainService.formatEther(
+    if (!this.blockchainService.balances) {
+      return '0';
+    }
+    const bal =
       this.type == 'RAD'
-        ? this.blockchainService.totalStakedRadiusBalance
-        : this.blockchainService.totalStakedRadiusLPBalance
-    );
+        ? this.blockchainService.balances.gasMine.totalStaked
+        : this.blockchainService.balances.catalystMine.totalStaked;
+    return this.blockchainService.formatEther(bal);
+  }
+
+  get stakedBalance() {
+    if (!this.blockchainService.balances) {
+      return '0';
+    }
+    const bal =
+      this.type == 'RAD'
+        ? this.blockchainService.balances.gasMine.staked
+        : this.blockchainService.balances.catalystMine.staked;
+    return this.blockchainService.formatEther(bal);
+  }
+
+  get earnedBalance() {
+    if (!this.blockchainService.balances) {
+      return '0';
+    }
+    const bal =
+      this.type == 'RAD'
+        ? this.blockchainService.balances.gasMine.earned
+        : this.blockchainService.balances.catalystMine.earned;
+    return this.blockchainService.formatEther(bal);
   }
 
   get stakedLabel() {
@@ -186,22 +211,6 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
 
   get earnedSymbol() {
     return this.type == 'RAD' ? 'RADG' : 'RADC';
-  }
-
-  get stakedBalance() {
-    return this.blockchainService.formatEther(
-      this.type == 'RAD'
-        ? this.blockchainService.stakedRadiusBalance
-        : this.blockchainService.stakedRadiusLPBalance
-    );
-  }
-
-  get earnedBalance() {
-    return this.blockchainService.formatEther(
-      this.type == 'RAD'
-        ? this.blockchainService.earnedRadiusGasBalance
-        : this.blockchainService.earnedRadiusCatalystBalance
-    );
   }
 
   get actionButtonLabel() {

@@ -147,7 +147,7 @@ export class BlockchainService {
   }
 
   formatEther(n: any) {
-    if(n) return '0';
+    if (n) return '0';
     const pe = utils.formatEther(n);
     return pe ? pe.toString() : '0';
   }
@@ -224,7 +224,7 @@ export class BlockchainService {
         total: 0,
       },
       gasMine: {
-        staked: 0,
+        totalStaked: 0,
         earned: 0,
         total: 0,
       },
@@ -390,9 +390,7 @@ export class BlockchainService {
     //   this.radiusTokenLib.filters.Forged(null, null, null, null, null)
     // );
 
-    const logs = await this.provider.getLogs(
-      {}
-    );
+    const logs = await this.provider.getLogs({});
     //   const decodedEvents = logs.map((log) => {
     //     return ifaces[log.address].decodeEventLog('Forged', log.data);
     //   });
@@ -1193,30 +1191,6 @@ export class BlockchainService {
     if (to === 5) {
       await this.radiusToken.convert(this.account, 2, amount);
     }
-  }
-
-  get stakedRadiusBalance() {
-    return this.balances ? this.balances.gasMine.staked : 0;
-  }
-
-  get stakedRadiusLPBalance() {
-    return this.balances ? this.balances.catalystMine.staked : 0;
-  }
-
-  get totalStakedRadiusBalance() {
-    return this.balances ? this.balances.gasMine.totalStaked : 0;
-  }
-
-  get totalStakedRadiusLPBalance() {
-    return this.balances ? this.balances.catalystMine.totalStaked : 0;
-  }
-
-  get earnedRadiusGasBalance() {
-    return this.balances ? this.balances.gasMine.earned : 0;
-  }
-
-  get earnedRadiusCatalystBalance() {
-    return this.balances ? this.balances.catalystMine.earned : 0;
   }
 
   getItemDNAExtended(itemId) {
