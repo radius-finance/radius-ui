@@ -107,6 +107,6 @@ export class ForgeItemComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get buttonEnabled() {
-    return this.state !== 0 ? 'disabled' : '';
+    return this.state !== 0 || this.forgeOptions.ceil === 0 ? 'disabled' : '';
   }
 }
