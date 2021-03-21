@@ -18,27 +18,51 @@ export class DashboardComponent implements OnInit {
   public updateOptions() {}
 
   get stakedRadiusBalance() {
-    return this.fromWei(this.blockchainService.stakedRadiusBalance);
+    if (!this.blockchainService.balances) {
+      return '0';
+    }
+    const bal = this.blockchainService.balances.gasMine.staked;
+    return bal ? this.blockchainService.formatEther(bal) : '0';
   }
 
   get stakedRadiusLPBalance() {
-    return this.fromWei(this.blockchainService.stakedRadiusLPBalance);
+    if (!this.blockchainService.balances) {
+      return '0';
+    }
+    const bal = this.blockchainService.balances.catalystMine.staked;
+    return bal ? this.blockchainService.formatEther(bal) : '0';
   }
 
   get totalStakedRadiusBalance() {
-    return this.fromWei(this.blockchainService.totalStakedRadiusBalance);
+    if (!this.blockchainService.balances) {
+      return '0';
+    }
+    const bal = this.blockchainService.balances.gasMine.totalStaked;
+    return bal ? this.blockchainService.formatEther(bal) : '0';
   }
 
   get totalStakedRadiusLPBalance() {
-    return this.fromWei(this.blockchainService.totalStakedRadiusLPBalance);
+    if (!this.blockchainService.balances) {
+      return '0';
+    }
+    const bal = this.blockchainService.balances.catalystMine.totalStaked;
+    return bal ? this.blockchainService.formatEther(bal) : '0';
   }
 
   get earnedRadiusGasBalance() {
-    return this.fromWei(this.blockchainService.earnedRadiusGasBalance);
+    if (!this.blockchainService.balances) {
+      return '0';
+    }
+    const bal = this.blockchainService.balances.gasMine.earned;
+    return bal ? this.blockchainService.formatEther(bal) : '0';
   }
 
   get earnedRadiusCatalystBalance() {
-    return this.fromWei(this.blockchainService.earnedRadiusCatalystBalance);
+    if (!this.blockchainService.balances) {
+      return '0';
+    }
+    const bal = this.blockchainService.balances.catalystMine.earned;
+    return bal ? this.blockchainService.formatEther(bal) : '0';
   }
 
   get hasNFTItems() {
