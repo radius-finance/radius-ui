@@ -176,7 +176,7 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
       this.type == 'RAD'
         ? this.blockchainService.balances.gasMine.totalStaked
         : this.blockchainService.balances.catalystMine.totalStaked;
-    return this.blockchainService.formatEther(bal);
+    return bal ? this.blockchainService.formatEther(bal) : '0';
   }
 
   get stakedBalance() {
@@ -187,7 +187,7 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
       this.type == 'RAD'
         ? this.blockchainService.balances.gasMine.staked
         : this.blockchainService.balances.catalystMine.staked;
-    return this.blockchainService.formatEther(bal);
+    return bal ? this.blockchainService.formatEther(bal) : '0';
   }
 
   get earnedBalance() {
@@ -198,7 +198,7 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
       this.type == 'RAD'
         ? this.blockchainService.balances.gasMine.earned
         : this.blockchainService.balances.catalystMine.earned;
-    return this.blockchainService.formatEther(bal);
+    return bal ? this.blockchainService.formatEther(bal) : '0';
   }
 
   get stakedLabel() {
