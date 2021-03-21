@@ -1042,7 +1042,7 @@ export class BlockchainService {
   async stakeRadiusLP(amount: any) {
     const amountInWei = this.parseEther(amount);
     const allowance = await this.getCatalystMineRadiusAllowance();
-    if (allowance.lt(this.parseEther(amountInWei))) {
+    if (allowance.lt(amountInWei)) {
       await this.radiusLPRef.approve(
         this.radiusCatalystMine.address,
         amountInWei
