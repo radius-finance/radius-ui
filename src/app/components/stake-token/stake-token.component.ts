@@ -181,7 +181,7 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get stakedSymbol() {
-    return this.type == 'RAD' ? 'RAD' : 'RAD_LP';
+    return this.type == 'RAD' ? 'RAD' : 'RAD UNI-V2 LP';
   }
 
   get earnedSymbol() {
