@@ -335,13 +335,14 @@ export class BlockchainService {
 
     await this.setupEvents();
 
+    await this.updateBalances();
+    await this.updateNFTList();
+    await this.updateTokenForgeData();
+
     this.historicalEvents = await this.loadForgeEvents();
     this.historicalEvents.forEach((log) => {
       console.log(log.address);
     });
-    await this.updateBalances();
-    await this.updateNFTList();
-    await this.updateTokenForgeData();
   }
 
   loadInterfaces() {
@@ -383,21 +384,31 @@ export class BlockchainService {
     return ifaces;
   }
 
-  async loadForgeEvents() {
+  async loadAndDecodeEvents(filter: any) {
     const ifaces = this.loadInterfaces();
+    return await this.provider
+      .getLogs(filter)
+      .map((log) => {
+        if (ifaces[log.address]) {
+          return ifaces[log.address].decodeEventLog('Forged', log.data);
+        } else {
+          return {};
+        }
+      })
+      .filter((e) => e['values'])
+      .map((e) => e['values']);
+  }
 
-    // const logs = await this.provider.getLogs(
-    //   this.radiusTokenLib.filters.Forged(null, null, null, null, null)
-    // );
-
-    const logs = await this.provider.getLogs({});
-    //   const decodedEvents = logs.map((log) => {
-    //     return ifaces[log.address].decodeEventLog('Forged', log.data);
-    //   });
-
-    //   const eventValues = decodedEvents.map((event) => event['values']);
-    //   return eventValues;
-    return logs;
+  async loadForgeEvents() {
+    return await this.loadAndDecodeEvents(
+      this.radiusToken.filters.Forged(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )
+    );
   }
 
   async updateTokenForgeData() {
