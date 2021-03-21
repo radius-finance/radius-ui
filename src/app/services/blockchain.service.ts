@@ -147,6 +147,7 @@ export class BlockchainService {
   }
 
   formatEther(n: any) {
+    if(n) return '0';
     const pe = utils.formatEther(n);
     return pe ? pe.toString() : '0';
   }
