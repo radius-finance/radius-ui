@@ -1,13 +1,13 @@
 {
-  "name": "localhost",
-  "chainId": "1337",
+  "name": "kovan",
+  "chainId": "42",
   "contracts": {
     "AddressSet": {
-      "address": "0xEEF5Bd229322a06cbA10D5dCb28119BD42Fd4a2d",
+      "address": "0x6eED2dAe7BC03BDc6b62a7e7Daa031BA6eE70d4f",
       "abi": []
     },
     "RadiusTokenLib": {
-      "address": "0x248e0991587DA86EBe14B474f3AFaA3861fE0603",
+      "address": "0x6D7c97B05f479191c3f23A3031701F1F52C8d194",
       "abi": [
         {
           "anonymous": false,
@@ -257,7 +257,7 @@
       ]
     },
     "RadiusToken_Implementation": {
-      "address": "0xE6fD01E64cd793D55269f1dcfEA1BEb480AA3650",
+      "address": "0xDFf126269bbBFd733ba0C69923fF760e3459A011",
       "abi": [
         {
           "anonymous": false,
@@ -1765,7 +1765,7 @@
       ]
     },
     "RadiusToken_Proxy": {
-      "address": "0x1da48ae241B984C8BA795677616DCc13b93e4d60",
+      "address": "0x4D68Ca964A97822E88410aDBBb4F6e8BF1dE9463",
       "abi": [
         {
           "inputs": [
@@ -1896,7 +1896,7 @@
       ]
     },
     "RadiusToken": {
-      "address": "0x1da48ae241B984C8BA795677616DCc13b93e4d60",
+      "address": "0x4D68Ca964A97822E88410aDBBb4F6e8BF1dE9463",
       "abi": [
         {
           "anonymous": false,
@@ -3511,7 +3511,7 @@
       ]
     },
     "RadiusGasERC20_Implementation": {
-      "address": "0x32fb51D4f9e5bcb8949294130B8E65a97d87Fa87",
+      "address": "0xF6186A30801cEaD7D62C371A82d8Df3Ca0B5455A",
       "abi": [
         {
           "anonymous": false,
@@ -4291,7 +4291,7 @@
       ]
     },
     "RadiusGasERC20_Proxy": {
-      "address": "0xB22dB11bBB52ffCb45d832390829Ba67214C6fAa",
+      "address": "0xE78Ac6b4c2ab81835Ff35454c11b879621d4bb5b",
       "abi": [
         {
           "inputs": [
@@ -4422,7 +4422,7 @@
       ]
     },
     "RadiusGasERC20": {
-      "address": "0xB22dB11bBB52ffCb45d832390829Ba67214C6fAa",
+      "address": "0xE78Ac6b4c2ab81835Ff35454c11b879621d4bb5b",
       "abi": [
         {
           "anonymous": false,
@@ -5328,7 +5328,7 @@
       ]
     },
     "RadiusERC20_Implementation": {
-      "address": "0x14528C987867F4cBfC37010bF62eC95b6A95aF06",
+      "address": "0x068C8eB4b17c1E7DB705dF897a670c37f7275F02",
       "abi": [
         {
           "anonymous": false,
@@ -6113,7 +6113,7 @@
       ]
     },
     "RadiusERC20_Proxy": {
-      "address": "0x31C39200452Ba593fF2083421aeFa7921B830eb2",
+      "address": "0xF937Fbfd546BD8D8aC411F434C3365ef3BEEE8C2",
       "abi": [
         {
           "inputs": [
@@ -6244,7 +6244,7 @@
       ]
     },
     "RadiusERC20": {
-      "address": "0x31C39200452Ba593fF2083421aeFa7921B830eb2",
+      "address": "0xF937Fbfd546BD8D8aC411F434C3365ef3BEEE8C2",
       "abi": [
         {
           "anonymous": false,
@@ -7155,7 +7155,7 @@
       ]
     },
     "RadiusCatalystERC20_Implementation": {
-      "address": "0x4A6bcA3C92caC20f16f6DA6dE30caa7E03772ABf",
+      "address": "0x466C36Fd860B3825E640F0e15b578DC53e2FBF80",
       "abi": [
         {
           "anonymous": false,
@@ -7935,7 +7935,7 @@
       ]
     },
     "RadiusCatalystERC20_Proxy": {
-      "address": "0xD91d1Bc305B74d01D449D0C3E72a76d6A553c54B",
+      "address": "0xbeFb86D428e79EE0953d52a217C425E4a7a2f475",
       "abi": [
         {
           "inputs": [
@@ -8066,7 +8066,7 @@
       ]
     },
     "RadiusCatalystERC20": {
-      "address": "0xD91d1Bc305B74d01D449D0C3E72a76d6A553c54B",
+      "address": "0xbeFb86D428e79EE0953d52a217C425E4a7a2f475",
       "abi": [
         {
           "anonymous": false,
@@ -8972,7 +8972,7 @@
       ]
     },
     "RadiusLotteryERC20_Implementation": {
-      "address": "0x047a12B6Be14AEE36B3346CC27fF5b4C9A8d03F9",
+      "address": "0xd8bC1B67ce4cC769ee2568CB887AE3a632dBfb3a",
       "abi": [
         {
           "anonymous": false,
@@ -9752,7 +9752,7 @@
       ]
     },
     "RadiusLotteryERC20_Proxy": {
-      "address": "0x543e712c216CF072992d58059e6716873040549B",
+      "address": "0x955404446df4856C713E8c36e728d27561E6e51E",
       "abi": [
         {
           "inputs": [
@@ -9883,7 +9883,7 @@
       ]
     },
     "RadiusLotteryERC20": {
-      "address": "0x543e712c216CF072992d58059e6716873040549B",
+      "address": "0x955404446df4856C713E8c36e728d27561E6e51E",
       "abi": [
         {
           "anonymous": false,
@@ -10789,7 +10789,7 @@
       ]
     },
     "RelicTokenForge_Implementation": {
-      "address": "0x89232DF8F773D0185f79cdE7122d3540e288d545",
+      "address": "0xa72cBA87849fa1063f008E804A9afB788eea0054",
       "abi": [
         {
           "anonymous": false,
@@ -11302,7 +11302,7 @@
       ]
     },
     "RelicTokenForge_Proxy": {
-      "address": "0xcb66dc8044bB7108b781D10d17Aa8577bDCFF400",
+      "address": "0xe9438e288c37A3ec4c6129a1d6a13c0B28482e68",
       "abi": [
         {
           "inputs": [
@@ -11433,7 +11433,7 @@
       ]
     },
     "RelicTokenForge": {
-      "address": "0xcb66dc8044bB7108b781D10d17Aa8577bDCFF400",
+      "address": "0xe9438e288c37A3ec4c6129a1d6a13c0B28482e68",
       "abi": [
         {
           "anonymous": false,
@@ -12072,7 +12072,7 @@
       ]
     },
     "PowerupTokenForge_Implementation": {
-      "address": "0x175779cd27aE2Ba7A1951d582fE351FbD2aBBfa5",
+      "address": "0x590d868479F48122dd50edDfb953BF9EbFfae241",
       "abi": [
         {
           "anonymous": false,
@@ -12585,7 +12585,7 @@
       ]
     },
     "PowerupTokenForge_Proxy": {
-      "address": "0xBDA1285480cb8bE35ce013E314083F828A0d8f86",
+      "address": "0x78Bf8f39e43B91F3F83276528ea5330d47A74e8b",
       "abi": [
         {
           "inputs": [
@@ -12716,7 +12716,7 @@
       ]
     },
     "PowerupTokenForge": {
-      "address": "0xBDA1285480cb8bE35ce013E314083F828A0d8f86",
+      "address": "0x78Bf8f39e43B91F3F83276528ea5330d47A74e8b",
       "abi": [
         {
           "anonymous": false,
@@ -13355,7 +13355,7 @@
       ]
     },
     "GemTokenForge_Implementation": {
-      "address": "0xbB4E52e3Abe677E0df481197554E09cbB0BD7FA1",
+      "address": "0xc74d3a9B7DA0b1fA3bcF20fF2E21525F4E44f7CC",
       "abi": [
         {
           "anonymous": false,
@@ -13830,7 +13830,7 @@
       ]
     },
     "GemTokenForge_Proxy": {
-      "address": "0x37d16C0B6f994fcED19957B5543CcB9E8647B5bE",
+      "address": "0xa31eD68E4e45B23D3ceF63Ad13a1EfdA80BC35b2",
       "abi": [
         {
           "inputs": [
@@ -13961,7 +13961,7 @@
       ]
     },
     "GemTokenForge": {
-      "address": "0x37d16C0B6f994fcED19957B5543CcB9E8647B5bE",
+      "address": "0xa31eD68E4e45B23D3ceF63Ad13a1EfdA80BC35b2",
       "abi": [
         {
           "anonymous": false,
@@ -14562,7 +14562,7 @@
       ]
     },
     "LotteryTokenForge_Implementation": {
-      "address": "0xA63c92b3bf5dc0D1B90FeA26a8DaCB23B683cc7e",
+      "address": "0x9F9f36c8e6B1f07D743052aA46D824e3E58d432B",
       "abi": [
         {
           "anonymous": false,
@@ -15037,7 +15037,7 @@
       ]
     },
     "LotteryTokenForge_Proxy": {
-      "address": "0xD14781B2e59F594A53aB360FeaACACf32184C280",
+      "address": "0xA92a5b4F6bc95d4798419c7BCE5eA628491C6396",
       "abi": [
         {
           "inputs": [
@@ -15168,7 +15168,7 @@
       ]
     },
     "LotteryTokenForge": {
-      "address": "0xD14781B2e59F594A53aB360FeaACACf32184C280",
+      "address": "0xA92a5b4F6bc95d4798419c7BCE5eA628491C6396",
       "abi": [
         {
           "anonymous": false,
@@ -15769,7 +15769,7 @@
       ]
     },
     "TestTokenForge_Implementation": {
-      "address": "0x93aD014471FCf3B420d80b6ac0E3a1141ca657e1",
+      "address": "0x37ca5BF4BeCbC924918781F83Bb8033e1077008F",
       "abi": [
         {
           "anonymous": false,
@@ -16202,7 +16202,7 @@
       ]
     },
     "TestTokenForge_Proxy": {
-      "address": "0x812D3E21bb9Cd18518FB70764b70B89Fd583B81c",
+      "address": "0x7592952944a59096dfE0934bDEbC6F89645b9d03",
       "abi": [
         {
           "inputs": [
@@ -16333,7 +16333,7 @@
       ]
     },
     "TestTokenForge": {
-      "address": "0x812D3E21bb9Cd18518FB70764b70B89Fd583B81c",
+      "address": "0x7592952944a59096dfE0934bDEbC6F89645b9d03",
       "abi": [
         {
           "anonymous": false,
@@ -16892,7 +16892,7 @@
       ]
     },
     "RadiusMineLib": {
-      "address": "0xc98B582C6BE76df2e9CAE7e77f820b3eF2867a55",
+      "address": "0x59B169549c2E87c38a7eE54694EbcBB2B36bF952",
       "abi": [
         {
           "anonymous": false,
@@ -17076,7 +17076,7 @@
       ]
     },
     "RadiusGasMine_Implementation": {
-      "address": "0xe3f91f3289D3D5B105aF6183d6dBCfAA11cb7928",
+      "address": "0x8B5E849dCf294d84d1351E01d07f56A75F7D7528",
       "abi": [
         {
           "anonymous": false,
@@ -17781,7 +17781,7 @@
       ]
     },
     "RadiusGasMine_Proxy": {
-      "address": "0x4428266CcEC018F4E307B96536AF33A60753a970",
+      "address": "0x47DF92f7d13Bf3642274A82Ea10742AB5cfEEeb4",
       "abi": [
         {
           "inputs": [
@@ -17912,7 +17912,7 @@
       ]
     },
     "RadiusGasMine": {
-      "address": "0x4428266CcEC018F4E307B96536AF33A60753a970",
+      "address": "0x47DF92f7d13Bf3642274A82Ea10742AB5cfEEeb4",
       "abi": [
         {
           "anonymous": false,
@@ -18743,7 +18743,7 @@
       ]
     },
     "RadiusCatalystMine_Implementation": {
-      "address": "0x5A3a17Fe585561341bAfF5C6b574844c20Fb987F",
+      "address": "0xCeC39b5e39f43Ba364Ad63D9c6C036e9Fb1F73f5",
       "abi": [
         {
           "anonymous": false,
@@ -19448,7 +19448,7 @@
       ]
     },
     "RadiusCatalystMine_Proxy": {
-      "address": "0xE82E5463397c43a1b81f7e74aB37eFE64B220eAB",
+      "address": "0x55CdC5B78077371A3E878ca56A95c072148D9D6A",
       "abi": [
         {
           "inputs": [
@@ -19579,7 +19579,7 @@
       ]
     },
     "RadiusCatalystMine": {
-      "address": "0xE82E5463397c43a1b81f7e74aB37eFE64B220eAB",
+      "address": "0x55CdC5B78077371A3E878ca56A95c072148D9D6A",
       "abi": [
         {
           "anonymous": false,
