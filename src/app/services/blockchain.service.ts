@@ -339,10 +339,10 @@ export class BlockchainService {
     await this.updateNFTList();
     await this.updateTokenForgeData();
 
-    this.historicalEvents = await this.loadForgeEvents();
-    this.historicalEvents.forEach((log) => {
-      console.log(log.address);
-    });
+    // this.historicalEvents = await this.loadForgeEvents();
+    // this.historicalEvents.forEach((log) => {
+    //   console.log(log.address);
+    // });
   }
 
   loadInterfaces() {
