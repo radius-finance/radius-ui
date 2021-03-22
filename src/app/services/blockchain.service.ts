@@ -62,6 +62,7 @@ export class BlockchainService {
   public dividendPayments: any;
 
   public radiusToken: RadiusToken;
+  public radiusTokenImpl: RadiusToken;
   public radiusTokenLib: RadiusTokenLib;
   public radiusERC20: RadiusERC20;
   public radiusGasERC20: RadiusGasERC20;
@@ -274,6 +275,9 @@ export class BlockchainService {
     this.radiusToken = (await this.getContractRef(
       'RadiusToken'
     )) as RadiusToken;
+    this.radiusTokenImpl = (await this.getContractRef(
+      'RadiusToken_Implementation'
+    )) as RadiusToken;
     this.radiusERC20 = (await this.getContractRef(
       'RadiusERC20'
     )) as RadiusERC20;
@@ -334,15 +338,21 @@ export class BlockchainService {
     this.forgingApprovedForAll = await this.isForgingApprovedForAll();
 
     await this.setupEvents();
-
     await this.updateBalances();
     await this.updateNFTList();
     await this.updateTokenForgeData();
 
-    // this.historicalEvents = await this.loadForgeEvents();
-    // this.historicalEvents.forEach((log) => {
-    //   console.log(log.address);
-    // });
+    this.loadForgeEvents().then((he) => {
+      he.forEach((e) =>
+        this.addHistoricalItem(
+          e.recipient,
+          e.forgedIndex,
+          e.nonce,
+          e.consumed,
+          e.amount
+        )
+      );
+    });
   }
 
   loadInterfaces() {
@@ -350,66 +360,46 @@ export class BlockchainService {
     ifaces[
       contractData.contracts['RadiusToken'].address
     ] = new ethers.utils.Interface(contractData.contracts['RadiusToken'].abi);
-    ifaces[
-      contractData.contracts['RadiusERC20'].address
-    ] = new ethers.utils.Interface(contractData.contracts['RadiusERC20'].abi);
-    ifaces[
-      contractData.contracts['RadiusGasERC20'].address
-    ] = new ethers.utils.Interface(
-      contractData.contracts['RadiusGasERC20'].abi
-    );
-    ifaces[
-      contractData.contracts['RadiusCatalystERC20'].address
-    ] = new ethers.utils.Interface(
-      contractData.contracts['RadiusCatalystERC20'].abi
-    );
-    ifaces[
-      contractData.contracts['RadiusLotteryERC20'].address
-    ] = new ethers.utils.Interface(
-      contractData.contracts['RadiusLotteryERC20'].abi
-    );
-    ifaces[
-      contractData.contracts['RadiusGasMine'].address
-    ] = new ethers.utils.Interface(contractData.contracts['RadiusGasMine'].abi);
-    ifaces[
-      contractData.contracts['RadiusCatalystMine'].address
-    ] = new ethers.utils.Interface(
-      contractData.contracts['RadiusCatalystMine'].abi
-    );
-    ifaces[
-      contractData.contracts['RadiusTokenLib'].address
-    ] = new ethers.utils.Interface(
-      contractData.contracts['RadiusTokenLib'].abi
-    );
     return ifaces;
   }
 
   async loadAndDecodeEvents(type, filter) {
     const ifaces = this.loadInterfaces();
-    return await this.provider
-      .getLogs(filter)
+    const logs = await this.provider.getLogs(filter);
+    return (logs || [])
       .map((log) => {
         if (ifaces[log.address]) {
-          return ifaces[log.address].decodeEventLog(type, log.data);
+          return {
+            event: ifaces[log.address].decodeEventLog(type, log.data),
+            log,
+          };
         } else {
           return {};
         }
       })
-      .filter((e) => e['values'])
-      .map((e) => e['values']);
+      .filter((e) => e.event['values']);
   }
 
   async loadForgeEvents() {
-    return await this.loadAndDecodeEvents(
-      'Forged',
-      this.radiusToken.filters.Forged(
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      )
+    const filter = this.radiusToken.filters.Forged(
+      null,
+      null,
+      null,
+      null,
+      null
     );
+    filter.fromBlock = 0;
+    filter.toBlock = 'latest';
+    const events = await this.loadAndDecodeEvents('Forged', filter);
+    return events.map((e) => {
+      return {
+        recipient: BigNumber.from(e.log.topics[1]),
+        forgedIndex: BigNumber.from(e.log.topics[2]),
+        salt: e.event.salt,
+        consumed: e.event.consumed,
+        amount: e.event.amount,
+      };
+    });
   }
 
   async updateTokenForgeData() {
@@ -729,6 +719,34 @@ export class BlockchainService {
     await this.invokeUpdateList('nftlist', this.nftItems);
   }
 
+  addHistoricalItem(recipient, forgedIndex, nonce, consumed, amount) {
+    if (!forgedIndex.eq(3)) {
+      this.globalItems.unshift({
+        recipient,
+        forgedIndex,
+        nonce,
+        consumed,
+        amount,
+      });
+      if (forgedIndex.gte(256) && forgedIndex.lt(4096)) {
+        this.lastRelicMintedId = forgedIndex;
+      } else if (forgedIndex.gte(4096) && forgedIndex.lt(8192)) {
+        this.lastPowerupMintedId = forgedIndex;
+      } else if (forgedIndex.gte(8192)) {
+        this.lastGemMintedId = forgedIndex;
+        if (!this.rarestGemFound) {
+          this.rarestGemFound = this.lastGemMintedId;
+        } else {
+          const rarestGemRarity = this.getItemRarity(this.rarestGemFound);
+          const thisGemRarity = this.getItemRarity(this.lastGemMintedId);
+          if (thisGemRarity > rarestGemRarity) {
+            this.rarestGemFound = thisGemRarity;
+          }
+        }
+      }
+    }
+  }
+
   async invokeUpdateList(tag: any, vals) {
     this.updateList.forEach(async (el) => await el(tag, vals));
   }
@@ -885,31 +903,8 @@ export class BlockchainService {
     this.radiusToken.on(
       'Forged',
       async (recipient, forgedIndex, nonce, consumed, amount) => {
-        if (!forgedIndex.eq(3)) {
-          this.globalItems.unshift({
-            recipient,
-            forgedIndex,
-            nonce,
-            consumed,
-            amount,
-          });
-          if (forgedIndex.gte(256) && forgedIndex.lt(4096)) {
-            this.lastRelicMintedId = forgedIndex;
-          } else if (forgedIndex.gte(4096) && forgedIndex.lt(8192)) {
-            this.lastPowerupMintedId = forgedIndex;
-          } else if (forgedIndex.gte(8192)) {
-            this.lastGemMintedId = forgedIndex;
-            if (!this.rarestGemFound) {
-              this.rarestGemFound = this.lastGemMintedId;
-            } else {
-              const rarestGemRarity = this.getItemRarity(this.rarestGemFound);
-              const thisGemRarity = this.getItemRarity(this.lastGemMintedId);
-              if (thisGemRarity > rarestGemRarity) {
-                this.rarestGemFound = thisGemRarity;
-              }
-            }
-          }
-        }
+        this.addHistoricalItem(recipient, forgedIndex, nonce, consumed, amount);
+
         if (recipient == this.account) {
           let forgedText = '';
           if (forgedIndex.gte(256) && forgedIndex.lt(4096)) {
