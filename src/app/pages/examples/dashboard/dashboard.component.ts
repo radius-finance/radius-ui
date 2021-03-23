@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import Chart from 'chart.js';
 import {BlockchainService} from '../../../services/blockchain.service';
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +22,22 @@ export class DashboardComponent implements OnInit {
     }
     const bal = this.blockchainService.balances.gasMine.staked;
     return bal ? this.blockchainService.formatEther(bal) : '0';
+  }
+
+  get hasStakedRadiusBalance() {
+    if (!this.blockchainService.balances) {
+      return false;
+    }
+    const bal = this.blockchainService.balances.gasMine.staked;
+    return bal ? !bal.eq(0) : false;
+  }
+
+  get hasStakedRadiusLPBalance() {
+    if (!this.blockchainService.balances) {
+      return false;
+    }
+    const bal = this.blockchainService.balances.catalystMine.staked;
+    return bal ? !bal.eq(0) : false;
   }
 
   get stakedRadiusLPBalance() {

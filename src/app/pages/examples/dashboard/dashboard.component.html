@@ -40,16 +40,16 @@
       <h2>My Staked Tokens</h2>
     </div>
 
-    <div *ngIf="stakedRadiusBalance !== '0'" class="col-md-12 col-lg-12">
+    <div *ngIf="hasStakedRadiusBalance" class="col-md-12 col-lg-12">
       <app-stake-token type="RAD"></app-stake-token>
     </div>
 
-    <div *ngIf="stakedRadiusLPBalance !== '0'" class="col-md-12 col-lg-12">
+    <div *ngIf="hasStakedRadiusLPBalance" class="col-md-12 col-lg-12">
       <app-stake-token type="LP"></app-stake-token>
     </div>
 
     <div
-      *ngIf="!(stakedRadiusBalance > 0) && !(stakedRadiusLPBalance > 0)"
+      *ngIf="!hasStakedRadiusBalance && !hasStakedRadiusLPBalance"
       class="col-md-12 col-lg-12"
     >
       <div class="card">

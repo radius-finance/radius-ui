@@ -34,7 +34,6 @@ import {CollectDividendsPanelComponent} from './collect-dividends-panel/collect-
 import {PreviousDividendClaimsComponent} from './previous-dividend-claims/previous-dividend-claims.component';
 import {DividendsBalancePanelComponent} from './dividends-balance-panel/dividends-balance-panel.component';
 import {PowerupBalancePanelComponent} from './powerup-balance-panel/powerup-balance-panel.component';
-
 @NgModule({
   imports: [
     CommonModule,

@@ -15,9 +15,6 @@ export class StatsComponent implements OnInit {
 
   ngOnInit(): void {
     this.gasOptions = {
-      title: {
-        text: 'Gas Supply',
-      },
       tooltip: {
         trigger: 'axis',
         formatter: (params) => {
@@ -47,7 +44,7 @@ export class StatsComponent implements OnInit {
           type: 'line',
           showSymbol: false,
           hoverAnimation: false,
-          data: this.gasSeriesData,
+          data: [],
         },
       ],
     };
@@ -59,9 +56,6 @@ export class StatsComponent implements OnInit {
       ],
     };
     this.catalystOptions = {
-      title: {
-        text: 'Catalyst Supply',
-      },
       tooltip: {
         trigger: 'axis',
         formatter: (params) => {
@@ -91,7 +85,7 @@ export class StatsComponent implements OnInit {
           type: 'line',
           showSymbol: false,
           hoverAnimation: false,
-          data: this.catalystSeriesData,
+          data: [],
         },
       ],
     };
@@ -105,27 +99,15 @@ export class StatsComponent implements OnInit {
   }
 
   get gasSeriesData() {
-    return this.blockchainService.gasHistoricalSupply.map((e) => {
-      return {
-        name: e.blockNumber,
-        value: [
-          e.blockNumber,
-          ~~parseFloat(this.blockchainService.formatEther(e.amount)),
-        ],
-      };
-    });
+    const sd = this.blockchainService.gasTimeSeriesData;
+    console.log(sd);
+    return sd;
   }
 
   get catalystSeriesData() {
-    return this.blockchainService.catalystHistoricalSupply.map((e) => {
-      return {
-        name: e.blockNumber,
-        value: [
-          e.blockNumber,
-          ~~parseFloat(this.blockchainService.formatEther(e.amount)),
-        ],
-      };
-    });
+    const sd = this.blockchainService.catalystTimeSeriesData;
+    console.log(sd);
+    return sd;
   }
 
   get gasTotalSupply() {
@@ -145,13 +127,15 @@ export class StatsComponent implements OnInit {
   }
 
   get relicTotalSupply() {
-    return this.blockchainService.balances
+    return this.blockchainService.balances &&
+      this.blockchainService.balances.totalSupplies
       ? this.blockchainService.balances.totalSupplies.relic
       : '0';
   }
 
   get powerupTotalSupply() {
-    return this.blockchainService.balances
+    return this.blockchainService.balances &&
+      this.blockchainService.balances.totalSupplies.powerup.stake
       ? this.blockchainService.balances.totalSupplies.powerup.stake
           .add(this.blockchainService.balances.totalSupplies.powerup.stakeLP)
           .add(this.blockchainService.balances.totalSupplies.powerup.forge)
@@ -160,7 +144,8 @@ export class StatsComponent implements OnInit {
   }
 
   get gemTotalSupply() {
-    return this.blockchainService.balances
+    return this.blockchainService.balances &&
+      this.blockchainService.balances.totalSupplies
       ? this.blockchainService.balances.totalSupplies.gem
       : '0';
   }
