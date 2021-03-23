@@ -452,12 +452,38 @@ export class BlockchainService {
           amount: gasQuantity,
         };
       });
-    this.gasTimeSeriesData = this.gasHistoricalSupply.map((e) => {
-      return {
-        name: e.blockNumber,
-        value: [e.blockNumber, e.amount.toPrecision(4)],
-      };
+
+    const gasTimeSeriesBlocks = {};
+
+    this.gasHistoricalSupply.forEach((e) => {
+      let bn = e.blockNumber + '';
+      bn = bn.substr(1, bn.length - 3);
+
+      const amt = parseFloat(e.amount.toPrecision(4));
+      if (!gasTimeSeriesBlocks[bn]) {
+        gasTimeSeriesBlocks[bn] = [amt, amt, amt, amt, 1];
+      } else {
+        gasTimeSeriesBlocks[bn][1] = amt;
+        if (amt < gasTimeSeriesBlocks[bn][2]) {
+          gasTimeSeriesBlocks[bn][2] = amt;
+        }
+        if (amt > gasTimeSeriesBlocks[bn][3]) {
+          gasTimeSeriesBlocks[bn][3] = amt;
+        }
+        gasTimeSeriesBlocks[bn][4] = gasTimeSeriesBlocks[bn][4] + 1;
+      }
     });
+
+    this.gasTimeSeriesData = Object.keys(gasTimeSeriesBlocks)
+      .map((k) => {
+        const un = gasTimeSeriesBlocks[k];
+        un.unshift(parseInt(k));
+        return {
+          name: parseInt(k),
+          value: un,
+        };
+      })
+      .sort((a, b) => a.name - b.name);
   }
 
   public catalystHistoricalSupply: any;
@@ -479,12 +505,37 @@ export class BlockchainService {
           amount: catalystQuantity,
         };
       });
-    this.catalystTimeSeriesData = this.catalystHistoricalSupply.map((e) => {
-      return {
-        name: e.blockNumber,
-        value: [e.blockNumber, e.amount.toPrecision(4)],
-      };
+    const catalystTimeSeriesBlocks = {};
+
+    this.catalystHistoricalSupply.forEach((e) => {
+      let bn = e.blockNumber + '';
+      bn = bn.substr(1, bn.length - 3);
+
+      const amt = parseFloat(e.amount.toPrecision(4));
+      if (!catalystTimeSeriesBlocks[bn]) {
+        catalystTimeSeriesBlocks[bn] = [amt, amt, amt, amt, 1];
+      } else {
+        catalystTimeSeriesBlocks[bn][1] = amt;
+        if (amt < catalystTimeSeriesBlocks[bn][2]) {
+          catalystTimeSeriesBlocks[bn][2] = amt;
+        }
+        if (amt > catalystTimeSeriesBlocks[bn][3]) {
+          catalystTimeSeriesBlocks[bn][3] = amt;
+        }
+        catalystTimeSeriesBlocks[bn][4] = catalystTimeSeriesBlocks[bn][4] + 1;
+      }
     });
+
+    this.catalystTimeSeriesData = Object.keys(catalystTimeSeriesBlocks)
+      .map((k) => {
+        const un = catalystTimeSeriesBlocks[k];
+        un.unshift(parseInt(k));
+        return {
+          name: parseInt(k),
+          value: un,
+        };
+      })
+      .sort((a, b) => a.name - b.name);
   }
 
   loadInterfaces() {

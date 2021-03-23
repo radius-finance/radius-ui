@@ -17,12 +17,42 @@ export class StatsComponent implements OnInit {
     this.gasOptions = {
       tooltip: {
         trigger: 'axis',
-        formatter: (params) => {
-          params = params[0];
-          return params.name + ' : ' + params.value[1];
-        },
         axisPointer: {
-          animation: false,
+          type: 'cross',
+        },
+        borderWidth: 1,
+        borderColor: '#ccc',
+        padding: 10,
+        textStyle: {
+          color: '#000',
+        },
+        position: function (pos, params, el, elRect, size) {
+          const obj = {top: 10};
+          obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+          return obj;
+        },
+      },
+      axisPointer: {
+        link: {xAxisIndex: 'all'},
+        label: {
+          backgroundColor: '#777',
+        },
+      },
+      toolbox: {
+        feature: {
+          dataZoom: {
+            yAxisIndex: false,
+          },
+          brush: {
+            type: ['lineX', 'clear'],
+          },
+        },
+      },
+      brush: {
+        xAxisIndex: 'all',
+        brushLink: 'all',
+        outOfBrush: {
+          colorAlpha: 0.1,
         },
       },
       xAxis: {
@@ -30,6 +60,7 @@ export class StatsComponent implements OnInit {
         splitLine: {
           show: false,
         },
+        formatter: (params) => params[0].name,
       },
       yAxis: {
         type: 'value',
@@ -38,10 +69,26 @@ export class StatsComponent implements OnInit {
           show: false,
         },
       },
+      dataZoom: [
+        {
+          type: 'inside',
+          xAxisIndex: [0, 1],
+          start: 0,
+          end: 100,
+        },
+        {
+          show: true,
+          xAxisIndex: [0, 1],
+          type: 'slider',
+          top: '85%',
+          start: 0,
+          end: 100,
+        },
+      ],
       series: [
         {
           name: 'Gas Supply',
-          type: 'line',
+          type: 'candlestick',
           showSymbol: false,
           hoverAnimation: false,
           data: [],
@@ -58,12 +105,42 @@ export class StatsComponent implements OnInit {
     this.catalystOptions = {
       tooltip: {
         trigger: 'axis',
-        formatter: (params) => {
-          params = params[0];
-          return params.name + ' : ' + params.value[1];
-        },
         axisPointer: {
-          animation: false,
+          type: 'cross',
+        },
+        borderWidth: 1,
+        borderColor: '#ccc',
+        padding: 10,
+        textStyle: {
+          color: '#000',
+        },
+        position: function (pos, params, el, elRect, size) {
+          const obj = {top: 10};
+          obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+          return obj;
+        },
+      },
+      axisPointer: {
+        link: {xAxisIndex: 'all'},
+        label: {
+          backgroundColor: '#777',
+        },
+      },
+      toolbox: {
+        feature: {
+          dataZoom: {
+            yAxisIndex: false,
+          },
+          brush: {
+            type: ['lineX', 'clear'],
+          },
+        },
+      },
+      brush: {
+        xAxisIndex: 'all',
+        brushLink: 'all',
+        outOfBrush: {
+          colorAlpha: 0.1,
         },
       },
       xAxis: {
@@ -71,6 +148,7 @@ export class StatsComponent implements OnInit {
         splitLine: {
           show: false,
         },
+        formatter: (params) => params[0].name,
       },
       yAxis: {
         type: 'value',
@@ -79,10 +157,26 @@ export class StatsComponent implements OnInit {
           show: false,
         },
       },
+      dataZoom: [
+        {
+          type: 'inside',
+          xAxisIndex: [0, 1],
+          start: 0,
+          end: 100,
+        },
+        {
+          show: true,
+          xAxisIndex: [0, 1],
+          type: 'slider',
+          top: '85%',
+          start: 0,
+          end: 100,
+        },
+      ],
       series: [
         {
-          name: 'Catalyst Supply',
-          type: 'line',
+          name: 'Catallyst Supply',
+          type: 'candlestick',
           showSymbol: false,
           hoverAnimation: false,
           data: [],
