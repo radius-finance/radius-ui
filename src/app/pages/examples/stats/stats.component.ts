@@ -6,9 +6,127 @@ import {BlockchainService} from '../../../services/blockchain.service';
   templateUrl: './stats.component.html',
 })
 export class StatsComponent implements OnInit {
+  gasOptions;
+  catalystOptions;
+  gasUpdateOptions;
+  catalystUpdateOptions;
+
   constructor(private blockchainService: BlockchainService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.gasOptions = {
+      title: {
+        text: 'Gas Supply',
+      },
+      tooltip: {
+        trigger: 'axis',
+        formatter: (params) => {
+          params = params[0];
+          return params.name + ' : ' + params.value[1];
+        },
+        axisPointer: {
+          animation: false,
+        },
+      },
+      xAxis: {
+        type: 'time',
+        splitLine: {
+          show: false,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        boundaryGap: [0, '100%'],
+        splitLine: {
+          show: false,
+        },
+      },
+      series: [
+        {
+          name: 'Gas Supply',
+          type: 'line',
+          showSymbol: false,
+          hoverAnimation: false,
+          data: this.gasSeriesData,
+        },
+      ],
+    };
+    this.gasUpdateOptions = {
+      series: [
+        {
+          data: this.gasSeriesData,
+        },
+      ],
+    };
+    this.catalystOptions = {
+      title: {
+        text: 'Catalyst Supply',
+      },
+      tooltip: {
+        trigger: 'axis',
+        formatter: (params) => {
+          params = params[0];
+          return params.name + ' : ' + params.value[1];
+        },
+        axisPointer: {
+          animation: false,
+        },
+      },
+      xAxis: {
+        type: 'time',
+        splitLine: {
+          show: false,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        boundaryGap: [0, '100%'],
+        splitLine: {
+          show: false,
+        },
+      },
+      series: [
+        {
+          name: 'Catalyst Supply',
+          type: 'line',
+          showSymbol: false,
+          hoverAnimation: false,
+          data: this.catalystSeriesData,
+        },
+      ],
+    };
+    this.catalystUpdateOptions = {
+      series: [
+        {
+          data: this.catalystSeriesData,
+        },
+      ],
+    };
+  }
+
+  get gasSeriesData() {
+    return this.blockchainService.gasHistoricalSupply.map((e) => {
+      return {
+        name: e.blockNumber,
+        value: [
+          e.blockNumber,
+          ~~parseFloat(this.blockchainService.formatEther(e.amount)),
+        ],
+      };
+    });
+  }
+
+  get catalystSeriesData() {
+    return this.blockchainService.catalystHistoricalSupply.map((e) => {
+      return {
+        name: e.blockNumber,
+        value: [
+          e.blockNumber,
+          ~~parseFloat(this.blockchainService.formatEther(e.amount)),
+        ],
+      };
+    });
+  }
 
   get gasTotalSupply() {
     return this.blockchainService.formatEther(

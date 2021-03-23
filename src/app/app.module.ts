@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {ToastrModule} from 'ngx-toastr';
+import {NgxEchartsModule} from 'ngx-echarts';
 
 import {AppComponent} from './app.component';
 import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
@@ -22,6 +23,9 @@ import {ComponentsModule} from './components/components.module';
     AppRoutingModule,
     ToastrModule.forRoot(),
     ComponentsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => require('echarts'),
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

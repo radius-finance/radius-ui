@@ -86,6 +86,8 @@ export class BlockchainService {
   public forgingApprovedForAll: any;
 
   historicalEvents;
+  gasMintBurnEvents;
+  catalystMintBurnEvents;
 
   web3Modal;
 
@@ -132,6 +134,8 @@ export class BlockchainService {
     this.lotteryWinners = [];
     this.dividendPayments = [];
     this.tokenForgeData = {};
+    this.gasMintBurnEvents = [];
+    this.catalystMintBurnEvents = [];
     this.lastGemMintedId = undefined;
     this.lastPowerupMintedId = undefined;
     this.lastRelicMintedId = undefined;
@@ -341,7 +345,45 @@ export class BlockchainService {
     await this.updateBalances();
     await this.updateNFTList();
     await this.updateTokenForgeData();
+    await this.loadHistoricalEvents();
+  }
 
+  addGasMinedItem(timestamp, miner, amount) {
+    this.gasMintBurnEvents.push({
+      type: 'mine',
+      timestamp,
+      miner,
+      amount,
+    });
+  }
+
+  addCatalystMinedItem(timestamp, miner, amount) {
+    this.catalystMintBurnEvents.push({
+      type: 'mine',
+      timestamp,
+      miner,
+      amount,
+    });
+  }
+
+  addForgeBurnedItem(timestamp, burner, gasBurned, catalystBurned) {
+    this.gasMintBurnEvents.push({
+      type: 'burn',
+      timestamp,
+      burner,
+      gasBurned,
+    });
+    if (catalystBurned.neq(0)) {
+      this.catalystMintBurnEvents.push({
+        type: 'burn',
+        timestamp,
+        burner,
+        catalystBurned,
+      });
+    }
+  }
+
+  async loadHistoricalEvents() {
     this.loadForgeEvents().then((he) => {
       he.forEach((e) =>
         this.addHistoricalItem(
@@ -353,6 +395,64 @@ export class BlockchainService {
         )
       );
     });
+    this.loadGasMinedEvents().then((he) => {
+      he.forEach((e) =>
+        this.addGasMinedItem(e.blockNumber, e.toAddress, e.amount)
+      );
+    });
+    this.loadCatalystMinedEvents().then((he) => {
+      he.forEach((e) =>
+        this.addCatalystMinedItem(e.blockNumber, e.toAddress, e.amount)
+      );
+    });
+    this.loadForgeBurnEvents().then((he) => {
+      he.forEach((e) =>
+        this.addForgeBurnedItem(
+          e.blockNumber,
+          e.burner,
+          e.gasBurned,
+          e.catalystBurned
+        )
+      );
+    });
+  }
+
+  get gasHistoricalSupply() {
+    if (this.gasMintBurnEvents.length === 0) {
+      return [];
+    }
+    let gasQuantity = BigNumber.from(this.parseEther('100000'));
+    return this.gasMintBurnEvents
+      .sort((a, b) => a.blockNumber - b.blockNumber)
+      .map((e) => {
+        gasQuantity =
+          e.type === 'mine'
+            ? gasQuantity.add(e.amount)
+            : gasQuantity.sub(e.amount);
+        return {
+          blockNumber: e.blockNumber.toNumber(),
+          amount: gasQuantity.toNumber(),
+        };
+      });
+  }
+
+  get catalystHistoricalSupply() {
+    if (this.catalystMintBurnEvents.length === 0) {
+      return [];
+    }
+    let catalystQuantity = BigNumber.from(this.parseEther('1000'));
+    return this.catalystMintBurnEvents
+      .sort((a, b) => a.blockNumber.sub(b.blockNumber).toNumber())
+      .map((e) => {
+        catalystQuantity =
+          e.type === 'mine'
+            ? catalystQuantity.add(e.amount)
+            : catalystQuantity.sub(e.amount);
+        return {
+          blockNumber: e.blockNumber,
+          amount: catalystQuantity.toNumber(),
+        };
+      });
   }
 
   loadInterfaces() {
@@ -381,7 +481,7 @@ export class BlockchainService {
   }
 
   async loadForgeEvents() {
-    const filter = this.radiusToken.filters.Forged(
+    const filter: any = this.radiusToken.filters.Forged(
       null,
       null,
       null,
@@ -393,11 +493,55 @@ export class BlockchainService {
     const events = await this.loadAndDecodeEvents('Forged', filter);
     return events.map((e) => {
       return {
+        blockNumber: e.log.blockNumber,
         recipient: BigNumber.from(e.log.topics[1]),
         forgedIndex: BigNumber.from(e.log.topics[2]),
         salt: e.event.salt,
         consumed: e.event.consumed,
         amount: e.event.amount,
+      };
+    });
+  }
+
+  async loadGasMinedEvents() {
+    const filter: any = this.radiusGasMine.filters.Mined(null, null);
+    filter.fromBlock = 0;
+    filter.toBlock = 'latest';
+    const events = await this.loadAndDecodeEvents('Mined', filter);
+    return events.map((e) => {
+      return {
+        blockNumber: e.log.blockNumber,
+        toAddress: BigNumber.from(e.log.topics[1]),
+        amount: e.event.amount,
+      };
+    });
+  }
+
+  async loadCatalystMinedEvents() {
+    const filter: any = this.radiusCatalystMine.filters.Mined(null, null);
+    filter.fromBlock = 0;
+    filter.toBlock = 'latest';
+    const events = await this.loadAndDecodeEvents('Mined', filter);
+    return events.map((e) => {
+      return {
+        blockNumber: e.log.blockNumber,
+        toAddress: BigNumber.from(e.log.topics[1]),
+        amount: e.event.amount,
+      };
+    });
+  }
+
+  async loadForgeBurnEvents() {
+    const filter: any = this.radiusToken.filters.ForgeBurn(null, null, null);
+    filter.fromBlock = 0;
+    filter.toBlock = 'latest';
+    const events = await this.loadAndDecodeEvents('ForgeBurn', filter);
+    return events.map((e) => {
+      return {
+        blockNumber: e.log.blockNumber,
+        burner: BigNumber.from(e.log.topics[1]),
+        gasBurned: e.event.gasBurned,
+        catalystBurned: e.event.catalystBurned,
       };
     });
   }
@@ -899,6 +1043,14 @@ export class BlockchainService {
         await this.invokeUpdateList('WithdrawnMined', {amount});
       }
     });
+    // Catalyst tokens are withdrawn
+    this.radiusToken.on(
+      'ForgeBurn',
+      async (burner, gasBurned, catalystBurned) => {
+        const blockNumber = this.provider.getBlockNumber();
+        this.addForgeBurnedItem(blockNumber, burner, gasBurned, catalystBurned);
+      }
+    );
     // Gas token is mined
     this.radiusToken.on(
       'Forged',
