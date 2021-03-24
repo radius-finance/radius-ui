@@ -125,24 +125,6 @@ export class BlockchainService {
       },
     });
 
-    this.updateList = [];
-    this.confettiOn = false;
-    this.globalItems = [];
-    this.lotteryWinners = [];
-    this.dividendPayments = [];
-    this.tokenForgeData = {};
-    this.gasMintBurnEvents = [];
-    this.catalystMintBurnEvents = [];
-    this.gasHistoricalSupply = [];
-    this.catalystHistoricalSupply = [];
-    this.gasTimeSeriesData = [];
-    this.catalystTimeSeriesData = [];
-    this.lastGemMintedId = undefined;
-    this.lastPowerupMintedId = undefined;
-    this.lastRelicMintedId = undefined;
-    this.rarestGemFound = undefined;
-    this.forgingApprovedForAll = false;
-
     this.maxUINT256 =
       '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff';
   }
@@ -161,6 +143,7 @@ export class BlockchainService {
   async connectAccount() {
     this.web3Modal.clearCachedProvider();
     const p = await this.web3Modal.connect();
+    await this.subscribeProvider(p);
     if (p) {
       this.provider = new ethers.providers.Web3Provider(p);
       await window.ethereum.enable();
@@ -170,10 +153,39 @@ export class BlockchainService {
 
   async reloadAccount() {
     const p = await this.web3Modal.connect();
+    await this.subscribeProvider(p);
     if (p) {
       this.provider = new ethers.providers.Web3Provider(p);
       await this.setupAccount();
     }
+  }
+
+  async resetApp() {
+    const {web3} = this.provider;
+    if (web3 && web3.currentProvider && web3.currentProvider.close) {
+      await web3.currentProvider.close();
+    }
+    await this.web3Modal.clearCachedProvider();
+  }
+
+  async subscribeProvider(provider: any) {
+    if (!provider.on) {
+      return;
+    }
+    provider.on('close', async () => await this.resetApp());
+    provider.on('accountsChanged', async (accounts: string[]) => {
+      console.log('accountsChanged', accounts);
+      await this.setupAccount();
+    });
+    provider.on('chainChanged', async (chainId: number) => {
+      console.log('chainChanged', chainId);
+      await this.setupAccount();
+    });
+
+    provider.on('networkChanged', async (networkId: number) => {
+      console.log('networkChanged', networkId);
+      await this.setupAccount();
+    });
   }
 
   async setupAccount() {
@@ -193,6 +205,23 @@ export class BlockchainService {
         },
       });
     }
+    this.updateList = [];
+    this.confettiOn = false;
+    this.globalItems = [];
+    this.lotteryWinners = [];
+    this.dividendPayments = [];
+    this.tokenForgeData = {};
+    this.gasMintBurnEvents = [];
+    this.catalystMintBurnEvents = [];
+    this.gasHistoricalSupply = [];
+    this.catalystHistoricalSupply = [];
+    this.gasTimeSeriesData = [];
+    this.catalystTimeSeriesData = [];
+    this.lastGemMintedId = undefined;
+    this.lastPowerupMintedId = undefined;
+    this.lastRelicMintedId = undefined;
+    this.rarestGemFound = undefined;
+    this.forgingApprovedForAll = false;
     this.nftItems = [];
     this.balances = {
       radius: {
@@ -1153,6 +1182,8 @@ export class BlockchainService {
       async (burner, gasBurned, catalystBurned) => {
         const lbi = await this.getLatestBlockIndex();
         this.addForgeBurnedItem(lbi, burner, gasBurned, catalystBurned);
+        this.updateGasHistoricalSupply();
+        this.updateCatalystHistoricalSupply();
       }
     );
     // Catalyst tokens are withdrawn
