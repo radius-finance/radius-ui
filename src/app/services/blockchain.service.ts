@@ -1078,25 +1078,22 @@ export class BlockchainService {
       }
     });
     // Radius token is deposited
-    this.radiusGasMine.on(
-      'Deposited',
-      async (erc20token, toAddress, amount) => {
-        await this.updateBalances();
-        if (toAddress == this.account) {
-          this.showToast(
-            'Tokens Deposited',
-            `Deposited ${this.formatEther(
-              amount
-            ).toString()} Radius tokens to ${toAddress}`
-          );
-          await this.invokeUpdateList('Deposited', {erc20token, amount});
-        }
+    this.radiusGasMine.on('Deposited', async (toAddress, amount) => {
+      await this.updateBalances();
+      if (toAddress == this.account) {
+        this.showToast(
+          'Tokens Deposited',
+          `Deposited ${this.formatEther(
+            amount
+          ).toString()} Radius tokens to ${toAddress}`
+        );
+        await this.invokeUpdateList('Deposited', {type: 'RAD', amount});
       }
-    );
+    });
     // Radius token is withdrawn
     this.radiusGasMine.on(
       'Withdrawn',
-      async (erc20token, toAddress, amount) => {
+      async (toAddress, amount) => {
         await this.updateBalances();
         if (toAddress == this.account) {
           this.showToast(
@@ -1105,7 +1102,7 @@ export class BlockchainService {
               amount
             ).toString()} Radius from ${toAddress}`
           );
-          await this.invokeUpdateList('Withdrawn', {erc20token, amount});
+          await this.invokeUpdateList('Withdrawn',  {type:'RAD',amount});
         }
       }
     );
@@ -1139,25 +1136,22 @@ export class BlockchainService {
       }
     });
     // LP Tokens are deposited
-    this.radiusCatalystMine.on(
-      'Deposited',
-      async (erc20token, toAddress, amount) => {
-        await this.updateBalances();
-        if (toAddress == this.account) {
-          this.showToast(
-            'LP Tokens Deposited',
-            `Deposited ${this.formatEther(
-              amount
-            ).toString()} Radius UNI-v2 LP tokens to ${toAddress}`
-          );
-          await this.invokeUpdateList('Deposited', {erc20token, amount});
-        }
+    this.radiusCatalystMine.on('Deposited', async (toAddress, amount) => {
+      await this.updateBalances();
+      if (toAddress == this.account) {
+        this.showToast(
+          'LP Tokens Deposited',
+          `Deposited ${this.formatEther(
+            amount
+          ).toString()} Radius UNI-v2 LP tokens to ${toAddress}`
+        );
+        await this.invokeUpdateList('Deposited', {type: 'lp', amount});
       }
-    );
+    });
     // LP Tokens are withdrawn
     this.radiusCatalystMine.on(
       'Withdrawn',
-      async (erc20token, toAddress, amount) => {
+      async (toAddress, amount) => {
         if (toAddress == this.account) {
           await this.updateBalances();
           this.showToast(
@@ -1166,7 +1160,7 @@ export class BlockchainService {
               amount
             ).toString()} Radius UNI-V2 LP tokens to ${toAddress}`
           );
-          await this.invokeUpdateList('Withdrawn', {erc20token, amount});
+          await this.invokeUpdateList('Withdrawn', {type:'lp',amount});
         }
       }
     );

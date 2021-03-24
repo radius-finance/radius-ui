@@ -144,7 +144,7 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
         : this.blockchainService.harvestRadiusCatalyst;
     harvestFunc().then(() => {
       swal.fire({
-        title: `Staking ${this.stakedLabel}`,
+        title: `Harvesting ${this.stakedLabel}`,
         text: `Submitted a transaction to harvest earned Radius Gas`,
         buttonsStyling: false,
         customClass: {
@@ -214,7 +214,9 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get actionButtonLabel() {
-    const hasStaked = parseFloat(this.stakedBalance) !== 0;
+    const hasStaked =
+      parseFloat(this.stakedBalance) !== 0 &&
+      !isNaN(parseFloat(this.stakedBalance));
     const readyMsg = hasStaked ? 'Unstake' : this.allowed ? 'Stake' : 'Allow';
     const busyMsg = hasStaked
       ? 'Unstaking...'
