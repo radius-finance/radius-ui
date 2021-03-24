@@ -168,8 +168,8 @@ export class BlockchainService {
   }
 
   async reloadAccount() {
-    if (this.web3Modal.cachedProvider) {
-      const p = await this.web3Modal.connect();
+    const p = await this.web3Modal.connect();
+    if (p) {
       this.provider = new ethers.providers.Web3Provider(p);
       await this.setupAccount();
     }
