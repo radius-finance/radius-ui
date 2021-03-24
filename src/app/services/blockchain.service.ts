@@ -159,6 +159,7 @@ export class BlockchainService {
   }
 
   async connectAccount() {
+    this.web3Modal.clearCachedProvider();
     const p = await this.web3Modal.connect();
     if (p) {
       this.provider = new ethers.providers.Web3Provider(p);
