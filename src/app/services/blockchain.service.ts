@@ -1,8 +1,7 @@
 import {ToastrService} from 'ngx-toastr';
-
 import {Injectable} from '@angular/core';
 import Web3Modal from 'web3modal';
-import WalletConnectProvider from '@walletconnect/web3-provider';
+
 import {ethers} from 'ethers';
 const {BigNumber, utils} = ethers;
 import swal from 'sweetalert2';
@@ -102,28 +101,6 @@ export class BlockchainService {
   maxUINT256;
 
   constructor(public toastr: ToastrService) {
-    const providerOptions = {
-      walletconnect: {
-        package: WalletConnectProvider, // required
-        options: {
-          infuraId: 'b91f3a967d5044b292140b5c8927d584',
-          //qrcode: false
-        },
-      },
-    };
-
-    this.web3Modal = new Web3Modal({
-      cacheProvider: true, // optional
-      providerOptions, // required
-      theme: {
-        background: 'rgb(39, 49, 56)',
-        main: 'rgb(199, 199, 199)',
-        secondary: 'rgb(136, 136, 136)',
-        border: 'rgba(195, 195, 195, 0.14)',
-        hover: 'rgb(16, 26, 32)',
-      },
-    });
-
     this.stakeRadius = this.stakeRadius.bind(this);
     this.stakeRadiusLP = this.stakeRadiusLP.bind(this);
     this.withdrawRadius = this.withdrawRadius.bind(this);
@@ -170,9 +147,22 @@ export class BlockchainService {
   }
 
   async connectAccount() {
-    this.web3Modal.clearCachedProvider();
-    this.provider = await this.web3Modal.connect(); // set provider
-    await this.loadEthers();
+    this.web3Modal = new Web3Modal({
+      cacheProvider: true, // optional
+      providerOptions: {}, // required
+      theme: {
+        background: 'rgb(39, 49, 56)',
+        main: 'rgb(199, 199, 199)',
+        secondary: 'rgb(136, 136, 136)',
+        border: 'rgba(195, 195, 195, 0.14)',
+        hover: 'rgb(16, 26, 32)',
+      },
+    });
+    this.provider = new ethers.providers.Web3Provider(
+      await this.web3Modal.connect()
+    );
+    await window.ethereum.enable();
+    await this.setupAccount();
   }
 
   async reloadAccount() {
@@ -181,26 +171,6 @@ export class BlockchainService {
         this.web3Modal.cacheProvider
       );
       await this.setupAccount();
-    }
-  }
-
-  async loadEthers() {
-    if (this.web3Modal.cacheProvider) {
-      this.provider = new ethers.providers.Web3Provider(
-        this.web3Modal.cacheProvider
-      );
-      await window.ethereum.enable();
-      await this.setupAccount();
-    } else {
-      swal.fire({
-        title: 'Non-Ethererum Browser',
-        text:
-          'Non-Ethereum browser detected. You should consider trying MetaMask!',
-        buttonsStyling: false,
-        customClass: {
-          confirmButton: 'btn btn-info',
-        },
-      });
     }
   }
 
