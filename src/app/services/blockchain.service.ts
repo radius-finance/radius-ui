@@ -113,6 +113,18 @@ export class BlockchainService {
       this
     );
 
+    this.web3Modal = new Web3Modal({
+      cacheProvider: true, // optional
+      providerOptions: {}, // required
+      theme: {
+        background: 'rgb(39, 49, 56)',
+        main: 'rgb(199, 199, 199)',
+        secondary: 'rgb(136, 136, 136)',
+        border: 'rgba(195, 195, 195, 0.14)',
+        hover: 'rgb(16, 26, 32)',
+      },
+    });
+
     this.updateList = [];
     this.confettiOn = false;
     this.globalItems = [];
@@ -147,29 +159,18 @@ export class BlockchainService {
   }
 
   async connectAccount() {
-    this.web3Modal = new Web3Modal({
-      cacheProvider: true, // optional
-      providerOptions: {}, // required
-      theme: {
-        background: 'rgb(39, 49, 56)',
-        main: 'rgb(199, 199, 199)',
-        secondary: 'rgb(136, 136, 136)',
-        border: 'rgba(195, 195, 195, 0.14)',
-        hover: 'rgb(16, 26, 32)',
-      },
-    });
-    this.provider = new ethers.providers.Web3Provider(
-      await this.web3Modal.connect()
-    );
-    await window.ethereum.enable();
-    await this.setupAccount();
+    const p = await this.web3Modal.connect();
+    if (p) {
+      this.provider = new ethers.providers.Web3Provider(p);
+      await window.ethereum.enable();
+      await this.setupAccount();
+    }
   }
 
   async reloadAccount() {
-    if (this.web3Modal.cacheProvider) {
-      this.provider = new ethers.providers.Web3Provider(
-        this.web3Modal.cacheProvider
-      );
+    if (this.web3Modal.cachedProvider) {
+      const p = await this.web3Modal.connect();
+      this.provider = new ethers.providers.Web3Provider(p);
       await this.setupAccount();
     }
   }
