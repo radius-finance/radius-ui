@@ -176,15 +176,19 @@ export class BlockchainService {
   }
 
   async reloadAccount() {
-    if (window.ethereum) {
-      this.provider = new ethers.providers.Web3Provider(window.ethereum);
+    if (this.web3Modal.cacheProvider) {
+      this.provider = new ethers.providers.Web3Provider(
+        this.web3Modal.cacheProvider
+      );
       await this.setupAccount();
     }
   }
 
   async loadEthers() {
-    if (window.ethereum) {
-      this.provider = new ethers.providers.Web3Provider(window.ethereum);
+    if (this.web3Modal.cacheProvider) {
+      this.provider = new ethers.providers.Web3Provider(
+        this.web3Modal.cacheProvider
+      );
       await window.ethereum.enable();
       await this.setupAccount();
     } else {
@@ -1091,21 +1095,18 @@ export class BlockchainService {
       }
     });
     // Radius token is withdrawn
-    this.radiusGasMine.on(
-      'Withdrawn',
-      async (toAddress, amount) => {
-        await this.updateBalances();
-        if (toAddress == this.account) {
-          this.showToast(
-            'Tokens Withdrawn',
-            `Withdrew ${this.formatEther(
-              amount
-            ).toString()} Radius from ${toAddress}`
-          );
-          await this.invokeUpdateList('Withdrawn',  {type:'RAD',amount});
-        }
+    this.radiusGasMine.on('Withdrawn', async (toAddress, amount) => {
+      await this.updateBalances();
+      if (toAddress == this.account) {
+        this.showToast(
+          'Tokens Withdrawn',
+          `Withdrew ${this.formatEther(
+            amount
+          ).toString()} Radius from ${toAddress}`
+        );
+        await this.invokeUpdateList('Withdrawn', {type: 'RAD', amount});
       }
-    );
+    });
     // Gas token mined is withdrawn
     this.radiusGasMine.on('WithdrawnMined', async (toAddress, amount) => {
       await this.updateBalances();
@@ -1149,21 +1150,18 @@ export class BlockchainService {
       }
     });
     // LP Tokens are withdrawn
-    this.radiusCatalystMine.on(
-      'Withdrawn',
-      async (toAddress, amount) => {
-        if (toAddress == this.account) {
-          await this.updateBalances();
-          this.showToast(
-            'LP Tokens Withdrawn',
-            `Withdrew ${this.formatEther(
-              amount
-            ).toString()} Radius UNI-V2 LP tokens to ${toAddress}`
-          );
-          await this.invokeUpdateList('Withdrawn', {type:'lp',amount});
-        }
+    this.radiusCatalystMine.on('Withdrawn', async (toAddress, amount) => {
+      if (toAddress == this.account) {
+        await this.updateBalances();
+        this.showToast(
+          'LP Tokens Withdrawn',
+          `Withdrew ${this.formatEther(
+            amount
+          ).toString()} Radius UNI-V2 LP tokens to ${toAddress}`
+        );
+        await this.invokeUpdateList('Withdrawn', {type: 'lp', amount});
       }
-    );
+    });
     // Catalyst tokens are withdrawn
     this.radiusCatalystMine.on('WithdrawnMined', async (toAddress, amount) => {
       if (toAddress == this.account) {
