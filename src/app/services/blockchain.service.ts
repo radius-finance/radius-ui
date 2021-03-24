@@ -881,25 +881,17 @@ export class BlockchainService {
     );
 
     this.balances.gasMine.staked = await this.radiusGasMine.balanceOf(
-      this.radiusERC20.address,
       this.account
     );
-    this.balances.gasMine.totalStaked = await this.radiusGasMine.totalBalanceOf(
-      this.radiusERC20.address
-    );
+    this.balances.gasMine.totalStaked = await this.radiusGasMine.totalBalance();
     this.balances.gasMine.earned = await this.radiusGasMine.currentPayoutOf(
-      this.radiusERC20.address,
       this.account
     );
     this.balances.catalystMine.staked = await this.radiusCatalystMine.balanceOf(
-      this.radiusLP,
       this.account
     );
-    this.balances.catalystMine.totalStaked = await this.radiusCatalystMine.totalBalanceOf(
-      this.radiusLP
-    );
+    this.balances.catalystMine.totalStaked = await this.radiusCatalystMine.totalBalance();
     this.balances.catalystMine.earned = await this.radiusCatalystMine.currentPayoutOf(
-      this.radiusLP,
       this.account
     );
     this.balances.totalDividends.gas = await this.radiusToken.getTotalDividends(
@@ -1323,25 +1315,14 @@ export class BlockchainService {
         amountInWei
       );
     }
-    return await this.radiusGasMine.depositFrom(
-      this.radiusERC20.address,
-      this.account,
-      amountInWei
-    );
+    return await this.radiusGasMine.depositFrom(this.account, amountInWei);
   }
 
   async withdrawRadius(amount: any) {
     const amountInWei = this.parseEther(amount);
-    const tokenBalance = await this.radiusGasMine.balanceOf(
-      this.radiusERC20.address,
-      this.account
-    );
+    const tokenBalance = await this.radiusGasMine.balanceOf(this.account);
     if (tokenBalance.gte(amountInWei)) {
-      await this.radiusGasMine.withdrawTo(
-        this.radiusERC20.address,
-        this.account,
-        amountInWei
-      );
+      await this.radiusGasMine.withdrawTo(this.account, amountInWei);
     }
   }
 
@@ -1367,7 +1348,6 @@ export class BlockchainService {
       );
     } else {
       return await this.radiusCatalystMine.depositFrom(
-        this.radiusLPRef.address,
         this.account,
         amountInWei
       );
@@ -1376,17 +1356,10 @@ export class BlockchainService {
 
   async withdrawRadiusLP(amount: any) {
     const amountInWei = this.parseEther(amount);
-    const tokenBalance = await this.radiusCatalystMine.balanceOf(
-      this.radiusLP,
-      this.account
-    );
+    const tokenBalance = await this.radiusCatalystMine.balanceOf(this.account);
     if (tokenBalance.gte(amountInWei)) {
       await this.harvestRadiusCatalyst();
-      await this.radiusCatalystMine.withdrawTo(
-        this.radiusLP,
-        this.account,
-        amountInWei
-      );
+      await this.radiusCatalystMine.withdrawTo(this.account, amountInWei);
     }
   }
 
