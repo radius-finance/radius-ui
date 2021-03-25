@@ -3,11 +3,11 @@
   "chainId": "42",
   "contracts": {
     "AddressSet": {
-      "address": "0x90DF57bA16c9736FCf143172Bad33F4EF0963072",
+      "address": "0xD9Fe65D126a399d9782D4110eBA4d6465bf547B3",
       "abi": []
     },
     "GemTokenForge": {
-      "address": "0xb79066300c8273e7853E2e910918504915e73C8d",
+      "address": "0xc1319b7eDFa0Ecb8c2A5D96748476D0FbbcF1037",
       "abi": [
         {
           "anonymous": false,
@@ -608,7 +608,7 @@
       ]
     },
     "GemTokenForge_Implementation": {
-      "address": "0xd54CC4B4cb4da0498Ca4F747a0D92503C0D651e3",
+      "address": "0xD0211CDF566e57160d0EBCc58729aD325a8Ca5a1",
       "abi": [
         {
           "anonymous": false,
@@ -1083,7 +1083,7 @@
       ]
     },
     "GemTokenForge_Proxy": {
-      "address": "0xb79066300c8273e7853E2e910918504915e73C8d",
+      "address": "0xc1319b7eDFa0Ecb8c2A5D96748476D0FbbcF1037",
       "abi": [
         {
           "inputs": [
@@ -1214,7 +1214,7 @@
       ]
     },
     "LotteryTokenForge": {
-      "address": "0xC192d508e498F33c0e40964B49e188Afe7794aBD",
+      "address": "0x9fff9db8272Ab236002882118192D8191AE9AeE4",
       "abi": [
         {
           "anonymous": false,
@@ -1815,7 +1815,7 @@
       ]
     },
     "LotteryTokenForge_Implementation": {
-      "address": "0xC6d0B267bBA1dF7A9B8DD94858Fb3142b4775Aa4",
+      "address": "0x8E140bc43fD705479B2F5c434bb8177e96348030",
       "abi": [
         {
           "anonymous": false,
@@ -2290,7 +2290,7 @@
       ]
     },
     "LotteryTokenForge_Proxy": {
-      "address": "0xC192d508e498F33c0e40964B49e188Afe7794aBD",
+      "address": "0x9fff9db8272Ab236002882118192D8191AE9AeE4",
       "abi": [
         {
           "inputs": [
@@ -2421,7 +2421,7 @@
       ]
     },
     "PowerupTokenForge": {
-      "address": "0xbe11D23e732C1DA73487Ad467ba109fD6814dab6",
+      "address": "0x82B75D996612d886c5f04EB6948C06e38071500D",
       "abi": [
         {
           "anonymous": false,
@@ -3060,7 +3060,7 @@
       ]
     },
     "PowerupTokenForge_Implementation": {
-      "address": "0x39Fc5B05F4d8e08D65eD2293eCEc9E089894C67b",
+      "address": "0xC69eCA810D02661f484B098fF8D9a23454bFcF7C",
       "abi": [
         {
           "anonymous": false,
@@ -3573,7 +3573,7 @@
       ]
     },
     "PowerupTokenForge_Proxy": {
-      "address": "0xbe11D23e732C1DA73487Ad467ba109fD6814dab6",
+      "address": "0x82B75D996612d886c5f04EB6948C06e38071500D",
       "abi": [
         {
           "inputs": [
@@ -3704,7 +3704,7 @@
       ]
     },
     "RadiusCatalystERC20": {
-      "address": "0x18bFda0276f153b4AE4a41512Bc5b0fB79Bf5D83",
+      "address": "0xB91E3b52c56d7870f8e1AEd213Bb16E915a731FC",
       "abi": [
         {
           "anonymous": false,
@@ -4610,7 +4610,7 @@
       ]
     },
     "RadiusCatalystERC20_Implementation": {
-      "address": "0x8476686e11DF33607EB914eD14F2755A64eeD463",
+      "address": "0xaE030D19A3431E929aFa9957e6b2Ea529f4DD396",
       "abi": [
         {
           "anonymous": false,
@@ -5390,7 +5390,7 @@
       ]
     },
     "RadiusCatalystERC20_Proxy": {
-      "address": "0x18bFda0276f153b4AE4a41512Bc5b0fB79Bf5D83",
+      "address": "0xB91E3b52c56d7870f8e1AEd213Bb16E915a731FC",
       "abi": [
         {
           "inputs": [
@@ -5521,7 +5521,7 @@
       ]
     },
     "RadiusCatalystMine": {
-      "address": "0x6b8CE21D16e4e8D88b4cA96AE1BBb3341d9997f4",
+      "address": "0xc0eeF3dDcBcbF0Dd2acf4f07Ce3Dfb7102DC9fe2",
       "abi": [
         {
           "anonymous": false,
@@ -6305,13 +6305,7 @@
           "type": "function"
         },
         {
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            }
-          ],
+          "inputs": [],
           "name": "withdrawMined",
           "outputs": [],
           "stateMutability": "nonpayable",
@@ -6323,11 +6317,6 @@
               "internalType": "address",
               "name": "account",
               "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
             }
           ],
           "name": "withdrawMinedTo",
@@ -6377,7 +6366,7 @@
       ]
     },
     "RadiusCatalystMine_Implementation": {
-      "address": "0x5f703C65D30C697f82b22eF168Bf1ADaf2048B5c",
+      "address": "0x521913De83EfE61bbf0E1eA7D36018bDa6B2E17D",
       "abi": [
         {
           "anonymous": false,
@@ -7056,13 +7045,7 @@
           "type": "function"
         },
         {
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            }
-          ],
+          "inputs": [],
           "name": "withdrawMined",
           "outputs": [],
           "stateMutability": "nonpayable",
@@ -7074,11 +7057,6 @@
               "internalType": "address",
               "name": "account",
               "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
             }
           ],
           "name": "withdrawMinedTo",
@@ -7107,7 +7085,7 @@
       ]
     },
     "RadiusCatalystMine_Proxy": {
-      "address": "0x6b8CE21D16e4e8D88b4cA96AE1BBb3341d9997f4",
+      "address": "0xc0eeF3dDcBcbF0Dd2acf4f07Ce3Dfb7102DC9fe2",
       "abi": [
         {
           "inputs": [
@@ -7238,7 +7216,7 @@
       ]
     },
     "RadiusERC20": {
-      "address": "0x675D248e904753d5dfdCd8fAf2b97783426D4d27",
+      "address": "0x6744C5556f3De4AfAF2b3947f67E0a4796115C17",
       "abi": [
         {
           "anonymous": false,
@@ -8168,7 +8146,7 @@
       ]
     },
     "RadiusERC20_Implementation": {
-      "address": "0xf6E68796b8E9A50fdb79EAd4F08069904FfC8725",
+      "address": "0x492AcAa9e53A3527fdd557CCF28183c38020e702",
       "abi": [
         {
           "anonymous": false,
@@ -8972,7 +8950,7 @@
       ]
     },
     "RadiusERC20_Proxy": {
-      "address": "0x675D248e904753d5dfdCd8fAf2b97783426D4d27",
+      "address": "0x6744C5556f3De4AfAF2b3947f67E0a4796115C17",
       "abi": [
         {
           "inputs": [
@@ -9103,7 +9081,7 @@
       ]
     },
     "RadiusGasERC20": {
-      "address": "0x2064B80026b15641641a271E275D5540434A23bf",
+      "address": "0x6034fc3f30c242919F2C0D572B2f881287e7ae0A",
       "abi": [
         {
           "anonymous": false,
@@ -10009,7 +9987,7 @@
       ]
     },
     "RadiusGasERC20_Implementation": {
-      "address": "0x1200DcE557D593d6A96f16eE2C56fe687C51f041",
+      "address": "0x000525d5DDB3ebFfd70EDa81C6880591155D97EF",
       "abi": [
         {
           "anonymous": false,
@@ -10789,7 +10767,7 @@
       ]
     },
     "RadiusGasERC20_Proxy": {
-      "address": "0x2064B80026b15641641a271E275D5540434A23bf",
+      "address": "0x6034fc3f30c242919F2C0D572B2f881287e7ae0A",
       "abi": [
         {
           "inputs": [
@@ -10920,7 +10898,7 @@
       ]
     },
     "RadiusGasMine": {
-      "address": "0x2D554689489f41817A18100f780c774D87b2C9B3",
+      "address": "0x446E17d62935f62896CC69711CCEcd0f72fB2088",
       "abi": [
         {
           "anonymous": false,
@@ -11704,13 +11682,7 @@
           "type": "function"
         },
         {
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            }
-          ],
+          "inputs": [],
           "name": "withdrawMined",
           "outputs": [],
           "stateMutability": "nonpayable",
@@ -11722,11 +11694,6 @@
               "internalType": "address",
               "name": "account",
               "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
             }
           ],
           "name": "withdrawMinedTo",
@@ -11776,7 +11743,7 @@
       ]
     },
     "RadiusGasMine_Implementation": {
-      "address": "0x03C4ff8dB2608E24977a67F3fb230A254CfF58d8",
+      "address": "0x22377611Db041f450deaDDD71c0BBCA166a51873",
       "abi": [
         {
           "anonymous": false,
@@ -12455,13 +12422,7 @@
           "type": "function"
         },
         {
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            }
-          ],
+          "inputs": [],
           "name": "withdrawMined",
           "outputs": [],
           "stateMutability": "nonpayable",
@@ -12473,11 +12434,6 @@
               "internalType": "address",
               "name": "account",
               "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
             }
           ],
           "name": "withdrawMinedTo",
@@ -12506,7 +12462,7 @@
       ]
     },
     "RadiusGasMine_Proxy": {
-      "address": "0x2D554689489f41817A18100f780c774D87b2C9B3",
+      "address": "0x446E17d62935f62896CC69711CCEcd0f72fB2088",
       "abi": [
         {
           "inputs": [
@@ -12637,7 +12593,7 @@
       ]
     },
     "RadiusLotteryERC20": {
-      "address": "0x72B506B28a3045e4981D2Ab949fB90C782633778",
+      "address": "0x00e8E7aE84ebb32cad01967ebaA533090C774DDb",
       "abi": [
         {
           "anonymous": false,
@@ -13543,7 +13499,7 @@
       ]
     },
     "RadiusLotteryERC20_Implementation": {
-      "address": "0xbd2E1ac9d58A9eDC9e8ED9C36F9ECD2d208593BC",
+      "address": "0x15B16458AaAB360393751D8e7b2928752dd1c1E6",
       "abi": [
         {
           "anonymous": false,
@@ -14323,7 +14279,7 @@
       ]
     },
     "RadiusLotteryERC20_Proxy": {
-      "address": "0x72B506B28a3045e4981D2Ab949fB90C782633778",
+      "address": "0x00e8E7aE84ebb32cad01967ebaA533090C774DDb",
       "abi": [
         {
           "inputs": [
@@ -14454,7 +14410,7 @@
       ]
     },
     "RadiusMineLib": {
-      "address": "0xE1F0488FC59B84cfD85e28285Ea42f48312b4722",
+      "address": "0x0A71987D7357A70F43202c911897c9a2D6f0006C",
       "abi": [
         {
           "anonymous": false,
@@ -14626,7 +14582,7 @@
       ]
     },
     "RadiusToken": {
-      "address": "0xB869404D74aCCD40dd75066220B2C9f7eD1e2E92",
+      "address": "0xCbB13e333D072daC7Ae9B6F6780979e5A10D008a",
       "abi": [
         {
           "anonymous": false,
@@ -14831,6 +14787,31 @@
             }
           ],
           "name": "DividendPaid",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "engraving",
+              "type": "string"
+            }
+          ],
+          "name": "Engraved",
           "type": "event"
         },
         {
@@ -16356,7 +16337,7 @@
       ]
     },
     "RadiusTokenLib": {
-      "address": "0x786F5836f2B2231319724400B8204CFFc79B80ce",
+      "address": "0xA4729eE664bc2B87488b8c1D09d72d22DCB1A3cA",
       "abi": [
         {
           "anonymous": false,
@@ -16431,6 +16412,31 @@
             }
           ],
           "name": "DividendPaid",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "engraving",
+              "type": "string"
+            }
+          ],
+          "name": "Engraved",
           "type": "event"
         },
         {
@@ -16631,7 +16637,7 @@
       ]
     },
     "RadiusToken_Implementation": {
-      "address": "0xE064002C85Fb9C3fb0DF0051f3f333aBd418d8fB",
+      "address": "0x57885500171714346EdEfe4F05041E839F98eba3",
       "abi": [
         {
           "anonymous": false,
@@ -16731,6 +16737,31 @@
             }
           ],
           "name": "DividendPaid",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "engraving",
+              "type": "string"
+            }
+          ],
+          "name": "Engraved",
           "type": "event"
         },
         {
@@ -18254,7 +18285,7 @@
       ]
     },
     "RadiusToken_Proxy": {
-      "address": "0xB869404D74aCCD40dd75066220B2C9f7eD1e2E92",
+      "address": "0xCbB13e333D072daC7Ae9B6F6780979e5A10D008a",
       "abi": [
         {
           "inputs": [
@@ -18385,7 +18416,7 @@
       ]
     },
     "RelicTokenForge": {
-      "address": "0x8898996ec4a2fe23DD67A39Ed95cB8Ea2151874A",
+      "address": "0x2A193b7F25eC134a3b6c375C4764bB6a6eB3973E",
       "abi": [
         {
           "anonymous": false,
@@ -19024,7 +19055,7 @@
       ]
     },
     "RelicTokenForge_Implementation": {
-      "address": "0x85EF8Dc79882B72B0A0d403e0e61645c0181DCd2",
+      "address": "0x2a2f4Af4254C2a3Ae192245f0a760aa61A73Bce1",
       "abi": [
         {
           "anonymous": false,
@@ -19537,7 +19568,7 @@
       ]
     },
     "RelicTokenForge_Proxy": {
-      "address": "0x8898996ec4a2fe23DD67A39Ed95cB8Ea2151874A",
+      "address": "0x2A193b7F25eC134a3b6c375C4764bB6a6eB3973E",
       "abi": [
         {
           "inputs": [
@@ -19668,7 +19699,7 @@
       ]
     },
     "TestTokenForge": {
-      "address": "0x2bCAeBdEC872C199132c23EE5840eB2096138827",
+      "address": "0x1a354bd6343FbaCB9B379a18980ce117921Bec36",
       "abi": [
         {
           "anonymous": false,
@@ -20227,7 +20258,7 @@
       ]
     },
     "TestTokenForge_Implementation": {
-      "address": "0x180Db2AB4073Ae87920e38aC8A32b6261c1e4d71",
+      "address": "0x9826db6b9d6F7964fb8849aF676a92E6A50873f9",
       "abi": [
         {
           "anonymous": false,
@@ -20660,7 +20691,7 @@
       ]
     },
     "TestTokenForge_Proxy": {
-      "address": "0x2bCAeBdEC872C199132c23EE5840eB2096138827",
+      "address": "0x1a354bd6343FbaCB9B379a18980ce117921Bec36",
       "abi": [
         {
           "inputs": [

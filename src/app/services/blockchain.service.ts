@@ -1338,7 +1338,7 @@ export class BlockchainService {
 
   async harvestRadiusGas() {
     const gasBalance = await this.radiusGasMine.minedBalanceOf(this.account);
-    await this.radiusGasMine.withdrawMinedTo(this.account, gasBalance);
+    await this.radiusGasMine.withdrawMinedTo(this.account);
   }
 
   async getCatalystMineRadiusAllowance() {
@@ -1377,10 +1377,7 @@ export class BlockchainService {
     const catalystBalance = await this.radiusCatalystMine.minedBalanceOf(
       this.account
     );
-    await this.radiusCatalystMine.withdrawMinedTo(
-      this.account,
-      catalystBalance
-    );
+    await this.radiusCatalystMine.withdrawMinedTo(this.account);
   }
 
   async isForgingApprovedForAll() {
