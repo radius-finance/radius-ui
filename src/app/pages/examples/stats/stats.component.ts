@@ -62,7 +62,7 @@ export class StatsComponent implements OnInit, AfterViewInit {
         },
       },
       xAxis: {
-        type: 'time',
+        type: 'category',
         splitLine: {
           show: false,
         },
@@ -75,29 +75,13 @@ export class StatsComponent implements OnInit, AfterViewInit {
           show: false,
         },
       },
-      dataZoom: [
-        {
-          type: 'inside',
-          xAxisIndex: [0, 1],
-          start: 0,
-          end: 100,
-        },
-        {
-          show: true,
-          xAxisIndex: [0, 1],
-          type: 'slider',
-          top: '85%',
-          start: 0,
-          end: 100,
-        },
-      ],
       series: [
         {
           name: 'Gas Supply',
           type: 'candlestick',
           showSymbol: false,
           hoverAnimation: false,
-          data: [],
+          data: this.gasSeries,
         },
       ],
     };
@@ -150,7 +134,7 @@ export class StatsComponent implements OnInit, AfterViewInit {
         },
       },
       xAxis: {
-        type: 'time',
+        type: 'category',
         splitLine: {
           show: false,
         },
@@ -163,29 +147,13 @@ export class StatsComponent implements OnInit, AfterViewInit {
           show: false,
         },
       },
-      dataZoom: [
-        {
-          type: 'inside',
-          xAxisIndex: [0, 1],
-          start: 0,
-          end: 100,
-        },
-        {
-          show: true,
-          xAxisIndex: [0, 1],
-          type: 'slider',
-          top: '85%',
-          start: 0,
-          end: 100,
-        },
-      ],
       series: [
         {
           name: 'Catalyst Supply',
           type: 'candlestick',
           showSymbol: false,
           hoverAnimation: false,
-          data: [],
+          data: this.catalystSeries,
         },
       ],
     };
