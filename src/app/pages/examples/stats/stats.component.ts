@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import {BlockchainService} from '../../../services/blockchain.service';
 
 @Component({
@@ -10,6 +10,7 @@ export class StatsComponent implements OnInit, AfterViewInit {
   catalystOptions;
   gasUpdateOptions;
   catalystUpdateOptions;
+  timer;
 
   gasSeries;
   catalystSeries;
@@ -221,13 +222,15 @@ export class StatsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.blockchainService.addToUpdateList(this.updated);
-    this.updated('gasHistoricalSupplyUpdated', {
-      gasTimeSeriesData: this.gasSeriesData,
-    });
-    this.updated('catalystHistoricalSupplyUpdated', {
-      catalystTimeSeriesData: this.catalystSeriesData,
-    });
+    this.timer = setInterval(() => {
+      this.blockchainService.updateCatalystHistoricalSupply();
+      this.blockchainService.updateGasHistoricalSupply();
+    }, 10000);
+  }
+
+  ngOnDestroy() {
+    this.blockchainService.removeFromUpdateList(this.updated);
+    clearInterval(this.timer);
   }
 
   get gasSeriesData() {
