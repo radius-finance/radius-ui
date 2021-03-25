@@ -161,13 +161,13 @@ export class StatsComponent implements OnInit {
       ],
     };
     this.updated = this.updated.bind(this);
-    this.blockchainService.addToUpdateList((type, obj) =>
-      this.updated(type, obj)
-    );
+    this.blockchainService.addToUpdateList((type, obj) => {
+      console.log(type, obj);
+      this.updated(type, obj);
+    });
   }
 
   updated(type, obj) {
-    console.log(type, obj);
     if (type === 'gasHistoricalSupplyUpdated') {
       this.gasUpdateOptions.series.data = obj.gasTimeSeriesData;
     }
