@@ -202,22 +202,10 @@ export class StatsComponent implements OnInit, AfterViewInit {
   updated(type, obj) {
     console.log(type, obj);
     if (type === 'gasHistoricalSupplyUpdated') {
-      this.gasUpdateOptions = {
-        series: [
-          {
-            data: obj.gasTimeSeriesData,
-          },
-        ],
-      };
+      this.gasUpdateOptions.series.data = obj.gasTimeSeriesData;
     }
     if (type === 'catalystHistoricalSupplyUpdated') {
-      this.catalystUpdateOptions = {
-        series: [
-          {
-            data: obj.catalystTimeSeriesData,
-          },
-        ],
-      };
+      this.catalystUpdateOptions.series.data = obj.catalystTimeSeriesData;
     }
   }
 

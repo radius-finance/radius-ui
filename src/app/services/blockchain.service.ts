@@ -211,8 +211,8 @@ export class BlockchainService {
     this.lotteryWinners = [];
     this.dividendPayments = [];
     this.tokenForgeData = {};
-    this.gasMintBurnEvents = [];
-    this.catalystMintBurnEvents = [];
+    this.gasMintBurnEvents = {};
+    this.catalystMintBurnEvents = {};
     this.gasHistoricalSupply = [];
     this.catalystHistoricalSupply = [];
     this.gasTimeSeriesData = [];
@@ -366,16 +366,16 @@ export class BlockchainService {
   }
 
   addGasMinedItem(blockNumber, miner, amount) {
-    this.gasMintBurnEvents.push({
+    this.gasMintBurnEvents[blockNumber] = {
       type: 'mine',
       blockNumber,
       miner,
       amount: parseFloat(this.formatEther(amount.toString())),
-    });
+    };
   }
 
   addCatalystMinedItem(blockNumber, miner, amount) {
-    this.catalystMintBurnEvents.push({
+    this.catalystMintBurnEvents[blockNumber] = {
       type: 'mine',
       blockNumber,
       miner,
@@ -384,14 +384,14 @@ export class BlockchainService {
   }
 
   addForgeBurnedItem(blockNumber, burner, gasBurned, catalystBurned) {
-    this.gasMintBurnEvents.push({
+    this.gasMintBurnEvents[blockNumber] = {
       type: 'burn',
       blockNumber,
       burner,
       amount: parseFloat(this.formatEther(gasBurned.toString())),
-    });
+    };
     if (!catalystBurned.eq(0)) {
-      this.catalystMintBurnEvents.push({
+      this.catalystMintBurnEvents[blockNumber] = {
         type: 'burn',
         blockNumber,
         burner,
@@ -443,13 +443,13 @@ export class BlockchainService {
   public gasHistoricalSupply: any;
   public gasTimeSeriesData: any;
   async updateGasHistoricalSupply() {
-    if (this.gasMintBurnEvents.length === 0) {
+    if (Object.values(this.gasMintBurnEvents).length === 0) {
       return [];
     }
     let gasQuantity = 100000;
-    this.gasHistoricalSupply = this.gasMintBurnEvents
-      .sort((a, b) => a.blockNumber - b.blockNumber)
-      .map((e) => {
+    this.gasHistoricalSupply = Object.values(this.gasMintBurnEvents)
+      .sort((a: any, b: any) => a.blockNumber - b.blockNumber)
+      .map((e: any) => {
         gasQuantity =
           e.type === 'mine' ? gasQuantity + e.amount : gasQuantity - e.amount;
         return {
@@ -499,13 +499,13 @@ export class BlockchainService {
   public catalystHistoricalSupply: any;
   public catalystTimeSeriesData: any;
   async updateCatalystHistoricalSupply() {
-    if (this.catalystMintBurnEvents.length === 0) {
+    if (Object.values(this.catalystMintBurnEvents).length === 0) {
       return [];
     }
     let catalystQuantity = 1000;
-    this.catalystHistoricalSupply = this.catalystMintBurnEvents
-      .sort((a, b) => a.blockNumber - b.blockNumber)
-      .map((e) => {
+    this.catalystHistoricalSupply = Object.values(this.catalystMintBurnEvents)
+      .sort((a:any, b:any) => a.blockNumber - b.blockNumber)
+      .map((e:any) => {
         catalystQuantity =
           e.type === 'mine'
             ? catalystQuantity + e.amount
