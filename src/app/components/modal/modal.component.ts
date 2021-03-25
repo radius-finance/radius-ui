@@ -92,7 +92,7 @@ export class ModalComponent implements AfterViewInit, OnDestroy {
         this.state = 1;
         const v = (document.getElementById('input-field') as HTMLInputElement)
           .value;
-        this.blockchainService.engraveRadiusGem(this.itemId, '').then(() => {
+        this.blockchainService.engraveRadiusGem(this.itemId, v).then(() => {
           swal.fire({
             title: 'Engraving Gem...',
             text:
