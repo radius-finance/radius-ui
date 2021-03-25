@@ -358,11 +358,13 @@ export class BlockchainService {
     this.radiusLPRef = await this.getTinyERCRef(this.radiusLP);
     this.forgingApprovedForAll = await this.isForgingApprovedForAll();
 
-    await this.setupEvents();
-    await this.updateBalances();
-    await this.updateNFTList();
-    await this.updateTokenForgeData();
-    await this.loadHistoricalEvents();
+    await Promise.all([
+      this.setupEvents(),
+      this.updateBalances(),
+      this.updateNFTList(),
+      this.updateTokenForgeData(),
+      this.loadHistoricalEvents(),
+    ]);
   }
 
   addGasMinedItem(blockNumber, miner, amount) {
@@ -1202,6 +1204,9 @@ export class BlockchainService {
       this.addGasMinedItem(lbi, sender, amount);
       this.updateGasHistoricalSupply();
     });
+    this.radiusToken.on('Engraved', async (address, id, engraving) => {
+      await this.invokeUpdateList('Engraved', {address, id, engraving});
+    });
     // Gas token is mined
     this.radiusToken.on(
       'Forged',
@@ -1433,6 +1438,10 @@ export class BlockchainService {
     }
 
     return await this.radiusToken.claimDividend(this.account);
+  }
+
+  async engraveRadiusGem(gemId: any, strVal: string) {
+    return await this.radiusToken.engrave(this.account, gemId, strVal);
   }
 
   confetti(time) {

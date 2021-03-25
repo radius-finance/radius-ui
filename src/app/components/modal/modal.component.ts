@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, AfterViewInit, OnDestroy, Input} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {BlockchainService} from '../../services/blockchain.service';
 import {ethers} from 'ethers';
+import swal from 'sweetalert2';
 const {BigNumber, utils} = ethers;
 
 @Component({
@@ -9,15 +10,108 @@ const {BigNumber, utils} = ethers;
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent {
+export class ModalComponent implements AfterViewInit, OnDestroy {
+  itemQuantity;
+  state;
+  engravings;
   constructor(
     private blockchainService: BlockchainService,
     private bsModalRef: BsModalRef
-  ) {}
+  ) {
+    this.onUpdate = this.onUpdate.bind(this);
+    this.state = 0;
+    this.engravings = [];
+  }
   @Input() itemId;
 
   close() {
     this.bsModalRef.hide();
+  }
+
+  async onUpdate(type, obj) {
+    if (type === 'balances') {
+      const b = await this.blockchainService.radiusToken.balanceOf(
+        this.blockchainService.account,
+        this.itemId
+      );
+      this.itemQuantity = b.toString();
+    }
+    if (type === 'Engraved') {
+      this.state = 0;
+      this.updateEngravings();
+    }
+  }
+
+  async updateEngravings() {
+    this.engravings = [];
+    const ec = await this.blockchainService.radiusToken.getEngravingCount(
+      this.itemId
+    );
+    for (let i = 0; i < ec.toNumber(); i++) {
+      this.engravings.push({
+        address: await this.blockchainService.radiusToken.getEngravingAddressAt(
+          this.itemId,
+          i
+        ),
+        engraving: await this.blockchainService.radiusToken.getEngravingAt(
+          this.itemId,
+          i
+        ),
+      });
+    }
+  }
+
+  async ngAfterViewInit() {
+    this.blockchainService.addToUpdateList(this.onUpdate);
+    this.onUpdate('balances', null);
+    if (this.itemType === 3) {
+      this.updateEngravings();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.blockchainService.removeFromUpdateList(this.onUpdate);
+  }
+
+  handleEngraveClick() {
+    swal
+      .fire({
+        title: 'Enter Engraving',
+        html:
+          '<div class="form-group">' +
+          '<input id="input-field" type="text" class="form-control" />' +
+          '</div>',
+        showCancelButton: true,
+        customClass: {
+          confirmButton: 'btn btn-success mr-1',
+          cancelButton: 'btn btn-danger',
+        },
+        buttonsStyling: false,
+      })
+      .then((result: any) => {
+        this.state = 1;
+        const v = (document.getElementById('input-field') as HTMLInputElement)
+          .value;
+        this.blockchainService.engraveRadiusGem(this.itemId, '').then(() => {
+          swal.fire({
+            title: 'Engraving Gem...',
+            text:
+              'Submitted a transaction to engrave gem ' +
+              this.itemId +
+              " with value '" +
+              v +
+              "'",
+            buttonsStyling: false,
+            customClass: {
+              confirmButton: 'btn btn-info',
+            },
+          });
+        });
+      });
+  }
+
+  get buttonText() {
+    return this.state === 0 ? 'Engrave' : 'Engraving...';
   }
 
   get itemDNA() {
@@ -47,7 +141,12 @@ export class ModalComponent {
   }
 
   get itemTitle() {
-    return this.itemId;
+    return (
+      this.itemId +
+      (this.itemQuantity && this.itemQuantity !== '0'
+        ? ' x ' + this.itemQuantity
+        : '')
+    );
   }
 
   get itemRarity() {
@@ -55,6 +154,15 @@ export class ModalComponent {
       return 0;
     }
     return this.blockchainService.getItemRarity(this.itemId);
+  }
+
+  get buttonEnabled() {
+    if (this.itemType !== 3) {
+      return 0;
+    }
+    return this.itemQuantity && this.itemQuantity != 0 && this.state === 0
+      ? ''
+      : 'disabled';
   }
 
   get itemType() {

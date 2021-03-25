@@ -31,9 +31,9 @@ export class ItemPanelComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onUpdate(type, obj) {
+  async onUpdate(type, obj) {
     if (type === 'balances') {
-      this.blockchainService.radiusToken
+      await this.blockchainService.radiusToken
         .balanceOf(this.blockchainService.account, this.itemId)
         .then((b) => {
           this.itemQuantity = b.toString();

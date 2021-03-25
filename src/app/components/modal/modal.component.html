@@ -17,7 +17,7 @@
         <h5 class="card-category">{{ itemTypeTitle }}</h5>
         <h4 class="card-title">
           <i class="tim-icons {{ itemTypeIcon }} text-primary"> </i>
-          {{ itemId }}
+          {{ itemTitle }}
         </h4>
       </div>
       <div class="card-body">
@@ -45,10 +45,39 @@
                   <td>DNA</td>
                   <td>{{ itemDNAString }}</td>
                 </tr>
+                <tr *ngIf="itemType === 3">
+                  <td>Engravings</td>
+                  <td><table class="table">
+                    <thead>
+                      <tr>
+                        <td>Engraver</td><td>Engraving</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let engraving of engravings">
+                        <td>{{engraving.address}}</td><td>{{engraving.engraving}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
+      </div>
+      <div class="card-footer">
+        <button
+          *ngIf="
+            itemType === 3 && this.itemQuantity && this.itemQuantity !== '0'
+          "
+          class="btn btn-fill btn-primary"
+          disabled="{{ buttonEnabled }}"
+          (click)="handleEngraveClick()"
+          type="button"
+        >
+          {{ buttonText }}
+        </button>
       </div>
     </div>
   </div>
