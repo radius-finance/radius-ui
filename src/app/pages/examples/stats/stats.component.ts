@@ -62,7 +62,7 @@ export class StatsComponent implements OnInit, AfterViewInit {
         },
       },
       xAxis: {
-        type: 'category',
+        type: 'time',
         splitLine: {
           show: false,
         },
@@ -134,7 +134,7 @@ export class StatsComponent implements OnInit, AfterViewInit {
         },
       },
       xAxis: {
-        type: 'category',
+        type: 'time',
         splitLine: {
           show: false,
         },
