@@ -146,7 +146,7 @@ export class StatsComponent implements OnInit, AfterViewInit {
       series: [
         {
           name: 'Catalyst Supply',
-          type: 'candlestick',
+          type: 'line',
           showSymbol: false,
           hoverAnimation: false,
           data: this.blockchainService.catalystTimeSeriesData,
