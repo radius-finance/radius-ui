@@ -380,7 +380,7 @@ export class BlockchainService {
       blockNumber,
       miner,
       amount: parseFloat(this.formatEther(amount.toString())),
-    });
+    };
   }
 
   addForgeBurnedItem(blockNumber, burner, gasBurned, catalystBurned) {
@@ -396,7 +396,7 @@ export class BlockchainService {
         blockNumber,
         burner,
         amount: parseFloat(this.formatEther(catalystBurned.toString())),
-      });
+      };
     }
   }
 
@@ -504,8 +504,8 @@ export class BlockchainService {
     }
     let catalystQuantity = 1000;
     this.catalystHistoricalSupply = Object.values(this.catalystMintBurnEvents)
-      .sort((a:any, b:any) => a.blockNumber - b.blockNumber)
-      .map((e:any) => {
+      .sort((a: any, b: any) => a.blockNumber - b.blockNumber)
+      .map((e: any) => {
         catalystQuantity =
           e.type === 'mine'
             ? catalystQuantity + e.amount
