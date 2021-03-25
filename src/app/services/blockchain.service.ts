@@ -442,7 +442,7 @@ export class BlockchainService {
 
   public gasHistoricalSupply: any;
   public gasTimeSeriesData: any;
-  updateGasHistoricalSupply() {
+  async updateGasHistoricalSupply() {
     if (this.gasMintBurnEvents.length === 0) {
       return [];
     }
@@ -489,11 +489,16 @@ export class BlockchainService {
         };
       })
       .sort((a, b) => a.name - b.name);
+
+    await this.invokeUpdateList('gasHistoricalSupplyUpdated', {
+      gasHistoricalSupply: this.gasHistoricalSupply,
+      gasTimeSeriesData: this.gasTimeSeriesData,
+    });
   }
 
   public catalystHistoricalSupply: any;
   public catalystTimeSeriesData: any;
-  updateCatalystHistoricalSupply() {
+  async updateCatalystHistoricalSupply() {
     if (this.catalystMintBurnEvents.length === 0) {
       return [];
     }
@@ -541,6 +546,11 @@ export class BlockchainService {
         };
       })
       .sort((a, b) => a.name - b.name);
+
+    await this.invokeUpdateList('catalystHistoricalSupplyUpdated', {
+      catalystHistoricalSupply: this.catalystHistoricalSupply,
+      catalystTimeSeriesData: this.catalystTimeSeriesData,
+    });
   }
 
   loadInterfaces() {

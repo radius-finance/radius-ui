@@ -1,6 +1,5 @@
 <div class="card">
-  <div class="card-header"><h4>Forging Difficulties</h4>
-  </div>
+  <div class="card-header"><h4>Forging Difficulties</h4></div>
   <div class="card-body">
     <div class="row">
       <div class="col-md-12">
@@ -13,15 +12,17 @@
                 <th>Span</th>
                 <th>Difficulty</th>
                 <th>Catalyst-adjusted Difficulty</th>
+                <th>Next Difficulty</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of forgingDifficulties">
-                <th>{{item.type}}</th>
-                <th>{{item.target}}</th>
-                <th>{{item.span}}</th>
-                <th>{{item.difficulty}}</th>
-                <th>{{item.adjustedDifficulty}}</th>
+                <th>{{ item.type }}</th>
+                <th>{{ item.target }}</th>
+                <th>{{ item.span }}</th>
+                <th>{{ item.difficulty }}</th>
+                <th>{{ item.adjustedDifficulty }}</th>
+                <th>{{ item.nextDifficulty }}</th>
               </tr>
             </tbody>
           </table>

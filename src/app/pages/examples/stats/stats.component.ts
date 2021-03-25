@@ -1,19 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {BlockchainService} from '../../../services/blockchain.service';
 
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
 })
-export class StatsComponent implements OnInit {
+export class StatsComponent implements OnInit, AfterViewInit {
   gasOptions;
   catalystOptions;
   gasUpdateOptions;
   catalystUpdateOptions;
 
+  gasSeries;
+  catalystSeries;
+
   constructor(private blockchainService: BlockchainService) {}
 
   ngOnInit(): void {
+    this.gasSeries = [];
+    this.catalystSeries = [];
     this.gasOptions = {
       tooltip: {
         trigger: 'axis',
@@ -60,7 +65,7 @@ export class StatsComponent implements OnInit {
         splitLine: {
           show: false,
         },
-        formatter: (params) => params[0].name,
+        formatter: (params) => params[0].value[0] + '',
       },
       yAxis: {
         type: 'value',
@@ -98,7 +103,7 @@ export class StatsComponent implements OnInit {
     this.gasUpdateOptions = {
       series: [
         {
-          data: this.gasSeriesData,
+          data: this.gasSeries,
         },
       ],
     };
@@ -148,7 +153,7 @@ export class StatsComponent implements OnInit {
         splitLine: {
           show: false,
         },
-        formatter: (params) => params[0].name,
+        formatter: (params) => params[0].value[0] + '',
       },
       yAxis: {
         type: 'value',
@@ -176,7 +181,7 @@ export class StatsComponent implements OnInit {
       series: [
         {
           name: 'Catalyst Supply',
-          type: 'line',
+          type: 'candlestick',
           showSymbol: false,
           hoverAnimation: false,
           data: [],
@@ -186,22 +191,51 @@ export class StatsComponent implements OnInit {
     this.catalystUpdateOptions = {
       series: [
         {
-          data: this.catalystSeriesData,
+          data: this.catalystSeries,
         },
       ],
     };
+    this.updated = this.updated.bind(this);
+  }
+
+  updated(type, obj) {
+    console.log(type, obj);
+    if (type === 'gasHistoricalSupplyUpdated') {
+      this.gasUpdateOptions = {
+        series: [
+          {
+            data: obj.gasTimeSeriesData,
+          },
+        ],
+      };
+    }
+    if (type === 'catalystHistoricalSupplyUpdated') {
+      this.catalystUpdateOptions = {
+        series: [
+          {
+            data: obj.catalystTimeSeriesData,
+          },
+        ],
+      };
+    }
+  }
+
+  ngAfterViewInit() {
+    this.blockchainService.addToUpdateList(this.updated);
+    this.updated('gasHistoricalSupplyUpdated', {
+      gasTimeSeriesData: this.gasSeriesData,
+    });
+    this.updated('catalystHistoricalSupplyUpdated', {
+      catalystTimeSeriesData: this.catalystSeriesData,
+    });
   }
 
   get gasSeriesData() {
-    const sd = this.blockchainService.gasTimeSeriesData;
-    console.log(sd);
-    return sd;
+    return this.blockchainService.gasTimeSeriesData;
   }
 
   get catalystSeriesData() {
-    const sd = this.blockchainService.catalystTimeSeriesData;
-    console.log(sd);
-    return sd;
+    return this.blockchainService.catalystTimeSeriesData;
   }
 
   get gasTotalSupply() {
