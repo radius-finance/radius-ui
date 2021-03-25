@@ -141,7 +141,7 @@ export class BlockchainService {
   }
 
   async connectAccount() {
-    this.web3Modal.clearCachedProvider();
+    this.resetApp();
     const p = await this.web3Modal.connect();
     if (p) {
       this.subscribeProvider(p);
@@ -165,6 +165,7 @@ export class BlockchainService {
     if (web3 && web3.currentProvider && web3.currentProvider.close) {
       await web3.currentProvider.close();
     }
+    this.provider = null;
     await this.web3Modal.clearCachedProvider();
   }
 
