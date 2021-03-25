@@ -81,7 +81,7 @@ export class StatsComponent implements OnInit, AfterViewInit {
           type: 'candlestick',
           showSymbol: false,
           hoverAnimation: false,
-          data: this.gasSeries,
+          data: [],
         },
       ],
     };
@@ -138,7 +138,6 @@ export class StatsComponent implements OnInit, AfterViewInit {
         splitLine: {
           show: false,
         },
-        formatter: (params) => params[0].value[0] + '',
       },
       yAxis: {
         type: 'value',
@@ -153,7 +152,7 @@ export class StatsComponent implements OnInit, AfterViewInit {
           type: 'candlestick',
           showSymbol: false,
           hoverAnimation: false,
-          data: this.catalystSeries,
+          data: [],
         },
       ],
     };
@@ -170,10 +169,10 @@ export class StatsComponent implements OnInit, AfterViewInit {
   updated(type, obj) {
     console.log(type, obj);
     if (type === 'gasHistoricalSupplyUpdated') {
-      this.gasUpdateOptions.series.data = obj.gasTimeSeriesData;
+      this.gasSeries = obj.gasTimeSeriesData;
     }
     if (type === 'catalystHistoricalSupplyUpdated') {
-      this.catalystUpdateOptions.series.data = obj.catalystTimeSeriesData;
+      this.catalystSeries = obj.catalystTimeSeriesData;
     }
   }
 
@@ -182,19 +181,13 @@ export class StatsComponent implements OnInit, AfterViewInit {
       this.blockchainService.updateCatalystHistoricalSupply();
       this.blockchainService.updateGasHistoricalSupply();
     }, 10000);
+    this.gasSeries = this.blockchainService.catalystTimeSeriesData;
+    this.catalystSeries = this.blockchainService.gasTimeSeriesData;
   }
 
   ngOnDestroy() {
     this.blockchainService.removeFromUpdateList(this.updated);
     clearInterval(this.timer);
-  }
-
-  get gasSeriesData() {
-    return this.blockchainService.gasTimeSeriesData;
-  }
-
-  get catalystSeriesData() {
-    return this.blockchainService.catalystTimeSeriesData;
   }
 
   get gasTotalSupply() {
