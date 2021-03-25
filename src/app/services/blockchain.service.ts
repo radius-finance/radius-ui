@@ -462,7 +462,7 @@ export class BlockchainService {
 
     this.gasHistoricalSupply.forEach((e) => {
       let bn = e.blockNumber + '';
-      bn = bn.substr(1, bn.length - 3);
+      bn = bn.substr(0, bn.length - 3);
 
       const amt = parseFloat(e.amount.toPrecision(4));
       if (!gasTimeSeriesBlocks[bn]) {
@@ -519,7 +519,7 @@ export class BlockchainService {
 
     this.catalystHistoricalSupply.forEach((e) => {
       let bn = e.blockNumber + '';
-      bn = bn.substr(1, bn.length - 3);
+      bn = bn.substr(0, bn.length - 3);
 
       const amt = parseFloat(e.amount.toPrecision(4));
       if (!catalystTimeSeriesBlocks[bn]) {
