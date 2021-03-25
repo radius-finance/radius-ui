@@ -1,11 +1,11 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BlockchainService} from '../../../services/blockchain.service';
 
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
 })
-export class StatsComponent implements OnInit, OnDestroy {
+export class StatsComponent implements OnInit {
   gasOptions;
   catalystOptions;
   gasUpdateOptions;
@@ -161,7 +161,9 @@ export class StatsComponent implements OnInit, OnDestroy {
       ],
     };
     this.updated = this.updated.bind(this);
-    this.blockchainService.addToUpdateList(this.updated);
+    this.blockchainService.addToUpdateList((type, obj) =>
+      this.updated(type, obj)
+    );
   }
 
   updated(type, obj) {
@@ -172,10 +174,6 @@ export class StatsComponent implements OnInit, OnDestroy {
     if (type === 'catalystHistoricalSupplyUpdated') {
       this.catalystUpdateOptions.series.data = obj.catalystTimeSeriesData;
     }
-  }
-
-  ngOnDestroy() {
-    this.blockchainService.removeFromUpdateList(this.updated);
   }
 
   get gasTotalSupply() {
