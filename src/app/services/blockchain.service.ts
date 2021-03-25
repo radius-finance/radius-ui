@@ -143,8 +143,8 @@ export class BlockchainService {
   async connectAccount() {
     this.web3Modal.clearCachedProvider();
     const p = await this.web3Modal.connect();
-    await this.subscribeProvider(p);
     if (p) {
+      this.subscribeProvider(p);
       this.provider = new ethers.providers.Web3Provider(p);
       await window.ethereum.enable();
       await this.setupAccount();
@@ -152,9 +152,9 @@ export class BlockchainService {
   }
 
   async reloadAccount() {
-    const p = await this.web3Modal.connect();
-    await this.subscribeProvider(p);
-    if (p) {
+    if (this.web3Modal.cachedProvider) {
+      const p = await this.web3Modal.connect();
+      this.subscribeProvider(p);
       this.provider = new ethers.providers.Web3Provider(p);
       await this.setupAccount();
     }
@@ -168,7 +168,7 @@ export class BlockchainService {
     await this.web3Modal.clearCachedProvider();
   }
 
-  async subscribeProvider(provider: any) {
+  subscribeProvider(provider: any) {
     if (!provider.on) {
       return;
     }

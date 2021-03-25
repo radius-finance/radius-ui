@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {BlockchainService} from '../../services/blockchain.service';
 
 @Component({
@@ -6,10 +6,12 @@ import {BlockchainService} from '../../services/blockchain.service';
   templateUrl: './connect-wallet-button.component.html',
   styleUrls: ['./connect-wallet-button.component.scss'],
 })
-export class ConnectWalletButtonComponent implements OnInit {
+export class ConnectWalletButtonComponent implements OnInit, AfterViewInit {
   constructor(private blockchainService: BlockchainService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     this.blockchainService.reloadAccount();
   }
 
