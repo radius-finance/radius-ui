@@ -175,8 +175,8 @@ export class StatsComponent implements OnInit {
       ],
       series: [
         {
-          name: 'Catallyst Supply',
-          type: 'candlestick',
+          name: 'Catalyst Supply',
+          type: 'line',
           showSymbol: false,
           hoverAnimation: false,
           data: [],
