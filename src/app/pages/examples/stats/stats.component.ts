@@ -1,16 +1,15 @@
-import {Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {BlockchainService} from '../../../services/blockchain.service';
 
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
 })
-export class StatsComponent implements OnInit, AfterViewInit {
+export class StatsComponent implements OnInit, OnDestroy {
   gasOptions;
   catalystOptions;
   gasUpdateOptions;
   catalystUpdateOptions;
-  timer;
 
   gasSeries;
   catalystSeries;
@@ -18,8 +17,6 @@ export class StatsComponent implements OnInit, AfterViewInit {
   constructor(private blockchainService: BlockchainService) {}
 
   ngOnInit(): void {
-    this.gasSeries = [];
-    this.catalystSeries = [];
     this.gasOptions = {
       tooltip: {
         trigger: 'axis',
@@ -88,7 +85,7 @@ export class StatsComponent implements OnInit, AfterViewInit {
     this.gasUpdateOptions = {
       series: [
         {
-          data: this.gasSeries,
+          data: this.blockchainService.gasTimeSeriesData,
         },
       ],
     };
@@ -152,42 +149,33 @@ export class StatsComponent implements OnInit, AfterViewInit {
           type: 'candlestick',
           showSymbol: false,
           hoverAnimation: false,
-          data: [],
+          data: this.blockchainService.catalystTimeSeriesData,
         },
       ],
     };
     this.catalystUpdateOptions = {
       series: [
         {
-          data: this.catalystSeries,
+          data: this.blockchainService.catalystTimeSeriesData,
         },
       ],
     };
     this.updated = this.updated.bind(this);
+    this.blockchainService.addToUpdateList(this.updated);
   }
 
   updated(type, obj) {
     console.log(type, obj);
     if (type === 'gasHistoricalSupplyUpdated') {
-      this.gasSeries = obj.gasTimeSeriesData;
+      this.gasUpdateOptions.series.data = obj.gasTimeSeriesData;
     }
     if (type === 'catalystHistoricalSupplyUpdated') {
-      this.catalystSeries = obj.catalystTimeSeriesData;
+      this.catalystUpdateOptions.series.data = obj.catalystTimeSeriesData;
     }
-  }
-
-  ngAfterViewInit() {
-    this.timer = setInterval(() => {
-      this.blockchainService.updateCatalystHistoricalSupply();
-      this.blockchainService.updateGasHistoricalSupply();
-    }, 10000);
-    this.gasSeries = this.blockchainService.catalystTimeSeriesData;
-    this.catalystSeries = this.blockchainService.gasTimeSeriesData;
   }
 
   ngOnDestroy() {
     this.blockchainService.removeFromUpdateList(this.updated);
-    clearInterval(this.timer);
   }
 
   get gasTotalSupply() {
