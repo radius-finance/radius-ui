@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {BlockchainService} from '../../../services/blockchain.service';
 
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
 })
-export class StatsComponent implements OnInit {
+export class StatsComponent implements OnInit, AfterViewInit {
   gasOptions;
   catalystOptions;
   gasUpdateOptions;
@@ -75,7 +75,7 @@ export class StatsComponent implements OnInit {
       series: [
         {
           name: 'Gas Supply',
-          type: 'candlestick',
+          type: 'line',
           showSymbol: false,
           hoverAnimation: false,
           data: [],
@@ -161,6 +161,9 @@ export class StatsComponent implements OnInit {
       ],
     };
     this.updated = this.updated.bind(this);
+  }
+
+  ngAfterViewInit() {
     this.blockchainService.addToUpdateList(async (type, obj) => {
       console.log(type, obj);
       await this.updated(type, obj);
