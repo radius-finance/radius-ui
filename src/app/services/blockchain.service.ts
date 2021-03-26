@@ -114,8 +114,7 @@ export class BlockchainService {
     );
 
     this.web3Modal = new Web3Modal({
-      cacheProvider: true, // optional
-      providerOptions: {}, // required
+      cacheProvider: false, // optional
       theme: {
         background: 'rgb(39, 49, 56)',
         main: 'rgb(199, 199, 199)',
@@ -141,7 +140,6 @@ export class BlockchainService {
   }
 
   async connectAccount() {
-    this.resetApp();
     const p = await this.web3Modal.connect();
     if (p) {
       this.subscribeProvider(p);
@@ -161,12 +159,14 @@ export class BlockchainService {
   }
 
   async resetApp() {
-    const {web3} = this.provider;
-    if (web3 && web3.currentProvider && web3.currentProvider.close) {
-      await web3.currentProvider.close();
+    if (this.provider) {
+      const {web3} = this.provider;
+      if (web3 && web3.currentProvider && web3.currentProvider.close) {
+        await web3.currentProvider.close();
+      }
+      this.provider = null;
+      await this.web3Modal.clearCachedProvider();
     }
-    this.provider = null;
-    await this.web3Modal.clearCachedProvider();
   }
 
   subscribeProvider(provider: any) {
@@ -344,7 +344,7 @@ export class BlockchainService {
           [
             pack(
               ['address', 'address'],
-              [this.radiusERC20.address, WETH[this.RAD.chainId].address]
+              [ WETH[this.RAD.chainId].address, this.radiusERC20.address]
             ),
           ]
         ),
@@ -1207,6 +1207,14 @@ export class BlockchainService {
     });
     this.radiusToken.on('Engraved', async (address, id, engraving) => {
       await this.invokeUpdateList('Engraved', {address, id, engraving});
+      if (address == this.account) {
+        await this.updateBalances();
+        this.showToast(
+          'Engraved Gem',
+          `Engraved Gem ${id.toHexString()} with '${engraving}'`
+        );
+        await this.invokeUpdateList('Engraved', {address, id, engraving});
+      }
     });
     // Gas token is mined
     this.radiusToken.on(

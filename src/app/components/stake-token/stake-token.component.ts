@@ -33,8 +33,8 @@ export class StakeTokenComponent implements OnInit, AfterViewInit, OnDestroy {
     this.state = 0;
   }
 
-  updateApproved(type, obj) {
-    if (type === 'Approval') {
+  async updateApproved(type, obj) {
+    if (type === 'Approval' || type === 'ApprovalForAll') {
       const allowFunc =
         this.type == 'RAD'
           ? this.blockchainService.getGasMineRadiusAllowance

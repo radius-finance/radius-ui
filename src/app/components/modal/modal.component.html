@@ -24,8 +24,8 @@
         <div class="row">
           <div class="col-md-9">
             <app-item-visualizer
-              canvasWidth="600"
-              canvasHeight="600"
+              canvasWidth="400"
+              canvasHeight="400"
               itemId="{{ itemId }}"
               class="large-visualizer"
             ></app-item-visualizer>
@@ -47,19 +47,22 @@
                 </tr>
                 <tr *ngIf="itemType === 3">
                   <td>Engravings</td>
-                  <td><table class="table">
-                    <thead>
-                      <tr>
-                        <td>Engraver</td><td>Engraving</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let engraving of engravings">
-                        <td>{{engraving.address}}</td><td>{{engraving.engraving}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
+                  <td>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <td>Engraver</td>
+                          <td>Engraving</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let engraving of engravings">
+                          <td>{{ makeCompact(engraving.address) }}</td>
+                          <td>{{ engraving.engraving }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
                 </tr>
               </tbody>
             </table>

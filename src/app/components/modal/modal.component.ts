@@ -38,7 +38,7 @@ export class ModalComponent implements AfterViewInit, OnDestroy {
     }
     if (type === 'Engraved') {
       this.state = 0;
-      this.updateEngravings();
+      await this.updateEngravings();
     }
   }
 
@@ -65,7 +65,7 @@ export class ModalComponent implements AfterViewInit, OnDestroy {
     this.blockchainService.addToUpdateList(this.onUpdate);
     this.onUpdate('balances', null);
     if (this.itemType === 3) {
-      this.updateEngravings();
+      await this.updateEngravings();
     }
   }
 
@@ -108,6 +108,10 @@ export class ModalComponent implements AfterViewInit, OnDestroy {
           });
         });
       });
+  }
+
+  makeCompact(s): string {
+    return this.blockchainService.makeCompact(s);
   }
 
   get buttonText() {
