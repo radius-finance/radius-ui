@@ -6,19 +6,19 @@ import {ethers} from 'ethers';
 const {BigNumber, utils} = ethers;
 import swal from 'sweetalert2';
 
-import {RadiusGasMine} from '../shared/types/RadiusGasMine';
-import {RadiusCatalystMine} from '../shared/types/RadiusCatalystMine';
-import {RadiusToken} from '../shared/types/RadiusToken';
-import {RadiusTokenLib} from '../shared/types/RadiusTokenLib';
-import {RadiusERC20} from '../shared/types/RadiusERC20';
-import {RadiusGasERC20} from '../shared/types/RadiusGasERC20';
-import {RadiusCatalystERC20} from '../shared/types/RadiusCatalystERC20';
-import {RadiusLotteryERC20} from '../shared/types/RadiusLotteryERC20';
+import {RadiusGasMine} from '../../../types/RadiusGasMine';
+import {RadiusCatalystMine} from '../../../types/RadiusCatalystMine';
+import {RadiusToken} from '../../../types/RadiusToken';
+import {RadiusTokenLib} from '../../../types/RadiusTokenLib';
+import {RadiusERC20} from '../../../types/RadiusERC20';
+import {RadiusGasERC20} from '../../../types/RadiusGasERC20';
+import {RadiusCatalystERC20} from '../../../types/RadiusCatalystERC20';
+import {RadiusLotteryERC20} from '../../../types/RadiusLotteryERC20';
 
-import {RelicTokenForge} from '../shared/types/RelicTokenForge';
-import {PowerupTokenForge} from '../shared/types/PowerupTokenForge';
-import {GemTokenForge} from '../shared/types/GemTokenForge';
-import {LotteryTokenForge} from '../shared/types/LotteryTokenForge';
+import {RelicTokenForge} from '../../../types/RelicTokenForge';
+import {PowerupTokenForge} from '../../../types/PowerupTokenForge';
+import {GemTokenForge} from '../../../types/GemTokenForge';
+import {LotteryTokenForge} from '../../../types/LotteryTokenForge';
 
 import {
   ChainId,
@@ -31,7 +31,7 @@ import {
 import {pack, keccak256} from '@ethersproject/solidity';
 import {getCreate2Address} from '@ethersproject/address';
 
-import  *  as  contractData  from  '../shared/abis/radius.json';
+import * as contractData from '../../../abis/radius.json';
 
 declare let confetti: any;
 
