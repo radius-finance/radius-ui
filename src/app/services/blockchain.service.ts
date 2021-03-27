@@ -31,7 +31,7 @@ import {
 import {pack, keccak256} from '@ethersproject/solidity';
 import {getCreate2Address} from '@ethersproject/address';
 
-import contractData from '../shared/abis/radius.json';
+import  *  as  contractData  from  '../shared/abis/radius.json';
 
 declare let confetti: any;
 
