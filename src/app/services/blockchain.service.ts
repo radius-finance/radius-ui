@@ -63,6 +63,7 @@ export class BlockchainService {
   confettiOn: any;
   updatingNFTList: any;
   updatingBalances: any;
+  providerOptions: any;
 
   public globalItems: any;
   public lotteryWinners: any;
@@ -113,8 +114,10 @@ export class BlockchainService {
       this
     );
 
-    this.web3Modal = new Web3Modal({
+    this.providerOptions = {};
+    this.web3Modal = (window as any).web3modal = new Web3Modal({
       cacheProvider: false, // optional
+      providerOptions: this.providerOptions,
       theme: {
         background: 'rgb(39, 49, 56)',
         main: 'rgb(199, 199, 199)',
@@ -344,7 +347,7 @@ export class BlockchainService {
           [
             pack(
               ['address', 'address'],
-              [ WETH[this.RAD.chainId].address, this.radiusERC20.address]
+              [WETH[this.RAD.chainId].address, this.radiusERC20.address]
             ),
           ]
         ),
