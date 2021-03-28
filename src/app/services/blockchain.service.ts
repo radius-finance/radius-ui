@@ -31,7 +31,7 @@ import {
 import {pack, keccak256} from '@ethersproject/solidity';
 import {getCreate2Address} from '@ethersproject/address';
 
-import * as contractData from '../../../abis/radius.json';
+//import * as contractData from '../../../abis/radius.json';
 
 declare let confetti: any;
 
@@ -64,6 +64,7 @@ export class BlockchainService {
   updatingNFTList: any;
   updatingBalances: any;
   providerOptions: any;
+  contractData: any;
 
   public globalItems: any;
   public lotteryWinners: any;
@@ -198,6 +199,8 @@ export class BlockchainService {
     this.account = await this.signer.getAddress();
     this.network = await this.provider.getNetwork();
     this.networkId = this.network.chainId;
+    this.contractData = await import(`../../../abis/${this.networkId}/radius.json`);
+    
     if (this.networkId !== 42) {
       swal.fire({
         title: 'Wrong Network',
@@ -347,7 +350,7 @@ export class BlockchainService {
           [
             pack(
               ['address', 'address'],
-              [WETH[this.RAD.chainId].address, this.radiusERC20.address]
+              [this.radiusERC20.address, WETH[this.RAD.chainId].address]
             ),
           ]
         ),
@@ -419,10 +422,6 @@ export class BlockchainService {
     );
 
     he = await this.loadGasMinedEvents();
-    he.forEach((e) =>
-      this.addGasMinedItem(e.blockNumber, e.toAddress, e.amount)
-    );
-    he = await this.loadSendMintEvents();
     he.forEach((e) =>
       this.addGasMinedItem(e.blockNumber, e.toAddress, e.amount)
     );
@@ -561,6 +560,7 @@ export class BlockchainService {
 
   loadInterfaces() {
     const ifaces = {};
+    const contractData = this.contractData;
     ifaces[
       contractData.contracts['RadiusToken'].address
     ] = new ethers.utils.Interface(contractData.contracts['RadiusToken'].abi);
@@ -673,23 +673,6 @@ export class BlockchainService {
         burner: BigNumber.from(e.log.topics[1]),
         gasBurned: e.event.gasBurned,
         catalystBurned: e.event.catalystBurned,
-      };
-    });
-  }
-
-  async loadSendMintEvents() {
-    const filter: any = this.radiusERC20.filters.SendMint(null, null);
-    filter.fromBlock = 0;
-    filter.toBlock = 'latest';
-    const events = await this.loadAndDecodeEvents('SendMint', filter);
-    return events.map((e) => {
-      return {
-        blockNumber: this.makeBlockchainLogIndex(
-          e.log.blockNumber,
-          e.log.logIndex
-        ),
-        minter: BigNumber.from(e.log.topics[1]),
-        amount: e.event.amount,
       };
     });
   }
@@ -865,8 +848,9 @@ export class BlockchainService {
   }
 
   async getContractRef(contract) {
-    const tokenData = contractData.contracts[contract];
+    const tokenData = this.contractData.contracts[contract];
     if (tokenData) {
+      console.log(contract, tokenData.address);
       return new ethers.Contract(tokenData.address, tokenData.abi, this.signer);
     }
   }
@@ -1202,12 +1186,7 @@ export class BlockchainService {
         this.updateCatalystHistoricalSupply();
       }
     );
-    // Catalyst tokens are withdrawn
-    this.radiusERC20.on('SendMint', async (sender, amount) => {
-      const lbi = await this.getLatestBlockIndex();
-      this.addGasMinedItem(lbi, sender, amount);
-      this.updateGasHistoricalSupply();
-    });
+    // gem has been engraved
     this.radiusToken.on('Engraved', async (address, id, engraving) => {
       await this.invokeUpdateList('Engraved', {address, id, engraving});
       if (address == this.account) {
