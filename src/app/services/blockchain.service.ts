@@ -201,7 +201,7 @@ export class BlockchainService {
     this.networkId = this.network.chainId;
     this.contractData = await import(`../shared/abis/${this.networkId}/radius.json`);
 
-    if (this.networkId !== 42) {
+    if (!this.contractData) {
       swal.fire({
         title: 'Wrong Network',
         text:
