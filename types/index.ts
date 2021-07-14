@@ -11,7 +11,6 @@ export type { ERC1155Upgradeable } from "./ERC1155Upgradeable";
 export type { IERC1155MetadataURIUpgradeable } from "./IERC1155MetadataURIUpgradeable";
 export type { IERC1155ReceiverUpgradeable } from "./IERC1155ReceiverUpgradeable";
 export type { IERC1155Upgradeable } from "./IERC1155Upgradeable";
-export type { ERC20BurnableUpgradeable } from "./ERC20BurnableUpgradeable";
 export type { ERC20Upgradeable } from "./ERC20Upgradeable";
 export type { IERC20Upgradeable } from "./IERC20Upgradeable";
 export type { PausableUpgradeable } from "./PausableUpgradeable";
@@ -61,7 +60,6 @@ export { ERC1155Upgradeable__factory } from "./factories/ERC1155Upgradeable__fac
 export { IERC1155MetadataURIUpgradeable__factory } from "./factories/IERC1155MetadataURIUpgradeable__factory";
 export { IERC1155ReceiverUpgradeable__factory } from "./factories/IERC1155ReceiverUpgradeable__factory";
 export { IERC1155Upgradeable__factory } from "./factories/IERC1155Upgradeable__factory";
-export { ERC20BurnableUpgradeable__factory } from "./factories/ERC20BurnableUpgradeable__factory";
 export { ERC20Upgradeable__factory } from "./factories/ERC20Upgradeable__factory";
 export { IERC20Upgradeable__factory } from "./factories/IERC20Upgradeable__factory";
 export { PausableUpgradeable__factory } from "./factories/PausableUpgradeable__factory";
