@@ -199,7 +199,7 @@ export class BlockchainService {
     this.account = await this.signer.getAddress();
     this.network = await this.provider.getNetwork();
     this.networkId = this.network.chainId;
-    this.contractData = require(`../../../abis/${this.networkId}/radius.json`);
+    this.contractData = await require(`../../../abis/${this.networkId}/radius.json`);
 
     if (!this.contractData) {
       swal.fire({
