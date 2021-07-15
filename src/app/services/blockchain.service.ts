@@ -16958,7 +16958,7 @@ export class BlockchainService {
       }
     };
 
-    this.contractData =  radiusJson //await import(`./abis/${this.networkId}/radius.json`);
+    this.contractData = radiusJson.contracts //await import(`./abis/${this.networkId}/radius.json`);
 
     if (!this.contractData) {
       swal.fire({
